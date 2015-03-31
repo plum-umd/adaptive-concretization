@@ -39,6 +39,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
 
+    <div class="navbar-spacer"></div>
     <nav class="navbar">
       <div class="container">
         <ul class="navbar-list">
@@ -86,7 +87,22 @@
 	<div class="docs-section" id="intro">
 	  <h3 class="docs-header">Adaptive Concretization for Parallel Program Synthesis</h3>
       <p>
-abstract goes here
+Program synthesis tools work by searching for an implementation that satisfies
+a given specification. Two popular search strategies are <em>symbolic search</em>,
+which reduces synthesis to a formula passed to a SAT solver, and
+<em>explicit search</em>, which uses brute force or random search to find a solution.
+In this paper, we propose adaptive concretization, a novel synthesis algorithm
+that combines the best of symbolic and explicit search. Our algorithm works by
+partially concretizing a randomly chosen, but likely highly influential,
+subset of the unknowns to be synthesized. Adaptive concretization uses an online
+search process to find the optimal size of the concretized subset using a combination
+of exponential hill climbing and binary search, employing a statistical test to
+determine when one degree of concretization is sufficiently better than another.
+Moreover, our algorithm lends itself to a highly parallel implementation, further
+speeding up search. We implemented adaptive concretization for Sketch, and we
+evaluated it on a range of benchmarks. We found adaptive concretization is effective
+in practice, outperforming Sketch is many cases, sometimes significantly, and has good
+parallel scalability.
       </p>
 	</div>
 
