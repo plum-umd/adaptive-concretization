@@ -43,19 +43,19 @@
     <nav class="navbar">
       <div class="container">
         <ul class="navbar-list">
-          <li class="navbar-item"><a class="navbar-link" href="#intro">Intro</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="index.html#intro">Intro</a></li>
           <li class="navbar-item">
             <a class="navbar-link" href="#" data-popover="#downloadPopover">Downloads</a>
             <div id="downloadPopover" class="popover">
               <ul class="popover-list">
                 <li class="popover-item">
-                  <a class="popover-link" href="#OVA">OVA</a>
+                  <a class="popover-link" href="index.html#OVA">OVA</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="#tar-ball">tar ball</a>
+                  <a class="popover-link" href="index.html#tar-ball">tar ball</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="#source">source</a>
+                  <a class="popover-link" href="index.tml#source">source</a>
                 </li>
               </ul>
             </div>
@@ -65,16 +65,16 @@
             <div id="expNavPopover" class="popover">
               <ul class="popover-list">
                 <li class="popover-item">
-                  <a class="popover-link" href="exp.html#DB">DB setup</a>
+                  <a class="popover-link" href="#DB">DB setup</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="exp.html#exp-short">short</a>
+                  <a class="popover-link" href="#exp-short">short</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="exp.html#exp-full">full</a>
+                  <a class="popover-link" href="#exp-full">full</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="exp.html#exp-raw">raw data</a>
+                  <a class="popover-link" href="#exp-raw">raw data</a>
                 </li>
               </ul>
             </div>
@@ -83,63 +83,32 @@
       </div>
     </nav>
 
-	<div class="docs-section" id="intro">
-	  <h4 class="title">Adaptive Concretization for Parallel Program Synthesis</h4>
+	<div class="docs-section" id="DB">
+      <h5 class="docs-header">DB setup</h5>
       <p>
-Program synthesis tools work by searching for an implementation that satisfies
-a given specification. Two popular search strategies are <em>symbolic search</em>,
-which reduces synthesis to a formula passed to a SAT solver, and
-<em>explicit search</em>, which uses brute force or random search to find a solution.
-In this paper, we propose adaptive concretization, a novel synthesis algorithm
-that combines the best of symbolic and explicit search. Our algorithm works by
-partially concretizing a randomly chosen, but likely highly influential,
-subset of the unknowns to be synthesized. Adaptive concretization uses an online
-search process to find the optimal size of the concretized subset using a combination
-of exponential hill climbing and binary search, employing a statistical test to
-determine when one degree of concretization is sufficiently better than another.
-Moreover, our algorithm lends itself to a highly parallel implementation, further
-speeding up search. We implemented adaptive concretization for Sketch, and we
-evaluated it on a range of benchmarks. We found adaptive concretization is effective
-in practice, outperforming Sketch in many cases, sometimes significantly, and has good
-parallel scalability.
+database setup
       </p>
-      <ul>
-        <li><a href="paper.pdf">PDF</a> (submission)</li>
-        <li>
-The testing infrastructure and web pages are maintained at
-<a href="https://github.com/plum-umd/adaptive-concretization">here</a>.
-        </li>
-      </ul>
 	</div>
 
-	<div class="docs-section" id="OVA">
-      <h5 class="docs-header">VM image</h5>
+	<div class="docs-section" id="exp-short">
+      <h5 class="docs-header">Experiment (short version)</h5>
       <p>
-OVA link and instructions to use
+exp. short version
       </p>
-      <div>
-        <a class="button button-primary" href="#">Download OVA</a>
-      </div>
 	</div>
 
-	<div class="docs-section" id="tar-ball">
-      <h5 class="docs-header">Tar ball</h5>
+	<div class="docs-section" id="exp-full">
+      <h5 class="docs-header">Experiment (full version)</h5>
       <p>
-easy-to-install tar ball of Sketch front-end and back-end
+exp. full version
       </p>
-      <div>
-        <a class="button button-primary" href="#">Download tar ball</a>
-      </div>
 	</div>
 
-	<div class="docs-section" id="source">
-      <h5 class="docs-header">Source</h5>
+	<div class="docs-section" id="exp-raw">
+      <h5 class="docs-header">Raw Data</h5>
       <p>
-harder way to build Sketch
+database dump + Sketch output?
       </p>
-<pre><code>
-... $ command...
-</code></pre>
 	</div>
 
   </div>
