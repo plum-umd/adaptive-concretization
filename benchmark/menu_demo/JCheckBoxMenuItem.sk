@@ -1,0 +1,36 @@
+package JCheckBoxMenuItem;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JCheckBoxMenuItem_JCheckBoxMenuItem(Object self) {
+
+JMenuItem_JMenuItem(self);
+return self;
+}
+
+Object JCheckBoxMenuItem_JCheckBoxMenuItem_Icon(Object self, Object icon) {
+JMenuItem_JMenuItem_Icon(self, icon);
+constructorInOne_AuxAccessor1_int_Object_Object_int(184, self, icon, 0, false);
+return self;
+}
+
+Object JCheckBoxMenuItem_JCheckBoxMenuItem_String(Object self, char[51] text) {
+JMenuItem_JMenuItem_String(self, text);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(185, self, text, 0, false);
+return self;
+}
+
+Object JCheckBoxMenuItem_JCheckBoxMenuItem_String_Icon(Object self, char[51] text, Object icon) {
+JMenuItem_JMenuItem_String_Icon(self, text, icon);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(186, self, text, 0, false);
+constructorInOne_AuxAccessor1_int_Object_Object_int(186, self, icon, 1, false);
+return self;
+}
+
+Object JCheckBoxMenuItem_JCheckBoxMenuItem_String_int(Object self, char[51] text, int mnemonic) {
+JMenuItem_JMenuItem_String_int(self, text, mnemonic);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(187, self, text, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(187, self, mnemonic, 1, false);
+return self;
+}

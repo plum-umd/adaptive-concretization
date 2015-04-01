@@ -1,0 +1,18 @@
+package ImageIcon;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object ImageIcon_ImageIcon(Object self) {
+
+return self;
+}
+int getIconHeight_ImageIcon(Object self, bit logging) {
+
+return igetterInOne_AuxAccessor1_int_Object(58, self, false);
+}
+
+int getIconWidth_ImageIcon(Object self, bit logging) {
+
+return igetterInOne_AuxAccessor1_int_Object(59, self, false);
+}

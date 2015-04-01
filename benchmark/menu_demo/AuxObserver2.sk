@@ -1,0 +1,170 @@
+package AuxObserver2;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  int event_AuxObserver2 = 23;
+int observer_AuxObserver2 = {| 13 | 24 |};
+int subject_AuxObserver2 = {| 13 | 24 |};
+int attach_AuxObserver2 = {| 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 159 | 160 | 161 | 162 |};
+int detach_AuxObserver2 = {| 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 159 | 160 | 161 | 162 |};
+int handle_AuxObserver2 = {| 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 159 | 160 | 161 | 162 |};
+int update_AuxObserver2 = {| 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 159 | 160 | 161 | 162 |};
+int reflect_depth = 0;
+int subjectCall_depth = 0;
+
+      int event_AuxObserver2_AuxObserver2() { return event_AuxObserver2; }
+    
+      int observer_AuxObserver2_AuxObserver2() { return observer_AuxObserver2; }
+    
+      int subject_AuxObserver2_AuxObserver2() { return subject_AuxObserver2; }
+    
+      int attach_AuxObserver2_AuxObserver2() { return attach_AuxObserver2; }
+    
+      int detach_AuxObserver2_AuxObserver2() { return detach_AuxObserver2; }
+    
+      int handle_AuxObserver2_AuxObserver2() { return handle_AuxObserver2; }
+    
+      int update_AuxObserver2_AuxObserver2() { return update_AuxObserver2; }
+    harness void checkRule1_AuxObserver2(bit logging) {
+assert subcls(belongsTo(update_AuxObserver2), observer_AuxObserver2);
+assert 1 == argNum(update_AuxObserver2);
+assert subcls(event_AuxObserver2, argType(update_AuxObserver2, 0));
+assert subject_AuxObserver2 != observer_AuxObserver2;
+}
+
+harness void checkRule2_AuxObserver2(bit logging) {
+assert subcls(belongsTo(attach_AuxObserver2), subject_AuxObserver2);
+assert subcls(belongsTo(detach_AuxObserver2), subject_AuxObserver2);
+assert subcls(belongsTo(handle_AuxObserver2), subject_AuxObserver2);
+assert 1 == argNum(attach_AuxObserver2);
+assert 1 == argNum(detach_AuxObserver2);
+assert 1 == argNum(handle_AuxObserver2);
+assert attach_AuxObserver2 != detach_AuxObserver2;
+assert detach_AuxObserver2 != handle_AuxObserver2;
+assert handle_AuxObserver2 != attach_AuxObserver2;
+assert subcls(observer_AuxObserver2, argType(attach_AuxObserver2, 0));
+assert subcls(observer_AuxObserver2, argType(detach_AuxObserver2, 0));
+assert subcls(event_AuxObserver2, argType(handle_AuxObserver2, 0));
+}
+
+void reflect_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(int mtd_id, Object rcv_AuxObserver2, Object arg, Object evt, bit logging) {
+if (reflect_depth > 2) {
+return;
+}
+reflect_depth = reflect_depth + 1;
+if (mtd_id == 42) {
+dispatchEvent_AbstractButton_AWTEvent(rcv_AuxObserver2, evt, false);
+}
+else {
+if (mtd_id == 43) {
+addActionListener_AbstractButton_ActionListener(rcv_AuxObserver2, null, false);
+}
+else {
+if (mtd_id == 44) {
+removeActionListener_AbstractButton_ActionListener(rcv_AuxObserver2, null, false);
+}
+else {
+if (mtd_id == 45) {
+addItemListener_AbstractButton_ItemListener(rcv_AuxObserver2, arg, false);
+}
+else {
+if (mtd_id == 46) {
+removeItemListener_AbstractButton_ItemListener(rcv_AuxObserver2, arg, false);
+}
+else {
+if (mtd_id == 47) {
+setVerticalTextPosition_AbstractButton_int(rcv_AuxObserver2, 0, false);
+}
+else {
+if (mtd_id == 48) {
+setHorizontalTextPosition_AbstractButton_int(rcv_AuxObserver2, 0, false);
+}
+else {
+if (mtd_id == 49) {
+setMnemonic_AbstractButton_int(rcv_AuxObserver2, 0, false);
+}
+else {
+if (mtd_id == 50) {
+getActionCommand_AbstractButton(rcv_AuxObserver2, false);
+}
+else {
+if (mtd_id == 51) {
+setActionCommand_AbstractButton_String(rcv_AuxObserver2, "", false);
+}
+else {
+if (mtd_id == 52) {
+setSelected_AbstractButton_boolean(rcv_AuxObserver2, false, false);
+}
+else {
+if (mtd_id == 159) {
+createMenuBar_MenuDemo(rcv_AuxObserver2, true);
+}
+else {
+if (mtd_id == 160) {
+createContentPane_MenuDemo(rcv_AuxObserver2, true);
+}
+else {
+if (mtd_id == 161) {
+actionPerformed_MenuDemo_ActionEvent(rcv_AuxObserver2, null, true);
+}
+else {
+if (mtd_id == 162) {
+itemStateChanged_MenuDemo_ItemEvent(rcv_AuxObserver2, evt, true);
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+reflect_depth = reflect_depth - 1;
+}
+
+void attachCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(Object rcv_AuxObserver2, Object arg, Object evt, bit logging) {
+add_List_Object(rcv_AuxObserver2._obs_AuxObserver2, arg);
+}
+
+void detachCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(Object rcv_AuxObserver2, Object arg, Object evt, bit logging) {
+remove_List_Object(rcv_AuxObserver2._obs_AuxObserver2, arg);
+}
+
+void handleCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(Object rcv_AuxObserver2, Object arg, Object evt, bit logging) {
+List_Object obs2 = rcv_AuxObserver2._obs_AuxObserver2;
+  int idx = {| 0 | obs2.idx - 1 |};
+      while (0 <= idx && idx < S && obs2.elts[idx] != null) {
+        Object o = obs2.elts[idx];
+    reflect_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(update_AuxObserver2, o, rcv_AuxObserver2, evt, false);
+        idx = {| idx (+ | -) 1 |};
+      }
+    
+}
+
+void subjectCall_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(int mtd_id, Object rcv_AuxObserver2, Object arg, Object evt, bit logging) {
+if (subjectCall_depth > 2) {
+return;
+}
+subjectCall_depth = subjectCall_depth + 1;
+if (mtd_id == attach_AuxObserver2) {
+attachCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(rcv_AuxObserver2, arg, evt, false);
+}
+else {
+if (mtd_id == detach_AuxObserver2) {
+detachCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(rcv_AuxObserver2, arg, evt, false);
+}
+else {
+if (mtd_id == handle_AuxObserver2) {
+handleCode_AuxObserver2_AuxObserver2_AuxObserver2_ItemEvent(rcv_AuxObserver2, arg, evt, false);
+}
+}
+}
+subjectCall_depth = subjectCall_depth - 1;
+}

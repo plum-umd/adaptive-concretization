@@ -1,0 +1,48 @@
+package JFileChooser;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  int APPROVE_OPTION = 0;
+int CANCEL_OPTION = 1;
+int OPEN_DIALOG = 0;
+int SAVE_DIALOG = 1;
+int CUSTOM_DIALOG = 2;
+
+      int APPROVE_OPTION_JFileChooser() { return APPROVE_OPTION; }
+    
+      int CANCEL_OPTION_JFileChooser() { return CANCEL_OPTION; }
+    
+      int OPEN_DIALOG_JFileChooser() { return OPEN_DIALOG; }
+    
+      int SAVE_DIALOG_JFileChooser() { return SAVE_DIALOG; }
+    
+      int CUSTOM_DIALOG_JFileChooser() { return CUSTOM_DIALOG; }
+    Object JFileChooser_JFileChooser(Object self) {
+
+JComponent_JComponent(self);
+return self;
+}
+Object getSelectedFile_JFileChooser(Object self, bit logging) {
+
+return getterInOne_AuxAccessor1_int_Object(77, self, false);
+}
+
+void setDialogType_JFileChooser_int(Object self, int dialogType, bit logging) {
+isetterInOne_AuxAccessor1_int_Object_int(78, self, dialogType, false);
+}
+
+int showDialog_JFileChooser_Component_String(Object self, Object parent, char[51] approveButtonText, bit logging) {
+
+return CANCEL_OPTION;
+}
+
+int showOpenDialog_JFileChooser_Component(Object self, Object parent, bit logging) {
+setDialogType_JFileChooser_int(self, OPEN_DIALOG, false);
+return showDialog_JFileChooser_Component_String(self, parent, "", false);
+}
+
+int showSaveDialog_JFileChooser_Component(Object self, Object parent, bit logging) {
+setDialogType_JFileChooser_int(self, SAVE_DIALOG, false);
+return showDialog_JFileChooser_Component_String(self, parent, "", false);
+}

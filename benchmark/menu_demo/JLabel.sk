@@ -1,0 +1,21 @@
+package JLabel;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JLabel_JLabel(Object self) {
+
+JComponent_JComponent(self);
+return self;
+}
+void setIcon_JLabel_Icon(Object self, Object icon, bit logging) {
+setterInOne_AuxAccessor1_int_Object_Object(89, self, icon, false);
+}
+
+void setText_JLabel_String(Object self, char[51] text, bit logging) {
+ssetterInOne_AuxAccessor1_int_Object_String(90, self, text, false);
+}
+
+void setHorizontalAlignment_JLabel_int(Object self, int alignment, bit logging) {
+isetterInOne_AuxAccessor1_int_Object_int(91, self, alignment, false);
+}

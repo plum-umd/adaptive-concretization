@@ -1,0 +1,135 @@
+#define HEAPSIZE 4
+#define LOCVARSIZE 2
+#define INTVARSIZE 2
+
+pragma options "--bnd-inbits 3 --bnd-inline-amnt 4 --bnd-unroll-amnt 4";
+
+include "list_header.sk";
+
+
+
+bit loop_inv(bit asst) {
+	return min_preserve_inv(asst);
+}
+
+harness void before_loop(int[LOCVARSIZE] llocvars, int[INTVARSIZE] lintvars, int[HEAPSIZE] lnext, int[HEAPSIZE] lkey, bit[HEAPSIZE] lsymbolic, bit[HEAPSIZE] lactive) {
+	locvars = llocvars;
+	intvars = lintvars;
+	next = lnext;
+	key = lkey;
+	symbolic = lsymbolic;
+	active = lactive;
+	
+	/* assumption about variables */
+	assume locvars[0] == 0;
+	assume locvars[1]>=0 && locvars[1]<HEAPSIZE;
+
+	
+	/* assumption about heap */
+	assume(next[0] == 0);
+	assume(key[0] == 0);
+	assume(!symbolic[0]);	
+	assume(active[0]);	
+	
+	for (int idx = 1; idx < HEAPSIZE; idx++) {
+		assume(next[idx]>=0 && next[idx]<HEAPSIZE);
+		assume (len(idx, ts) > 0);
+		assume (min(idx, ts) <= max(idx, ts));
+	}
+	
+	assume(treeness(locvars[1]));
+	
+	assume(cache(1) == len_comp(locvars[1]));
+	assume(cache(3) == min_comp(locvars[1]));
+	
+	statement();
+	
+	assertPost(loop_inv(true));
+}
+
+
+harness void iterate(int[LOCVARSIZE] llocvars, int[INTVARSIZE] lintvars, int[HEAPSIZE] lnext, int[HEAPSIZE] lkey, bit[HEAPSIZE] lsymbolic, bit[HEAPSIZE] lactive) {
+	locvars = llocvars;
+	intvars = lintvars;
+	next = lnext;
+	key = lkey;
+	symbolic = lsymbolic;
+	active = lactive;
+	
+	/* assumption about variables */
+	assume locvars[0] == 0;
+	assume locvars[1]>=0 && locvars[1]<HEAPSIZE;
+	
+	/* assumption about heap */
+	assume(next[0] == 0);
+	assume(key[0] == 0);
+	assume(!symbolic[0]);	
+	assume(active[0]);	
+	
+	for (int idx = 1; idx < HEAPSIZE; idx++) {
+		assume(next[idx]>=0 && next[idx]<HEAPSIZE);
+		assume (len(idx, ts) > 0);
+		assume (min(idx, ts) <= max(idx, ts));
+	}
+	
+	
+	assume(loop_inv(false));
+	
+	assume (loop_cond());
+	
+	assume(treeness(locvars[1]));
+	int rec = ??(2);
+	int old_measure = 0;
+	if (rec == 0) old_measure = len_comp(locvars[1]);
+	else if (rec == 1) old_measure = max_comp(locvars[1]);
+	else old_measure = min_comp(locvars[1]);
+	/*int old_len = len_comp(locvars[1]);
+	int old_max = max_comp(locvars[1]);
+	int old_min = min_comp(locvars[1]);*/
+	
+	
+	block(4, 1);
+	
+	
+	assertPost(treeness(locvars[1]));
+	if (treeness(locvars[1])) {
+		if (rec == 0) assertPost(old_measure > len_comp(locvars[1]));
+		else if (rec == 1) assertPost(old_measure > max_comp(locvars[1]));
+		else assertPost(old_measure > min_comp(locvars[1]));
+	}
+	assertPost(loop_inv(true));
+}
+
+harness void after_loop(int[LOCVARSIZE] llocvars, int[INTVARSIZE] lintvars, int[HEAPSIZE] lnext, int[HEAPSIZE] lkey, bit[HEAPSIZE] lsymbolic, bit[HEAPSIZE] lactive) {
+	locvars = llocvars;
+	intvars = lintvars;
+	next = lnext;
+	key = lkey;
+	symbolic = lsymbolic;
+	active = lactive;
+	
+	/* assumption about variables */
+	assume locvars[0] == 0;
+	assume locvars[1]>=0 && locvars[1]<HEAPSIZE;
+	
+	/* assumption about heap */
+	assume next[0] == 0;
+	assume key[0] == 0;
+	assume !symbolic[0];	
+	assume active[0];	
+	
+	for (int idx = 1; idx < HEAPSIZE; idx++) {
+		assume(next[idx]>=0 && next[idx]<HEAPSIZE);
+		assume (len(idx, ts) > 0);
+		assume (min(idx, ts) <= max(idx, ts));
+	}
+	
+	
+	assume(loop_inv(false));
+	
+	assume (!loop_cond());
+
+	int ret = ??(1);
+	
+	assertPost(intvars[ret] == cache(3));
+}

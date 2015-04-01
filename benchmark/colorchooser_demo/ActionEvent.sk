@@ -1,0 +1,19 @@
+package ActionEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  int ALT_MASK = 8;
+
+      int ALT_MASK_ActionEvent() { return ALT_MASK; }
+    Object ActionEvent_ActionEvent_Object_int_String(Object self, Object source, int id, char[51] actioncommand) {
+AWTEvent_AWTEvent_Object_int(self, source, id);
+constructorInOne_AuxAccessor1_int_Object_Object_int(26, self, source, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(26, self, id, 1, false);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(26, self, actioncommand, 2, false);
+return self;
+}
+char[51] getActionCommand_ActionEvent(Object self, bit logging) {
+
+return sgetterInOne_AuxAccessor1_int_Object(27, self, false);
+}

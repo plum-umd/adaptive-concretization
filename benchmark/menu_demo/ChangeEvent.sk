@@ -1,0 +1,10 @@
+package ChangeEvent;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object ChangeEvent_ChangeEvent_Object(Object self, Object source) {
+EventObject_EventObject_Object(self, source);
+constructorInOne_AuxAccessor1_int_Object_Object_int(194, self, source, 0, false);
+return self;
+}

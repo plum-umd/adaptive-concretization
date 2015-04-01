@@ -1,0 +1,68 @@
+package JTextComponent;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JTextComponent_JTextComponent(Object self) {
+JComponent_JComponent(self);
+self._document_JTextComponent = PlainDocument_PlainDocument(alloc@log(69));
+self._margin_JTextComponent = Insets_Insets_int_int_int_int(alloc@log(12), 0, 0, 0, 0);
+return self;
+}
+int getCaretPosition_JTextComponent(Object self, bit logging) {
+
+return self._caretposition_JTextComponent;
+}
+
+void setCaretPosition_JTextComponent_int(Object self, int position, bit logging) {
+
+      int[P] params = { setCaretPosition_JTextComponent_int_ent(), self.hash, position };
+      if (logging) check_log@log(params);
+    self._caretposition_JTextComponent = position;
+      params = { setCaretPosition_JTextComponent_int_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+Object getDocument_JTextComponent(Object self, bit logging) {
+
+      int[P] params = { getDocument_JTextComponent_ent(), self.hash };
+      if (logging) check_log@log(params);
+    
+      params = { getDocument_JTextComponent_ext(), self._document_JTextComponent.hash };
+      if (logging) check_log@log(params);
+    
+return self._document_JTextComponent;
+}
+
+void setDocument_JTextComponent_Document(Object self, Object doc, bit logging) {
+self._document_JTextComponent = doc;
+}
+
+char[51] getText_JTextComponent(Object self, bit logging) {
+
+return self._text_JTextComponent;
+}
+
+void setText_JTextComponent_String(Object self, char[51] t, bit logging) {
+self._text_JTextComponent = t;
+}
+
+void setEditable_JTextComponent_boolean(Object self, bit b, bit logging) {
+
+      int[P] params = { setEditable_JTextComponent_boolean_ent(), self.hash, b };
+      if (logging) check_log@log(params);
+    self._editable_JTextComponent = b;
+      params = { setEditable_JTextComponent_boolean_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+Object getMargin_JTextComponent(Object self, bit logging) {
+
+return self._margin_JTextComponent;
+}
+
+void setMargin_JTextComponent_Insets(Object self, Object m, bit logging) {
+self._margin_JTextComponent = m;
+}

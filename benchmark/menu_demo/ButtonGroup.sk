@@ -1,0 +1,18 @@
+package ButtonGroup;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object ButtonGroup_ButtonGroup(Object self) {
+
+return self;
+}
+void add_ButtonGroup_AbstractButton(Object self, Object b, bit logging) {
+
+      int[P] params = { add_ButtonGroup_AbstractButton_ent(), self.hash, b.hash };
+      if (logging) check_log@log(params);
+    setterInOne_AuxAccessor1_int_Object_Object(55, self, b, false);
+      params = { add_ButtonGroup_AbstractButton_ext() };
+      if (logging) check_log@log(params);
+    
+}

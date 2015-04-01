@@ -1,0 +1,125 @@
+package AuxObserver1;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  int event_AuxObserver1 = 63;
+int observer_AuxObserver1 = {| 61 | 64 |};
+int subject_AuxObserver1 = {| 61 | 64 |};
+int attach_AuxObserver1 = {| 135 | 136 | 137 | 138 | 139 | 159 |};
+int detach_AuxObserver1 = {| 135 | 136 | 137 | 138 | 139 | 159 |};
+int handle_AuxObserver1 = {| 135 | 136 | 137 | 138 | 139 | 159 |};
+int update_AuxObserver1 = {| 135 | 136 | 137 | 138 | 139 | 159 |};
+int reflect_depth = 0;
+int subjectCall_depth = 0;
+
+      int event_AuxObserver1_AuxObserver1() { return event_AuxObserver1; }
+    
+      int observer_AuxObserver1_AuxObserver1() { return observer_AuxObserver1; }
+    
+      int subject_AuxObserver1_AuxObserver1() { return subject_AuxObserver1; }
+    
+      int attach_AuxObserver1_AuxObserver1() { return attach_AuxObserver1; }
+    
+      int detach_AuxObserver1_AuxObserver1() { return detach_AuxObserver1; }
+    
+      int handle_AuxObserver1_AuxObserver1() { return handle_AuxObserver1; }
+    
+      int update_AuxObserver1_AuxObserver1() { return update_AuxObserver1; }
+    harness void checkRule1_AuxObserver1(bit logging) {
+assert subcls(belongsTo(update_AuxObserver1), observer_AuxObserver1);
+assert 1 == argNum(update_AuxObserver1);
+assert subcls(event_AuxObserver1, argType(update_AuxObserver1, 0));
+assert subject_AuxObserver1 != observer_AuxObserver1;
+}
+
+harness void checkRule2_AuxObserver1(bit logging) {
+assert subcls(belongsTo(attach_AuxObserver1), subject_AuxObserver1);
+assert subcls(belongsTo(detach_AuxObserver1), subject_AuxObserver1);
+assert subcls(belongsTo(handle_AuxObserver1), subject_AuxObserver1);
+assert 1 == argNum(attach_AuxObserver1);
+assert 1 == argNum(detach_AuxObserver1);
+assert 1 == argNum(handle_AuxObserver1);
+assert attach_AuxObserver1 != detach_AuxObserver1;
+assert detach_AuxObserver1 != handle_AuxObserver1;
+assert handle_AuxObserver1 != attach_AuxObserver1;
+assert subcls(observer_AuxObserver1, argType(attach_AuxObserver1, 0));
+assert subcls(observer_AuxObserver1, argType(detach_AuxObserver1, 0));
+assert subcls(event_AuxObserver1, argType(handle_AuxObserver1, 0));
+}
+
+void reflect_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(int mtd_id, Object rcv_AuxObserver1, Object arg, Object evt, bit logging) {
+if (reflect_depth > 2) {
+return;
+}
+reflect_depth = reflect_depth + 1;
+if (mtd_id == 135) {
+addChangeListener_DefaultColorSelectionModel_ChangeListener(rcv_AuxObserver1, arg, false);
+}
+else {
+if (mtd_id == 136) {
+fireStateChanged_DefaultColorSelectionModel_ChangeEvent(rcv_AuxObserver1, evt, false);
+}
+else {
+if (mtd_id == 137) {
+removeChangeListener_DefaultColorSelectionModel_ChangeListener(rcv_AuxObserver1, arg, false);
+}
+else {
+if (mtd_id == 138) {
+getSelectedColor_DefaultColorSelectionModel(rcv_AuxObserver1, false);
+}
+else {
+if (mtd_id == 139) {
+setSelectedColor_DefaultColorSelectionModel_Color(rcv_AuxObserver1, null, false);
+}
+else {
+if (mtd_id == 159) {
+stateChanged_ColorChooserDemo_ChangeEvent(rcv_AuxObserver1, evt, true);
+}
+}
+}
+}
+}
+}
+reflect_depth = reflect_depth - 1;
+}
+
+void attachCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(Object rcv_AuxObserver1, Object arg, Object evt, bit logging) {
+add_List_Object(rcv_AuxObserver1._obs_AuxObserver1, arg);
+}
+
+void detachCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(Object rcv_AuxObserver1, Object arg, Object evt, bit logging) {
+remove_List_Object(rcv_AuxObserver1._obs_AuxObserver1, arg);
+}
+
+void handleCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(Object rcv_AuxObserver1, Object arg, Object evt, bit logging) {
+List_Object obs1 = rcv_AuxObserver1._obs_AuxObserver1;
+  int idx = {| 0 | obs1.idx - 1 |};
+      while (0 <= idx && idx < S && obs1.elts[idx] != null) {
+        Object o = obs1.elts[idx];
+    reflect_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(update_AuxObserver1, o, rcv_AuxObserver1, evt, false);
+        idx = {| idx (+ | -) 1 |};
+      }
+    
+}
+
+void subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(int mtd_id, Object rcv_AuxObserver1, Object arg, Object evt, bit logging) {
+if (subjectCall_depth > 2) {
+return;
+}
+subjectCall_depth = subjectCall_depth + 1;
+if (mtd_id == attach_AuxObserver1) {
+attachCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(rcv_AuxObserver1, arg, evt, false);
+}
+else {
+if (mtd_id == detach_AuxObserver1) {
+detachCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(rcv_AuxObserver1, arg, evt, false);
+}
+else {
+if (mtd_id == handle_AuxObserver1) {
+handleCode_AuxObserver1_AuxObserver1_AuxObserver1_ChangeEvent(rcv_AuxObserver1, arg, evt, false);
+}
+}
+}
+subjectCall_depth = subjectCall_depth - 1;
+}

@@ -1,0 +1,38 @@
+package AbstractButton;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object AbstractButton_AbstractButton(Object self) {
+
+JComponent_JComponent(self);
+return self;
+}
+void dispatchEvent_AbstractButton_AWTEvent(Object self, Object event, bit logging) {
+setterInOne_AuxAccessor1_int_Object_Object(42, self, event, false);
+}
+
+void setVerticalTextPosition_AbstractButton_int(Object self, int textPosition, bit logging) {
+isetterInOne_AuxAccessor1_int_Object_int(47, self, textPosition, false);
+}
+
+void setHorizontalTextPosition_AbstractButton_int(Object self, int textPosition, bit logging) {
+isetterInOne_AuxAccessor1_int_Object_int(48, self, textPosition, false);
+}
+
+void setMnemonic_AbstractButton_int(Object self, int mnemonic, bit logging) {
+isetterInOne_AuxAccessor1_int_Object_int(49, self, mnemonic, false);
+}
+
+char[51] getActionCommand_AbstractButton(Object self, bit logging) {
+
+return sgetterInOne_AuxAccessor1_int_Object(50, self, false);
+}
+
+void setActionCommand_AbstractButton_String(Object self, char[51] actionCommand, bit logging) {
+ssetterInOne_AuxAccessor1_int_Object_String(51, self, actionCommand, false);
+}
+
+void setSelected_AbstractButton_boolean(Object self, bit b, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(52, self, b, false);
+}

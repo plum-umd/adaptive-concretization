@@ -1,0 +1,127 @@
+{
+  "button_demo":
+  {
+    "main": "sample.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "colorchooser_demo":
+  {
+    "main": "sample.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "menu_demo":
+  {
+    "main": "sample.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "list_prepend":
+  {
+    "main": "sll_prepend.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "list_min":
+  {
+    "main": "list_min.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "shoaib_1":
+  {
+    "main": "advec_mom_kernel1.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "shoaib_2":
+  {
+    "main": "advec_mom_kernel2.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "cg":
+  {
+    "main": "CG.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "log2":
+  {
+    "main": "log2.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "logcount":
+  {
+    "main": "logcount.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "reverse":
+  {
+    "main": "listReverse.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "qbs_noti":
+  {
+    "main": "NotificationServiceImpl2.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "qbs_serv":
+  {
+    "main": "ConcreteRoleAffectationService.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "deriv2":
+  {
+    "main": "demo2.py.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "deriv3":
+  {
+    "main": "demo3.py.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "deriv4":
+  {
+    "main": "demo4.py.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "deriv5":
+  {
+    "main": "demo5.py.sk",
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "sygus":
+  {
+    "strategies": ["NOT_SET", "WILCOXON"],
+    "cores": [1, 2, 4, 8, 16, 32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  }
+}

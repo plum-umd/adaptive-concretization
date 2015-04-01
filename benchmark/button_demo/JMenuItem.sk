@@ -1,0 +1,56 @@
+package JMenuItem;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object JMenuItem_JMenuItem(Object self) {
+AbstractButton_AbstractButton(self);
+self._accelerator_JMenuItem = KeyStroke_KeyStroke(alloc@log(55));
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+
+Object JMenuItem_JMenuItem_Icon(Object self, Object icon) {
+AbstractButton_AbstractButton(self);
+self._accelerator_JMenuItem = KeyStroke_KeyStroke(alloc@log(55));
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+
+Object JMenuItem_JMenuItem_String(Object self, char[51] text) {
+AbstractButton_AbstractButton(self);
+self._accelerator_JMenuItem = KeyStroke_KeyStroke(alloc@log(55));
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+
+Object JMenuItem_JMenuItem_String_Icon(Object self, char[51] text, Object icon) {
+AbstractButton_AbstractButton(self);
+self._accelerator_JMenuItem = KeyStroke_KeyStroke(alloc@log(55));
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+
+Object JMenuItem_JMenuItem_String_int(Object self, char[51] text, int mnemonic) {
+AbstractButton_AbstractButton(self);
+self._accelerator_JMenuItem = KeyStroke_KeyStroke(alloc@log(55));
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+void addSeparator_JMenuItem(Object self, bit logging) {
+
+}
+
+Object getAccelerator_JMenuItem(Object self, bit logging) {
+
+return self._accelerator_JMenuItem;
+}
+
+void setAccelerator_JMenuItem_KeyStroke(Object self, Object keyStroke, bit logging) {
+self._accelerator_JMenuItem = keyStroke;
+}
+
+Object getAccessibleContext_JMenuItem(Object self, bit logging) {
+
+return self._accessiblecontext_JMenuItem;
+}

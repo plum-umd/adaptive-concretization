@@ -1,0 +1,14 @@
+package KeyStroke;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object KeyStroke_KeyStroke(Object self) {
+
+AWTKeyStroke_AWTKeyStroke(self);
+return self;
+}
+Object getKeyStroke_KeyStroke_int_int(int keyCode, int modifiers, bit logging) {
+Object obj = KeyStroke_KeyStroke(alloc@log(55));
+return obj;
+}

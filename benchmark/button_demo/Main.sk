@@ -1,0 +1,26 @@
+package Main;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object Main_Main(Object self) {
+
+return self;
+}
+void sample1_Main(bit logging) {
+Object t = getDefaultToolkit_Toolkit(false);
+Object q = getSystemEventQueue_Toolkit(t, false);
+main_ButtonDemo(true);
+Object evt1 = getNextEvent_EventQueue(q, false);
+dispatchEvent_EventQueue_EventObject(q, evt1, false);
+Object e0 = ActionEvent_ActionEvent_Object_int_String(alloc@log(17), retrieve_JButton@log(0), 0, "disable");
+e0.kind_EventObject = 9;
+postEvent_EventQueue_EventObject(q, e0, false);
+Object evt2 = getNextEvent_EventQueue(q, false);
+dispatchEvent_EventQueue_EventObject(q, evt2, false);
+Object e1 = ActionEvent_ActionEvent_Object_int_String(alloc@log(17), retrieve_JButton@log(2), 0, "enable");
+e1.kind_EventObject = 9;
+postEvent_EventQueue_EventObject(q, e1, false);
+Object evt3 = getNextEvent_EventQueue(q, false);
+dispatchEvent_EventQueue_EventObject(q, evt3, false);
+}

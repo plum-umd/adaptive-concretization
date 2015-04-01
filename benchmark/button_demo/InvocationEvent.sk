@@ -1,0 +1,14 @@
+package InvocationEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object InvocationEvent_InvocationEvent_Object_Runnable(Object self, Object source, Object runnable) {
+AWTEvent_AWTEvent_Object_int(self, source, 0);
+constructorInOne_AuxAccessor1_int_Object_Object_int(29, self, source, 0, false);
+constructorInOne_AuxAccessor1_int_Object_Object_int(29, self, runnable, 1, false);
+return self;
+}
+void dispatch_InvocationEvent(Object self, bit logging) {
+call_adaptee_AuxAccessor1_int_AuxAccessor1(30, self, false);
+}

@@ -1,0 +1,107 @@
+harness void sample1 () {
+
+    clear_log@log();
+    int[P] log = { 0 };
+  
+      log = (int[P]){ main_ColorChooserDemo_ent() };
+      write_log@log(log);
+    
+      log = (int[P]){ invokeLater_SwingUtilities_Runnable_ent(), 1 };
+      write_log@log(log);
+    
+      log = (int[P]){ invokeLater_SwingUtilities_Runnable_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ main_ColorChooserDemo_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ run_ColorChooserDemo_1_ent(), 1 };
+      write_log@log(log);
+    
+      log = (int[P]){ createAndShowGUI_ColorChooserDemo_ent() };
+      write_log@log(log);
+    
+      log = (int[P]){ setDefaultCloseOperation_JFrame_int_ent(), 2, 3 };
+      write_log@log(log);
+    
+      log = (int[P]){ setDefaultCloseOperation_JFrame_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ent(), 4, 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 6, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSelectionModel_JColorChooser_ent(), 7 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSelectionModel_JColorChooser_ext(), 8 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 9, 6 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 6 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 9, 7 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 7 };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ent(), 9, 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setContentPane_JFrame_Container_ent(), 2, 9 };
+      write_log@log(log);
+    
+      log = (int[P]){ setContentPane_JFrame_Container_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ pack_Window_ent(), 2 };
+      write_log@log(log);
+    
+      log = (int[P]){ pack_Window_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setVisible_Component_boolean_ent(), 2, 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ setVisible_Component_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ createAndShowGUI_ColorChooserDemo_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ run_ColorChooserDemo_1_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ stateChanged_ColorChooserDemo_ChangeEvent_ent(), 9, 10 };
+      write_log@log(log);
+    
+      log = (int[P]){ getColor_JColorChooser_ent(), 7 };
+      write_log@log(log);
+    
+      log = (int[P]){ getColor_JColorChooser_ext(), 11 };
+      write_log@log(log);
+    
+      log = (int[P]){ stateChanged_ColorChooserDemo_ChangeEvent_ext() };
+      write_log@log(log);
+    
+    int len_log = get_log_cnt@log();
+    reset_log_cnt@log();
+  
+  sample1_Main(false);
+assert len_log == get_log_cnt@log();
+}

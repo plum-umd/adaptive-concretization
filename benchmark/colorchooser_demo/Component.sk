@@ -1,0 +1,32 @@
+package Component;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object Component_Component(Object self) {
+
+return self;
+}
+bit isEnabled_Component(Object self, bit logging) {
+
+return bgetterInOne_AuxAccessor1_int_Object(7, self, false);
+}
+
+void setEnabled_Component_boolean(Object self, bit b, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(8, self, b, false);
+}
+
+bit isVisible_Component(Object self, bit logging) {
+
+return bgetterInOne_AuxAccessor1_int_Object(9, self, false);
+}
+
+void setVisible_Component_boolean(Object self, bit b, bit logging) {
+
+      int[P] params = { setVisible_Component_boolean_ent(), self.hash, b };
+      if (logging) check_log@log(params);
+    bsetterInOne_AuxAccessor1_int_Object_boolean(10, self, b, false);
+      params = { setVisible_Component_boolean_ext() };
+      if (logging) check_log@log(params);
+    
+}

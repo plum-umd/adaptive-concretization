@@ -1,0 +1,202 @@
+package MenuDemo;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object MenuDemo_MenuDemo(Object self) {
+self.output_MenuDemo = null;
+self.scrollPane_MenuDemo = null;
+Object __tmp___AuxObserver1 = self;
+__tmp___AuxObserver1._obs_AuxObserver1 = new List_Object();
+Object __tmp___AuxObserver2 = self;
+__tmp___AuxObserver2._obs_AuxObserver2 = new List_Object();
+return self;
+}
+Object createMenuBar_MenuDemo(Object self, bit logging) {
+
+      int[P] params = { createMenuBar_MenuDemo_ent(), self.hash };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(159, self, null, null, true);
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(159, self, null, null, true);
+Object menuBar;
+Object menu;
+Object submenu;
+Object menuItem;
+Object rbMenuItem;
+Object cbMenuItem;
+menuBar = JMenuBar_JMenuBar(alloc@log(45));
+menu = JMenu_JMenu_String(alloc@log(44), "A Menu");
+setMnemonic_AbstractButton_int(menu, VK_A_KeyEvent(), true);
+Object tmpContext1 = getAccessibleContext_JMenu(menu, true);
+setAccessibleDescription_AccessibleContext_String(tmpContext1, "The only menu in this program that has menu items", true);
+add_Container_Component(menuBar, menu, true);
+menuItem = JMenuItem_JMenuItem_String_int(alloc@log(46), "A text-only menu item", VK_T_KeyEvent());
+Object tmpStroke = getKeyStroke_KeyStroke_int_int(VK_1_KeyEvent(), ALT_MASK_ActionEvent(), true);
+setAccelerator_JMenuItem_KeyStroke(menuItem, tmpStroke, true);
+Object tmpContext2 = getAccessibleContext_JMenuItem(menuItem, true);
+setAccessibleDescription_AccessibleContext_String(tmpContext2, "This doesn't really do anything", true);
+addActionListener_AbstractButton_ActionListener(menuItem, self, true);
+add_Container_Component(menu, menuItem, true);
+Object icon = createImageIcon_MenuDemo_String("images/middle.gif", true);
+menuItem = JMenuItem_JMenuItem_String_Icon(alloc@log(46), "Both text and icon", icon);
+setMnemonic_AbstractButton_int(menuItem, VK_B_KeyEvent(), true);
+addActionListener_AbstractButton_ActionListener(menuItem, self, true);
+add_Container_Component(menu, menuItem, true);
+menuItem = JMenuItem_JMenuItem_Icon(alloc@log(46), icon);
+setMnemonic_AbstractButton_int(menuItem, VK_D_KeyEvent(), true);
+addActionListener_AbstractButton_ActionListener(menuItem, self, true);
+add_Container_Component(menu, menuItem, true);
+addSeparator_JMenuItem(menu, true);
+Object group = ButtonGroup_ButtonGroup(alloc@log(32));
+rbMenuItem = JRadioButtonMenuItem_JRadioButtonMenuItem_String(alloc@log(48), "A radio button menu item");
+setSelected_AbstractButton_boolean(rbMenuItem, true, true);
+setMnemonic_AbstractButton_int(rbMenuItem, VK_R_KeyEvent(), true);
+add_ButtonGroup_AbstractButton(group, rbMenuItem, true);
+addActionListener_AbstractButton_ActionListener(rbMenuItem, self, true);
+add_Container_Component(menu, rbMenuItem, true);
+rbMenuItem = JRadioButtonMenuItem_JRadioButtonMenuItem_String(alloc@log(48), "Another one");
+setMnemonic_AbstractButton_int(rbMenuItem, VK_O_KeyEvent(), true);
+add_ButtonGroup_AbstractButton(group, rbMenuItem, true);
+addActionListener_AbstractButton_ActionListener(rbMenuItem, self, true);
+add_Container_Component(menu, rbMenuItem, true);
+addSeparator_JMenuItem(menu, true);
+cbMenuItem = JCheckBoxMenuItem_JCheckBoxMenuItem_String(alloc@log(37), "A check box menu item");
+setMnemonic_AbstractButton_int(cbMenuItem, VK_C_KeyEvent(), true);
+addItemListener_AbstractButton_ItemListener(cbMenuItem, self, true);
+add_Container_Component(menu, cbMenuItem, true);
+cbMenuItem = JCheckBoxMenuItem_JCheckBoxMenuItem_String(alloc@log(37), "Another one");
+setMnemonic_AbstractButton_int(cbMenuItem, VK_H_KeyEvent(), true);
+addItemListener_AbstractButton_ItemListener(cbMenuItem, self, true);
+add_Container_Component(menu, cbMenuItem, true);
+addSeparator_JMenuItem(menu, true);
+submenu = JMenu_JMenu_String(alloc@log(44), "A submenu");
+setMnemonic_AbstractButton_int(submenu, VK_S_KeyEvent(), true);
+menuItem = JMenuItem_JMenuItem_String(alloc@log(46), "An item in the submenu");
+Object tmpStroke2 = getKeyStroke_KeyStroke_int_int(VK_2_KeyEvent(), ALT_MASK_ActionEvent(), true);
+setAccelerator_JMenuItem_KeyStroke(menuItem, tmpStroke2, true);
+addActionListener_AbstractButton_ActionListener(menuItem, self, true);
+add_Container_Component(submenu, menuItem, true);
+menuItem = JMenuItem_JMenuItem_String(alloc@log(46), "Another item");
+addActionListener_AbstractButton_ActionListener(menuItem, self, true);
+add_Container_Component(submenu, menuItem, true);
+add_Container_Component(menu, submenu, true);
+menu = JMenu_JMenu_String(alloc@log(44), "Another Menu");
+setMnemonic_AbstractButton_int(menu, VK_N_KeyEvent(), true);
+Object tmpContext3 = getAccessibleContext_JMenu(menu, true);
+setAccessibleDescription_AccessibleContext_String(tmpContext3, "This menu does nothing", true);
+add_Container_Component(menuBar, menu, true);
+      params = { createMenuBar_MenuDemo_ext(), menuBar.hash };
+      if (logging) check_log@log(params);
+    
+return menuBar;
+}
+
+Object createContentPane_MenuDemo(Object self, bit logging) {
+
+      int[P] params = { createContentPane_MenuDemo_ent(), self.hash };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(160, self, null, null, true);
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(160, self, null, null, true);
+Object tmpLayout = BorderLayout_BorderLayout(alloc@log(5));
+Object contentPane = JPanel_JPanel_LayoutManager(alloc@log(47), tmpLayout);
+setOpaque_JComponent_boolean(contentPane, true, true);
+self.output_MenuDemo = JTextArea_JTextArea_int_int(alloc@log(51), 5, 30);
+setEditable_JTextComponent_boolean(self.output_MenuDemo, false, true);
+self.scrollPane_MenuDemo = JScrollPane_JScrollPane_JComponent(alloc@log(49), self.output_MenuDemo);
+add_Container_Component(contentPane, self.scrollPane_MenuDemo, true);
+      params = { createContentPane_MenuDemo_ext(), contentPane.hash };
+      if (logging) check_log@log(params);
+    
+return contentPane;
+}
+
+void actionPerformed_MenuDemo_ActionEvent(Object self, Object e, bit logging) {
+
+      int[P] params = { actionPerformed_MenuDemo_ActionEvent_ent(), self.hash, e.hash };
+      if (logging) check_log@log(params);
+    int e_k = e.kind_EventObject;
+if (e_k == 0) {
+subjectCall_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(161, self, null, null, true);
+}
+if (e_k == 9) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(161, self, null, e, true);
+}
+Object source = getSource_EventObject(e, true);
+char[51] s = "Action event detected.";
+append_JTextArea_String(self.output_MenuDemo, s, true);
+Object tmpDocument = getDocument_JTextComponent(self.output_MenuDemo, true);
+int tmpLength = getLength_AbstractDocument(tmpDocument, true);
+setCaretPosition_JTextComponent_int(self.output_MenuDemo, tmpLength, true);
+      params = { actionPerformed_MenuDemo_ActionEvent_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void itemStateChanged_MenuDemo_ItemEvent(Object self, Object e, bit logging) {
+
+      int[P] params = { itemStateChanged_MenuDemo_ItemEvent_ent(), self.hash, e.hash };
+      if (logging) check_log@log(params);
+    int e_k = e.kind_EventObject;
+if (e_k == 0) {
+subjectCall_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(162, self, null, e, true);
+}
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(162, self, null, null, true);
+Object source = getSource_EventObject(e, true);
+char[51] s = "Item event detected.";
+append_JTextArea_String(self.output_MenuDemo, s, true);
+Object tmpDocument2 = getDocument_JTextComponent(self.output_MenuDemo, true);
+int tmpLength2 = getLength_AbstractDocument(tmpDocument2, true);
+setCaretPosition_JTextComponent_int(self.output_MenuDemo, tmpLength2, true);
+      params = { itemStateChanged_MenuDemo_ItemEvent_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+Object createImageIcon_MenuDemo_String(char[51] path, bit logging) {
+
+      int[P] params = { createImageIcon_MenuDemo_String_ent() };
+      if (logging) check_log@log(params);
+    
+      params = { createImageIcon_MenuDemo_String_ext() };
+      if (logging) check_log@log(params);
+    
+return null;
+}
+
+void createAndShowGUI_MenuDemo(bit logging) {
+
+      int[P] params = { createAndShowGUI_MenuDemo_ent() };
+      if (logging) check_log@log(params);
+    Object frame = JFrame_JFrame_String(alloc@log(42), "MenuDemo");
+setDefaultCloseOperation_JFrame_int(frame, EXIT_ON_CLOSE_JFrame(), true);
+Object demo = MenuDemo_MenuDemo(alloc@log(71));
+Object tmpBar = createMenuBar_MenuDemo(demo, true);
+setJMenuBar_JFrame_JMenuBar(frame, tmpBar, true);
+Object tmpPane = createContentPane_MenuDemo(demo, true);
+setContentPane_JFrame_Container(frame, tmpPane, true);
+setSize_Window_int_int(frame, 450, 260, true);
+setVisible_Component_boolean(frame, true, true);
+      params = { createAndShowGUI_MenuDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void main_MenuDemo(bit logging) {
+
+      int[P] params = { main_MenuDemo_ent() };
+      if (logging) check_log@log(params);
+    invokeLater_SwingUtilities_Runnable(new Object(), true);
+      params = { main_MenuDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void run_MenuDemo_1(Object self, bit logging) {
+
+      int[P] params = { run_MenuDemo_1_ent(), self.hash };
+      if (logging) check_log@log(params);
+    createAndShowGUI_MenuDemo(true);
+      params = { run_MenuDemo_1_ext() };
+      if (logging) check_log@log(params);
+    
+}

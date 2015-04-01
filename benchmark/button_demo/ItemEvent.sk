@@ -1,0 +1,28 @@
+package ItemEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  int DESELECTED = 2;
+int SELECTED = 1;
+
+      int DESELECTED_ItemEvent() { return DESELECTED; }
+    
+      int SELECTED_ItemEvent() { return SELECTED; }
+    Object ItemEvent_ItemEvent_ItemSelectable_int_Object_int(Object self, Object source, int id, Object item, int statechange) {
+AWTEvent_AWTEvent_Object_int(self, source, id);
+constructorInOne_AuxAccessor1_int_Object_Object_int(31, self, source, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(31, self, id, 1, false);
+constructorInOne_AuxAccessor1_int_Object_Object_int(31, self, item, 2, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(31, self, statechange, 3, false);
+return self;
+}
+Object getItemSelectable_ItemEvent(Object self, bit logging) {
+
+return getterInOne_AuxAccessor1_int_Object(32, self, false);
+}
+
+int getStateChange_ItemEvent(Object self, bit logging) {
+
+return igetterInOne_AuxAccessor1_int_Object(33, self, false);
+}

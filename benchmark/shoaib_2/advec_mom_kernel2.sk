@@ -1,0 +1,231 @@
+pragma options "--beopt:simplifycex NOSIM";
+pragma options "--fe-fpencoding AS_FFIELD";
+pragma options "--bnd-arr-size 400";
+pragma options "--bnd-arr1d-size 400";
+pragma options "--bnd-inbits 2";
+pragma options "--bnd-cbits 2";
+pragma options "--bnd-unroll-amnt 18";
+pragma options "--bnd-inline-amnt 15";
+
+void main(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k,int j, int k_p,int j_p) implements main_spec {
+ int _array_sz = 1000;
+boolean step_condition = (k < (y_max + 2))&&(j < (x_max + 1))&&(k >= (y_min - 2))&&(j >= x_min);
+ double[_array_sz] arr_885da47f1b9a30b1 = node_flux;
+arr_885da47f1b9a30b1[99+(j + (((x_max + 3) - (x_min - 2)) * k))] = (__float__0_25 * (((mass_flux_y[99+((j - 1) + (((x_max + 2) - (x_min - 2)) * k))] + mass_flux_y[99+(j + (((x_max + 2) - (x_min - 2)) * k))]) + mass_flux_y[99+((j - 1) + (((x_max + 2) - (x_min - 2)) * (k + 1)))]) + mass_flux_y[99+(j + (((x_max + 2) - (x_min - 2)) * (k + 1)))]));
+if ((I_k(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,j) && (!((k < (y_max + 2)))))) { assert(postcondition(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,j,k_p,j_p)); }
+
+if ((I_j(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,j) && (!((j < (x_max + 1)))))) { assert(I_k2(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,(k + 1),j,k_p,j_p)); }
+
+if ((I_j(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,j) && (j < (x_max + 1)))) { assert(I_j2(mass_flux_y,arr_885da47f1b9a30b1,x_max,x_min,y_max,y_min,__float__0_25,k,(j + 1),k_p,j_p)); }
+
+if ((I_k(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,j) && (k < (y_max + 2)))) { assert(I_j2(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,k,x_min,k_p,j_p)); }
+assert(I_k2(mass_flux_y,node_flux,x_max,x_min,y_max,y_min,__float__0_25,(y_min - 2),j,k_p,j_p)); 
+}
+
+void main_spec(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k,int j, int k_p,int j_p) {
+ assume (((y_max + 2)) - ((y_min - 2)) > 1);
+ assume (((x_max + 1)) - (x_min) > 1);
+  
+ 
+}
+
+
+
+
+boolean I_k(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j) {
+  // short-circuit if we're out of valid loop range
+  if (
+      k < (y_min - 2) ||
+      k > (y_max + 2) ||
+      j < x_min ||
+      j > (x_max + 1) ||
+     false) { return false; }
+  boolean ret = true;
+
+  // check invariants for outer loops
+
+  for (int _k=(y_min - 2); _k<k; _k++)
+  for (int _j=x_min; _j<(x_max + 1); _j++)
+
+  {
+    if (!(node_flux[idx_node_flux(x_max,x_min,y_max,y_min,_k,_j)]==gen_node_flux_k(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, _k, _j, 8)))
+      ret = false;
+  }
+
+  return ret;
+}
+
+
+
+
+
+boolean I_k2(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j, int k_p, int j_p) {
+  boolean ret = true;
+
+  // check invariants for outer loops
+
+  int _k = k_p;
+  int _j = j_p;
+
+  if (_k>=(y_min - 2) && _k<k)
+  if (_j>=x_min && _j<(x_max + 1))
+  {
+    if (!(node_flux[idx_node_flux(x_max,x_min,y_max,y_min,_k,_j)]==gen_node_flux_k(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, _k, _j, 8)))
+      ret = false;
+  }
+
+  return ret;
+}
+
+
+
+
+boolean I_j(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j) {
+  // short-circuit if we're out of valid loop range
+  if (
+      k < (y_min - 2) ||
+      k > (y_max + 2) ||
+      j < x_min ||
+      j > (x_max + 1) ||
+     false) { return false; }
+  boolean ret = true;
+
+  // check invariants for outer loops
+  ret = ret && I_k(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, k, j);
+
+  for (int _k=k; _k<=k; _k++)
+  for (int _j=x_min; _j<j; _j++)
+  {
+    if (!(node_flux[idx_node_flux(x_max,x_min,y_max,y_min,_k,_j)]==gen_node_flux_j(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, _k, _j, 8)))
+      ret = false;
+  }
+
+  return ret;
+}
+
+
+
+
+
+boolean I_j2(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j, int k_p, int j_p) {
+  boolean ret = true;
+
+  // check invariants for outer loops
+  ret = ret && I_k2(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, k, j, k_p, j_p);
+
+  int _k = k_p;
+  int _j = j_p;
+
+  if (_k>=k && _k<=k)
+  if (_j>=x_min && _j<j)
+  {
+    if (!(node_flux[idx_node_flux(x_max,x_min,y_max,y_min,_k,_j)]==gen_node_flux_j(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, _k, _j, 8)))
+      ret = false;
+  }
+
+  return ret;
+}
+
+
+
+
+double gen_node_flux_postcondition(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j, int _limit) {
+  return gen_node_flux(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, k, j, _limit);
+}
+
+boolean postcondition(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k, int j, int k_p, int j_p) {
+  boolean ret = true;
+  int _k = k_p;
+  int _j = j_p;
+  if (_k>=(y_min - 2) && _k<(y_max + 2))
+  if (_j>=x_min && _j<(x_max + 1))
+  {
+    if (!(node_flux[idx_node_flux(x_max,x_min,y_max,y_min,_k,_j)]==gen_node_flux_postcondition(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, _k, _j, 8)))
+      ret = false;
+  }
+
+  return ret;
+}
+generator double dblgen() {
+  if (??) { return 0.0; }
+  if (??) { return 1.0; }
+  if (??) { return 2.0; }
+  if (??) { return 3.0; }
+  if (??) { return 4.0; }
+  if (??) { return 5.0; }
+  if (??) { return 6.0; }
+}
+
+int idx_mass_flux_y(int x_max,int x_min,int y_max,int y_min,int k,int j) {
+  return idxgen(x_max,x_min,y_max,y_min,k,j);
+}
+int idx_node_flux(int x_max,int x_min,int y_max,int y_min,int k,int j) {
+  return idxgen(x_max,x_min,y_max,y_min,k,j);
+}
+
+generator int idxgen(int x_max,int x_min,int y_max,int y_min,int k,int j) {
+  generator int sz() {
+    int z = (x_max + 2);
+    if (??) z = ((x_max + 3) - (x_min - 2));
+    if (??) z = 1;
+    if (??) z = (x_max + 3);
+    if (??) z = (x_min - 2);
+    if (??) z = ((x_max + 2) - (x_min - 2));
+    return z;
+  
+    int start = x_max;
+    int end = x_max;
+    if (??) { start = x_min; }
+    else if (??) { start = y_max; }
+    else if (??) { start = y_min; }
+
+    if (??) { end = x_min; }
+    else if (??) { end = y_max; }
+    else if (??) { end = y_min; }
+
+
+
+    if (??) { start = start - ??; }
+    else if (??) { start = start + ??; }
+    if (??) { end = end - ??; }
+    else if (??) { end = end + ??; }
+
+    return end-start;
+  }
+
+   
+int lhsval = (99+k)+ (sz() * (j));
+if (??) { lhsval = (99+j)+ (sz() * (k)); }
+return lhsval;
+ 
+}
+
+
+void arr_copy(int sz, ref double[sz] in, ref double[sz] out) {
+out = in;
+}
+double gen_node_flux_k(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k,int j, int _limit) {
+  return gen_node_flux(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, k,j, _limit);
+}
+double gen_node_flux_j(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k,int j, int _limit) {
+  return gen_node_flux(mass_flux_y, node_flux, x_max, x_min, y_max, y_min, __float__0_25, k,j, _limit);
+}
+
+generator double gen_node_flux(ref double[1000] mass_flux_y, ref double[1000] node_flux, int x_max, int x_min, int y_max, int y_min, double __float__0_25, int k,int j,int _limit) {
+   generator double wt(double a) {
+    double ret = a;
+    if (??) ret = 0.0;
+    else if (??) ret = -a;
+    if (??) ret = ret * __float__0_25;
+    else if (??) ret = ret / __float__0_25;
+    return ret;
+  }
+  
+  double arracc = 0.0;
+  arracc = arracc + wt(mass_flux_y[idx_mass_flux_y(x_max,x_min,y_max,y_min,k,(j - 1))]);
+  arracc = arracc + wt(mass_flux_y[idx_mass_flux_y(x_max,x_min,y_max,y_min,k,j)]);
+  arracc = arracc + wt(mass_flux_y[idx_mass_flux_y(x_max,x_min,y_max,y_min,(k + 1),(j - 1))]);
+  arracc = arracc + wt(mass_flux_y[idx_mass_flux_y(x_max,x_min,y_max,y_min,(k + 1),j)]);
+  return arracc;
+}
+

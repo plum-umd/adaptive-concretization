@@ -1,0 +1,9 @@
+package Color;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object Color_Color(Object self) {
+
+return self;
+}

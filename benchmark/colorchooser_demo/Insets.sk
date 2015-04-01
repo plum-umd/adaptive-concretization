@@ -1,0 +1,12 @@
+package Insets;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object Insets_Insets_int_int_int_int(Object self, int top, int left, int bottom, int right) {
+iconstructorInOne_AuxAccessor1_int_Object_int_int(18, self, top, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(18, self, left, 1, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(18, self, bottom, 2, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(18, self, right, 3, false);
+return self;
+}

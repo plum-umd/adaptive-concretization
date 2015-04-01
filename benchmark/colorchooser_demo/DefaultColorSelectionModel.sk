@@ -1,0 +1,37 @@
+package DefaultColorSelectionModel;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object DefaultColorSelectionModel_DefaultColorSelectionModel(Object self) {
+Object __tmp___AuxObserver1 = self;
+__tmp___AuxObserver1._obs_AuxObserver1 = new List_Object();
+return self;
+}
+void addChangeListener_DefaultColorSelectionModel_ChangeListener(Object self, Object listener, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(135, self, listener, null, false);
+setterInOne_AuxAccessor1_int_Object_Object(135, self, listener, false);
+}
+
+void fireStateChanged_DefaultColorSelectionModel_ChangeEvent(Object self, Object e, bit logging) {
+int e_k = e.kind_EventObject;
+if (e_k == 10) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(136, self, null, e, false);
+}
+setterInOne_AuxAccessor1_int_Object_Object(136, self, e, false);
+}
+
+void removeChangeListener_DefaultColorSelectionModel_ChangeListener(Object self, Object listener, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(137, self, listener, null, false);
+setterInOne_AuxAccessor1_int_Object_Object(137, self, listener, false);
+}
+
+Object getSelectedColor_DefaultColorSelectionModel(Object self, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(138, self, null, null, false);
+return getterInOne_AuxAccessor1_int_Object(138, self, false);
+}
+
+void setSelectedColor_DefaultColorSelectionModel_Color(Object self, Object color, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(139, self, null, null, false);
+setterInOne_AuxAccessor1_int_Object_Object(139, self, color, false);
+}

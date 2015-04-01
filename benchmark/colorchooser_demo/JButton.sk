@@ -1,0 +1,11 @@
+package JButton;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object JButton_JButton_String_Icon(Object self, char[51] text, Object icon) {
+AbstractButton_AbstractButton(self);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(60, self, text, 0, false);
+constructorInOne_AuxAccessor1_int_Object_Object_int(60, self, icon, 1, false);
+return self;
+}

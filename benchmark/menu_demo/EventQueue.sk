@@ -1,0 +1,56 @@
+package EventQueue;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object EventQueue_EventQueue(Object self) {
+
+self._evt_queue_EventQueue = new Queue_Object();
+return self;
+}
+void dispatchEvent_EventQueue_EventObject(Object self, Object event, bit logging) {
+if (event == null) {
+return;
+}
+int event_k = event.kind_EventObject;
+if (event_k == - 1) {
+Object ie = event;
+dispatch_InvocationEvent(ie, false);
+}
+else {
+if (event_k == 0) {
+Object rcv = getSource_EventObject(event, false);
+reflect_AuxObserver2_int_AuxObserver2_AuxObserver2_ItemEvent(handle_AuxObserver2_AuxObserver2(), rcv, null, event, false);
+}
+else {
+if (event_k == 9) {
+Object rcv = getSource_EventObject(event, false);
+reflect_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(handle_AuxObserver1_AuxObserver1(), rcv, null, event, false);
+}
+}
+}
+}
+
+Object getNextEvent_EventQueue(Object self, bit logging) {
+
+if (self != null) {
+return remove_Queue_Object(self._evt_queue_EventQueue);
+}
+else {
+return null;
+}
+}
+
+void postEvent_EventQueue_EventObject(Object self, Object event, bit logging) {
+if (self != null) {
+add_Queue_Object(self._evt_queue_EventQueue, event);
+}
+}
+
+void invokeLater_EventQueue_Runnable(Object runnable, bit logging) {
+Object t = getDefaultToolkit_Toolkit(false);
+Object evt = InvocationEvent_InvocationEvent_Object_Runnable(alloc@log(22), null, runnable);
+evt.kind_EventObject = - 1;
+Object q = getSystemEventQueue_Toolkit(t, false);
+postEvent_EventQueue_EventObject(q, evt, false);
+}

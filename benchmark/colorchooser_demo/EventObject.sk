@@ -1,0 +1,14 @@
+package EventObject;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object EventObject_EventObject_Object(Object self, Object source) {
+
+constructorInOne_AuxAccessor1_int_Object_Object_int(156, self, source, 0, false);
+return self;
+}
+Object getSource_EventObject(Object self, bit logging) {
+
+return getterInOne_AuxAccessor1_int_Object(157, self, false);
+}

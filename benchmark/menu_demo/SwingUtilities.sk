@@ -1,0 +1,19 @@
+package SwingUtilities;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object SwingUtilities_SwingUtilities(Object self) {
+
+return self;
+}
+void invokeLater_SwingUtilities_Runnable(Object doRun, bit logging) {
+
+      int[P] params = { invokeLater_SwingUtilities_Runnable_ent(), doRun.hash };
+      if (logging) check_log@log(params);
+    invokeLater_EventQueue_Runnable(doRun, false);
+setterInOne_AuxAccessor1_int_Object_Object(126, null, doRun, false);
+      params = { invokeLater_SwingUtilities_Runnable_ext() };
+      if (logging) check_log@log(params);
+    
+}

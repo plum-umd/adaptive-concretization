@@ -1,0 +1,12 @@
+package AccessibleContext;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object AccessibleContext_AccessibleContext(Object self) {
+
+return self;
+}
+void setAccessibleDescription_AccessibleContext_String(Object self, char[51] s, bit logging) {
+ssetterInOne_AuxAccessor1_int_Object_String(1, self, s, false);
+}

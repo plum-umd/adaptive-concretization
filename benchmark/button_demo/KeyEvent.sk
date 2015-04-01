@@ -1,0 +1,119 @@
+package KeyEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  int VK_0 = 48;
+int VK_1 = 49;
+int VK_2 = 50;
+int VK_3 = 51;
+int VK_4 = 52;
+int VK_5 = 53;
+int VK_6 = 54;
+int VK_7 = 55;
+int VK_8 = 56;
+int VK_9 = 57;
+int VK_A = 65;
+int VK_B = 66;
+int VK_C = 67;
+int VK_D = 68;
+int VK_E = 69;
+int VK_F = 70;
+int VK_G = 71;
+int VK_H = 72;
+int VK_I = 73;
+int VK_J = 74;
+int VK_K = 75;
+int VK_L = 76;
+int VK_M = 77;
+int VK_N = 78;
+int VK_O = 79;
+int VK_P = 80;
+int VK_Q = 81;
+int VK_R = 82;
+int VK_S = 83;
+int VK_T = 84;
+int VK_U = 85;
+int VK_V = 86;
+int VK_W = 87;
+int VK_X = 88;
+int VK_Y = 89;
+int VK_Z = 90;
+
+      int VK_0_KeyEvent() { return VK_0; }
+    
+      int VK_1_KeyEvent() { return VK_1; }
+    
+      int VK_2_KeyEvent() { return VK_2; }
+    
+      int VK_3_KeyEvent() { return VK_3; }
+    
+      int VK_4_KeyEvent() { return VK_4; }
+    
+      int VK_5_KeyEvent() { return VK_5; }
+    
+      int VK_6_KeyEvent() { return VK_6; }
+    
+      int VK_7_KeyEvent() { return VK_7; }
+    
+      int VK_8_KeyEvent() { return VK_8; }
+    
+      int VK_9_KeyEvent() { return VK_9; }
+    
+      int VK_A_KeyEvent() { return VK_A; }
+    
+      int VK_B_KeyEvent() { return VK_B; }
+    
+      int VK_C_KeyEvent() { return VK_C; }
+    
+      int VK_D_KeyEvent() { return VK_D; }
+    
+      int VK_E_KeyEvent() { return VK_E; }
+    
+      int VK_F_KeyEvent() { return VK_F; }
+    
+      int VK_G_KeyEvent() { return VK_G; }
+    
+      int VK_H_KeyEvent() { return VK_H; }
+    
+      int VK_I_KeyEvent() { return VK_I; }
+    
+      int VK_J_KeyEvent() { return VK_J; }
+    
+      int VK_K_KeyEvent() { return VK_K; }
+    
+      int VK_L_KeyEvent() { return VK_L; }
+    
+      int VK_M_KeyEvent() { return VK_M; }
+    
+      int VK_N_KeyEvent() { return VK_N; }
+    
+      int VK_O_KeyEvent() { return VK_O; }
+    
+      int VK_P_KeyEvent() { return VK_P; }
+    
+      int VK_Q_KeyEvent() { return VK_Q; }
+    
+      int VK_R_KeyEvent() { return VK_R; }
+    
+      int VK_S_KeyEvent() { return VK_S; }
+    
+      int VK_T_KeyEvent() { return VK_T; }
+    
+      int VK_U_KeyEvent() { return VK_U; }
+    
+      int VK_V_KeyEvent() { return VK_V; }
+    
+      int VK_W_KeyEvent() { return VK_W; }
+    
+      int VK_X_KeyEvent() { return VK_X; }
+    
+      int VK_Y_KeyEvent() { return VK_Y; }
+    
+      int VK_Z_KeyEvent() { return VK_Z; }
+    Object KeyEvent_KeyEvent_Object_int(Object self, Object source, int id) {
+InputEvent_InputEvent_Object_int(self, source, id);
+constructorInOne_AuxAccessor1_int_Object_Object_int(176, self, source, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(176, self, id, 1, false);
+return self;
+}

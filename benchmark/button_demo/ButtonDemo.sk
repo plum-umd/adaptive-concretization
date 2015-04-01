@@ -1,0 +1,103 @@
+package ButtonDemo;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object ButtonDemo_ButtonDemo(Object self) {
+Object leftButtonIcon = createImageIcon_ButtonDemo_String("images/right.gif", true);
+Object middleButtonIcon = createImageIcon_ButtonDemo_String("images/middle.gif", true);
+Object rightButtonIcon = createImageIcon_ButtonDemo_String("images/left.gif", true);
+self.b1_ButtonDemo = JButton_JButton_String_Icon(alloc@log(35), "Disable middle button", leftButtonIcon);
+setVerticalTextPosition_AbstractButton_int(self.b1_ButtonDemo, CENTER_SwingConstants(), true);
+setHorizontalTextPosition_AbstractButton_int(self.b1_ButtonDemo, LEADING_SwingConstants(), true);
+setMnemonic_AbstractButton_int(self.b1_ButtonDemo, VK_D_KeyEvent(), true);
+setActionCommand_AbstractButton_String(self.b1_ButtonDemo, "disable", true);
+self.b2_ButtonDemo = JButton_JButton_String_Icon(alloc@log(35), "Middle button", middleButtonIcon);
+setVerticalTextPosition_AbstractButton_int(self.b2_ButtonDemo, BOTTOM_SwingConstants(), true);
+setHorizontalTextPosition_AbstractButton_int(self.b2_ButtonDemo, CENTER_SwingConstants(), true);
+setMnemonic_AbstractButton_int(self.b2_ButtonDemo, VK_M_KeyEvent(), true);
+self.b3_ButtonDemo = JButton_JButton_String_Icon(alloc@log(35), "Enable middle button", rightButtonIcon);
+setMnemonic_AbstractButton_int(self.b3_ButtonDemo, VK_E_KeyEvent(), true);
+setActionCommand_AbstractButton_String(self.b3_ButtonDemo, "enable", true);
+setEnabled_Component_boolean(self.b3_ButtonDemo, false, true);
+addActionListener_AbstractButton_ActionListener(self.b1_ButtonDemo, self, true);
+addActionListener_AbstractButton_ActionListener(self.b3_ButtonDemo, self, true);
+setToolTipText_JComponent_String(self.b1_ButtonDemo, "Click this button to disable the middle button.", true);
+setToolTipText_JComponent_String(self.b2_ButtonDemo, "This middle button does nothing when you click it.", true);
+setToolTipText_JComponent_String(self.b3_ButtonDemo, "Click this button to enable the middle button.", true);
+add_Container_Component(self, self.b1_ButtonDemo, true);
+add_Container_Component(self, self.b2_ButtonDemo, true);
+add_Container_Component(self, self.b3_ButtonDemo, true);
+Object __tmp___AuxObserver1 = self;
+__tmp___AuxObserver1._obs_AuxObserver1 = new List_Object();
+return self;
+}
+void actionPerformed_ButtonDemo_ActionEvent(Object self, Object e, bit logging) {
+
+      int[P] params = { actionPerformed_ButtonDemo_ActionEvent_ent(), self.hash, e.hash };
+      if (logging) check_log@log(params);
+    int e_k = e.kind_EventObject;
+if (e_k == 9) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(159, self, null, e, true);
+}
+if (equals_String("disable", getActionCommand_ActionEvent(e, true))) {
+setEnabled_Component_boolean(self.b2_ButtonDemo, false, true);
+setEnabled_Component_boolean(self.b1_ButtonDemo, false, true);
+setEnabled_Component_boolean(self.b3_ButtonDemo, true, true);
+}
+else {
+setEnabled_Component_boolean(self.b2_ButtonDemo, true, true);
+setEnabled_Component_boolean(self.b1_ButtonDemo, true, true);
+setEnabled_Component_boolean(self.b3_ButtonDemo, false, true);
+}
+      params = { actionPerformed_ButtonDemo_ActionEvent_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+Object createImageIcon_ButtonDemo_String(char[51] path, bit logging) {
+
+      int[P] params = { createImageIcon_ButtonDemo_String_ent() };
+      if (logging) check_log@log(params);
+    
+      params = { createImageIcon_ButtonDemo_String_ext() };
+      if (logging) check_log@log(params);
+    
+return null;
+}
+
+void createAndShowGUI_ButtonDemo(bit logging) {
+
+      int[P] params = { createAndShowGUI_ButtonDemo_ent() };
+      if (logging) check_log@log(params);
+    Object frame = JFrame_JFrame_String(alloc@log(42), "ButtonDemo");
+setDefaultCloseOperation_JFrame_int(frame, EXIT_ON_CLOSE_JFrame(), true);
+Object newContentPane = ButtonDemo_ButtonDemo(alloc@log(71));
+setOpaque_JComponent_boolean(newContentPane, true, true);
+setContentPane_JFrame_Container(frame, newContentPane, true);
+pack_Window(frame, true);
+setVisible_Component_boolean(frame, true, true);
+      params = { createAndShowGUI_ButtonDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void main_ButtonDemo(bit logging) {
+
+      int[P] params = { main_ButtonDemo_ent() };
+      if (logging) check_log@log(params);
+    invokeLater_SwingUtilities_Runnable(new Object(), true);
+      params = { main_ButtonDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void run_ButtonDemo_1(Object self, bit logging) {
+
+      int[P] params = { run_ButtonDemo_1_ent(), self.hash };
+      if (logging) check_log@log(params);
+    createAndShowGUI_ButtonDemo(true);
+      params = { run_ButtonDemo_1_ext() };
+      if (logging) check_log@log(params);
+    
+}

@@ -1,0 +1,9 @@
+package AWTKeyStroke;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object AWTKeyStroke_AWTKeyStroke(Object self) {
+
+return self;
+}

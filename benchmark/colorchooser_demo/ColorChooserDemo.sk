@@ -1,0 +1,70 @@
+package ColorChooserDemo;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object ColorChooserDemo_ColorChooserDemo(Object self) {
+self.banner_ColorChooserDemo = JLabel_JLabel(alloc@log(43));
+setText_JLabel_String(self.banner_ColorChooserDemo, "Welcome to the Tutorial Zone!", true);
+setHorizontalAlignment_JLabel_int(self.banner_ColorChooserDemo, CENTER_SwingConstants(), true);
+setOpaque_JComponent_boolean(self.banner_ColorChooserDemo, true, true);
+Object bannerPanel = JPanel_JPanel(alloc@log(47));
+add_Container_Component(bannerPanel, self.banner_ColorChooserDemo, true);
+self.tcc_ColorChooserDemo = JColorChooser_JColorChooser(alloc@log(38));
+Object m = getSelectionModel_JColorChooser(self.tcc_ColorChooserDemo, true);
+addChangeListener_DefaultColorSelectionModel_ChangeListener(m, self, true);
+add_Container_Component(self, bannerPanel, true);
+add_Container_Component(self, self.tcc_ColorChooserDemo, true);
+Object __tmp___AuxObserver1 = self;
+__tmp___AuxObserver1._obs_AuxObserver1 = new List_Object();
+return self;
+}
+void stateChanged_ColorChooserDemo_ChangeEvent(Object self, Object e, bit logging) {
+
+      int[P] params = { stateChanged_ColorChooserDemo_ChangeEvent_ent(), self.hash, e.hash };
+      if (logging) check_log@log(params);
+    int e_k = e.kind_EventObject;
+if (e_k == 10) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ChangeEvent(159, self, null, e, true);
+}
+Object newColor = getColor_JColorChooser(self.tcc_ColorChooserDemo, true);
+      params = { stateChanged_ColorChooserDemo_ChangeEvent_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void createAndShowGUI_ColorChooserDemo(bit logging) {
+
+      int[P] params = { createAndShowGUI_ColorChooserDemo_ent() };
+      if (logging) check_log@log(params);
+    Object frame = JFrame_JFrame_String(alloc@log(42), "ColorChooserDemo");
+setDefaultCloseOperation_JFrame_int(frame, EXIT_ON_CLOSE_JFrame(), true);
+Object newContentPane = ColorChooserDemo_ColorChooserDemo(alloc@log(71));
+setOpaque_JComponent_boolean(newContentPane, true, true);
+setContentPane_JFrame_Container(frame, newContentPane, true);
+pack_Window(frame, true);
+setVisible_Component_boolean(frame, true, true);
+      params = { createAndShowGUI_ColorChooserDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void main_ColorChooserDemo(bit logging) {
+
+      int[P] params = { main_ColorChooserDemo_ent() };
+      if (logging) check_log@log(params);
+    invokeLater_SwingUtilities_Runnable(new Object(), true);
+      params = { main_ColorChooserDemo_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void run_ColorChooserDemo_1(Object self, bit logging) {
+
+      int[P] params = { run_ColorChooserDemo_1_ent(), self.hash };
+      if (logging) check_log@log(params);
+    createAndShowGUI_ColorChooserDemo(true);
+      params = { run_ColorChooserDemo_1_ext() };
+      if (logging) check_log@log(params);
+    
+}

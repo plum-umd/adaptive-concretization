@@ -1,0 +1,50 @@
+package JTextComponent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object JTextComponent_JTextComponent(Object self) {
+JComponent_JComponent(self);
+self._document_JTextComponent = PlainDocument_PlainDocument(alloc@log(69));
+self._margin_JTextComponent = Insets_Insets_int_int_int_int(alloc@log(12), 0, 0, 0, 0);
+return self;
+}
+int getCaretPosition_JTextComponent(Object self, bit logging) {
+
+return self._caretposition_JTextComponent;
+}
+
+void setCaretPosition_JTextComponent_int(Object self, int position, bit logging) {
+self._caretposition_JTextComponent = position;
+}
+
+Object getDocument_JTextComponent(Object self, bit logging) {
+
+return self._document_JTextComponent;
+}
+
+void setDocument_JTextComponent_Document(Object self, Object doc, bit logging) {
+self._document_JTextComponent = doc;
+}
+
+char[51] getText_JTextComponent(Object self, bit logging) {
+
+return self._text_JTextComponent;
+}
+
+void setText_JTextComponent_String(Object self, char[51] t, bit logging) {
+self._text_JTextComponent = t;
+}
+
+void setEditable_JTextComponent_boolean(Object self, bit b, bit logging) {
+self._editable_JTextComponent = b;
+}
+
+Object getMargin_JTextComponent(Object self, bit logging) {
+
+return self._margin_JTextComponent;
+}
+
+void setMargin_JTextComponent_Insets(Object self, Object m, bit logging) {
+self._margin_JTextComponent = m;
+}

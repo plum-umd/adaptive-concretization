@@ -1,0 +1,11 @@
+package MouseEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object MouseEvent_MouseEvent_Object_int(Object self, Object source, int id) {
+InputEvent_InputEvent_Object_int(self, source, id);
+constructorInOne_AuxAccessor1_int_Object_Object_int(176, self, source, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(176, self, id, 1, false);
+return self;
+}

@@ -1,0 +1,10 @@
+package JToggleButton;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JToggleButton_JToggleButton_String(Object self, char[51] text) {
+AbstractButton_AbstractButton(self);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(120, self, text, 0, false);
+return self;
+}

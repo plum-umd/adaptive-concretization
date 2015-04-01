@@ -1,0 +1,65 @@
+#define HEAPSIZE 4
+#define LOCVARSIZE 4
+#define INTVARSIZE 2
+
+pragma options "--bnd-inbits 3 --bnd-inline-amnt 4 --bnd-unroll-amnt 4";
+
+include "sll_header.sk";
+
+
+
+harness void prepend(int[LOCVARSIZE] llocvars, int[INTVARSIZE] lintvars, int[HEAPSIZE] lnext, int[HEAPSIZE] lkey, bit[HEAPSIZE] lsymbolic, bit[HEAPSIZE] lactive) {
+	locvars = llocvars;
+	intvars = lintvars;
+	next = lnext;
+	key = lkey;
+	symbolic = lsymbolic;
+	active = lactive;
+	
+	/* assumption about variables */
+	assume locvars[0] == 0;
+	assume locvars[1]>=0 && locvars[1]<HEAPSIZE;
+	assume locvars[2]>=0 && locvars[2]<HEAPSIZE;
+	assume locvars[3]>=0 && locvars[3]<HEAPSIZE;
+
+	
+	/* assumption about heap */
+	assume(next[0] == 0);
+	assume(key[0] == 0);
+	assume(!symbolic[0]);	
+	assume(active[0]);	
+	
+	for (int idx = 1; idx < HEAPSIZE; idx++) {
+		assume(next[idx]>=0 && next[idx]<HEAPSIZE);
+		assume (len(idx, ts) > 0);
+		assume (min(idx, ts) <= max(idx, ts));
+	}
+	
+	assume(treeness(locvars[1]));
+	assume(sll_comp(locvars[1]));
+	
+	assume(intvars[0] <= min_comp(locvars[1]));
+	
+	int old_len = len_comp(locvars[1]);
+	int old_k = intvars[0];
+	
+	block(3, 0);
+	
+	/*statement();
+	statement();
+	statement();*/
+	
+	/*malloc();
+	locMutate();
+	intMutate();*/
+	
+	int ret = ??(2);
+	
+	assertPost(treeness(locvars[ret]));
+	if (treeness(locvars[ret])) {
+		assertPost(sll_comp(locvars[ret]));
+		assertPost(len_comp(locvars[ret]) == old_len + 1);
+		assertPost(min_comp(locvars[ret]) == old_k);
+	}
+	
+}

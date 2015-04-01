@@ -1,0 +1,18 @@
+package StringBuffer;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object StringBuffer_StringBuffer_String(Object self, char[51] str) {
+self.value_StringBuffer = str;
+sconstructorInOne_AuxAccessor1_int_Object_String_int(38, self, str, 0, false);
+return self;
+}
+void setCharAt_StringBuffer_int_char(Object self, int i, char c, bit logging) {
+self.value_StringBuffer[i] = c;
+}
+
+char[51] toString_StringBuffer(Object self, bit logging) {
+return self.value_StringBuffer;
+return sgetterInOne_AuxAccessor1_int_Object(40, self, false);
+}

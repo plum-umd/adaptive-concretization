@@ -1,0 +1,328 @@
+int W = 8;
+
+generator int rulefunc2(int y1,int y2,int y3,int bnd){
+assert(bnd>0);
+if(??) return y3;
+if(??) return y2;
+if(??) return y1;
+if(??) return 3;
+if(??) return 2;
+if(??) return 1;
+if(??) return 0;
+int fzrna1 = rulefunc2(y1,y2,y3,bnd-1);
+if(??) return fzrna1;
+int fzrna2 = rulefunc2(y1,y2,y3,bnd-1);
+if(??) return addfn(fzrna1,fzrna2);
+bit llvhb1 = rulefunc1(y1,y2,y3,bnd-1);
+if(??) return iteIntfn(llvhb1,fzrna1,fzrna2);
+assert false;
+}
+
+generator bit rulefunc1(int y1,int y2,int y3,int bnd){
+assert(bnd>0);
+int axizg1 = rulefunc2(y1,y2,y3,bnd-1);
+int axizg2 = rulefunc2(y1,y2,y3,bnd-1);
+if(??) return gtefn(axizg1,axizg2);
+if(??) return gtfn(axizg1,axizg2);
+if(??) return ltefn(axizg1,axizg2);
+if(??) return ltfn(axizg1,axizg2);
+assert false;
+}
+
+@Native("(define-fun findSum ((y1 Int) (y2 Int) (y3 Int)) Int")
+int findSum (int y1,int y2,int y3){
+return rulefunc2(y1,y2,y3,BND);}
+
+harness void main(int x3,int x2,int x1){
+assert impliesfn(and(ltefn(addfn(x1,x2),5),ltefn(addfn(x2,x3),5)),eqIntfn(findSum(x1,x2,x3),0));
+assert impliesfn(and(ltefn(addfn(x1,x2),5),gtfn(addfn(x2,x3),5)),eqIntfn(findSum(x1,x2,x3),addfn(x2,x3)));
+assert impliesfn(gtfn(addfn(x1,x2),5),eqIntfn(findSum(x1,x2,x3),addfn(x1,x2)));
+}
+
+int addfn(int x, int y){
+  return x + y;
+}
+
+int subfn(int x, int y){
+  return x - y;
+}
+
+int multfn(int x, int y){
+  return x * y;
+}
+
+int divfn(int x, int y){
+  return x / y;
+}
+
+bit ltefn(int x, int y){
+  return x <= y;
+}
+
+bit ltfn(int x, int y){
+  return x < y;
+}
+
+bit gtefn(int x, int y){
+  return x >= y;
+}
+
+bit gtfn(int x, int y){
+  return x > y;
+}
+
+bit eqIntfn(int x, int y){
+  return x == y;
+}
+
+bit eqBitfn(bit x, bit y){
+  return x == y;
+}
+
+bit eqBvfn(bit[W] x, bit[W] y){
+  for(int i=0; i<W; i++)
+    if(x[i] != y[i]) return 0;
+  return 1;
+}
+
+int iteIntfn(bit c, int x, int y){
+  if(c) return x;
+  else return y;
+}
+
+bit[W] iteBVfn(bit c, bit[W] x, bit[W] y){
+  if(c) return x;
+  else return y;
+}
+
+
+bit and(bit x, bit y){
+  if(x == 0) return 0;
+  if(y == 0) return 0;
+  return 1;
+}
+
+bit or(bit x, bit y){
+  if(x == 1) return 1;
+  if(y == 1) return 1;
+  return 0;
+}
+
+bit not(bit x){
+  if(x == 0) return 1;
+  return 0;
+}
+
+bit xor(bit x, bit y){
+  if(x == y) return 0;
+  else return 1;
+}
+
+bit nand(bit x, bit y){
+  if(x==1 && y==1) return 0;
+  return 1;
+}
+
+bit nor(bit x, bit y){
+  if(x==0 && y==0) return 1;
+  return 0;
+}
+
+bit impliesfn(bit x, bit y){
+  if(x && !y) return 0;
+  return 1;
+}
+
+bit[W] bvand(bit[W] x, bit[W] y){
+  return x & y;
+}
+
+bit[W] bvor(bit[W] x, bit[W] y){
+  return x | y;
+}
+
+bit[W] bvxor(bit[W] x, bit[W] y){
+  return x ^ y;
+}
+
+bit[W] bvxnor(bit[W] x, bit[W] y){
+  return ~(x ^ y);
+}
+
+bit[W] bvnand(bit[W] x, bit[W] y){
+  return ~(x & y);
+}
+
+bit[W] bvnor(bit[W] x, bit[W] y){
+  return ~(x | y);
+}
+
+bit[W] bvadd(bit[W] x, bit[W] y){
+  return x + y;
+}
+
+bit[W] bvsub(bit[W] x, bit[W] y){
+  return (x + ~y + 1);
+}
+
+
+bit[W] bvlshr(bit[W] x, bit[W] k){
+  int v = bv2nat(k);
+  return x >> v;
+}
+
+bit[W] bvashr(bit[W] x, bit[W] k){
+  int v = bv2nat(k);
+  bit[W] out = 0;
+  bit cbit = x[W-1];
+  for(int i=0; i< W-v; i++)
+    out[i] = x[v+i];
+  for(int i=W-v; i < W; i++)
+    out[i] = cbit;
+  return out;
+}
+
+bit[W] bvshl(bit[W] x, bit[W] k){
+  int v = bv2nat(k);
+  return x << v;
+}
+
+
+bit bvule(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]<y[i]) return 1;
+    if(x[i]>y[i]) return 0;
+  }   
+  return 1;
+}
+
+bit bvult(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]<y[i]) return 1;
+    if(x[i]>y[i]) return 0;
+  }   
+  return 0;
+}
+
+bit bvuge(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]>y[i]) return 1;
+    if(x[i]<y[i]) return 0;
+  }   
+  return 1;
+}
+
+bit bvugt(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]>y[i]) return 1;
+    if(x[i]<y[i]) return 0;
+  }   
+  return 0;
+}
+
+bit bvsle(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]<y[i]) return 1;
+    if(x[i]>y[i]) return 0;
+  }   
+  return 1;
+}
+
+bit bvslt(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]<y[i]) return 1;
+    if(x[i]>y[i]) return 0;
+  }   
+  return 0;
+}
+
+bit bvsge(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]>y[i]) return 1;
+    if(x[i]<y[i]) return 0;
+  }   
+  return 1;
+}
+
+bit bvsgt(bit[W] x, bit[W] y){
+  for(int i=W-1; i>=0; i--){
+    if(x[i]>y[i]) return 1;
+    if(x[i]<y[i]) return 0;
+  }   
+  return 0;
+}
+
+
+int bv2nat(bit[W] x){
+  int res = 0;
+  int pow = 1;
+  for(int i=0;i<4;i++) {res += x[i]*pow; pow=pow*2;}
+  return res;
+}
+
+bit[W] nat2bv(int x){
+  bit[W] res = 0;
+  for(int i=0; i<W; i++){
+    int rem = x % 2;
+    if(rem == 1) res[i] = 1;
+    else res[i] = 0;
+    x = x /2;
+  }
+  return res;
+}
+
+bit[W] bvmul(bit[W] x, bit[W] y){
+  int xnat = bv2nat(x);
+  int ynat = bv2nat(y);
+  return nat2bv(xnat*ynat);
+}
+
+bit[W] bvudiv(bit[W] x, bit[W] y){
+  int xnat = bv2nat(x);
+  int ynat = bv2nat(y);
+  return nat2bv(xnat/ynat);
+}
+
+bit[W] bvsdiv(bit[W] x, bit[W] y){
+  int xnat = bv2nat(x);
+  int ynat = bv2nat(y);
+  return nat2bv(xnat/ynat);
+}
+bit[W] bvurem(bit[W] x, bit[W] y){
+  int xnat = bv2nat(x);
+  int ynat = bv2nat(y);
+  return nat2bv(xnat%ynat);
+}
+
+bit[W] bvsrem(bit[W] x, bit[W] y){
+  int xnat = bv2nat(x);
+  int ynat = bv2nat(y);
+  return nat2bv(xnat%ynat);
+}
+
+bit[W] bvnot(bit[W] x){
+  return ~x;
+}
+
+bit[W] bvneg(bit[W] x){
+  return (~x + 1);
+}
+
+bit bvcomp(bit[W] x, bit[W] y){
+  for(int i=0; i<W; i++){
+    if(x[i] != y[i]) return 0;
+  }
+  return 1;
+}
+
+bit bvredor(bit[W] x){
+  bit res = 0;
+  for(int i=0; i< W; i++) res = res | x[i];
+  return res;
+}
+
+bit bvredand(bit[W] x){
+  bit res = 1;
+  for(int i=0; i< W; i++) res = res & x[i];
+  return res;
+}

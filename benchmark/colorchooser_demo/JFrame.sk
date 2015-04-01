@@ -1,0 +1,51 @@
+package JFrame;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  int EXIT_ON_CLOSE = 3;
+
+      int EXIT_ON_CLOSE_JFrame() { return EXIT_ON_CLOSE; }
+    Object JFrame_JFrame_String(Object self, char[51] name) {
+Frame_Frame(self);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(82, self, name, 0, false);
+return self;
+}
+Object getContentPane_JFrame(Object self, bit logging) {
+
+return getterInOne_AuxAccessor1_int_Object(83, self, false);
+}
+
+void setContentPane_JFrame_Container(Object self, Object p, bit logging) {
+
+      int[P] params = { setContentPane_JFrame_Container_ent(), self.hash, p.hash };
+      if (logging) check_log@log(params);
+    setterInOne_AuxAccessor1_int_Object_Object(84, self, p, false);
+      params = { setContentPane_JFrame_Container_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+int getDefaultCloseOperation_JFrame(Object self, bit logging) {
+
+return igetterInOne_AuxAccessor1_int_Object(85, self, false);
+}
+
+void setDefaultCloseOperation_JFrame_int(Object self, int operation, bit logging) {
+
+      int[P] params = { setDefaultCloseOperation_JFrame_int_ent(), self.hash, operation };
+      if (logging) check_log@log(params);
+    isetterInOne_AuxAccessor1_int_Object_int(86, self, operation, false);
+      params = { setDefaultCloseOperation_JFrame_int_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+Object getJMenuBar_JFrame(Object self, bit logging) {
+
+return getterInOne_AuxAccessor1_int_Object(87, self, false);
+}
+
+void setJMenuBar_JFrame_JMenuBar(Object self, Object menubar, bit logging) {
+setterInOne_AuxAccessor1_int_Object_Object(88, self, menubar, false);
+}

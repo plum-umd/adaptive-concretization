@@ -1,0 +1,28 @@
+package JColorChooser;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JColorChooser_JColorChooser(Object self) {
+JComponent_JComponent(self);
+self._selectionmodel_JColorChooser = DefaultColorSelectionModel_DefaultColorSelectionModel(alloc@log(62));
+self._color_JColorChooser = Color_Color(alloc@log(6));
+return self;
+}
+Object getSelectionModel_JColorChooser(Object self, bit logging) {
+
+return self._selectionmodel_JColorChooser;
+}
+
+void setSelectionModel_JColorChooser_ColorSelectionModel(Object self, Object newModel, bit logging) {
+self._selectionmodel_JColorChooser = newModel;
+}
+
+Object getColor_JColorChooser(Object self, bit logging) {
+
+return self._color_JColorChooser;
+}
+
+void setColor_JColorChooser_Color(Object self, Object color, bit logging) {
+self._color_JColorChooser = color;
+}

@@ -1,0 +1,17 @@
+package AbstractDocument;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object AbstractDocument_AbstractDocument(Object self) {
+
+return self;
+}
+int getLength_AbstractDocument(Object self, bit logging) {
+
+return igetterInOne_AuxAccessor1_int_Object(142, self, false);
+}
+
+char[51] getText_AbstractDocument_int_int(Object self, int offset, int length, bit logging) {
+
+}

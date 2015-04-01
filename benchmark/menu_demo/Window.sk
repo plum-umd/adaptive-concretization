@@ -1,0 +1,23 @@
+package Window;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object Window_Window(Object self) {
+
+Container_Container(self);
+return self;
+}
+void pack_Window(Object self, bit logging) {
+call_adaptee_AuxAccessor1_int_AuxAccessor1(24, self, false);
+}
+
+void setSize_Window_int_int(Object self, int width, int height, bit logging) {
+
+      int[P] params = { setSize_Window_int_int_ent(), self.hash, width, height };
+      if (logging) check_log@log(params);
+    
+      params = { setSize_Window_int_int_ext() };
+      if (logging) check_log@log(params);
+    
+}

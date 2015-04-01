@@ -1,0 +1,24 @@
+package BorderLayout;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  char[51] CENTER = "Center";
+char[51] LINE_START = "Before";
+char[51] PAGE_END = "Last";
+char[51] PAGE_START = "First";
+
+      char[51] CENTER_BorderLayout() { return CENTER; }
+    
+      char[51] LINE_START_BorderLayout() { return LINE_START; }
+    
+      char[51] PAGE_END_BorderLayout() { return PAGE_END; }
+    
+      char[51] PAGE_START_BorderLayout() { return PAGE_START; }
+    Object BorderLayout_BorderLayout(Object self) {
+
+return self;
+}
+void addLayoutComponent_BorderLayout_String_Component(Object self, char[51] name, Object comp, bit logging) {
+
+}

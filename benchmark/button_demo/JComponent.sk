@@ -1,0 +1,23 @@
+package JComponent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object JComponent_JComponent(Object self) {
+
+Container_Container(self);
+return self;
+}
+void setOpaque_JComponent_boolean(Object self, bit isOpaque, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(75, self, isOpaque, false);
+}
+
+void setToolTipText_JComponent_String(Object self, char[51] text, bit logging) {
+
+      int[P] params = { setToolTipText_JComponent_String_ent(), self.hash };
+      if (logging) check_log@log(params);
+    ssetterInOne_AuxAccessor1_int_Object_String(76, self, text, false);
+      params = { setToolTipText_JComponent_String_ext() };
+      if (logging) check_log@log(params);
+    
+}

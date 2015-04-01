@@ -1,0 +1,26 @@
+package JMenu;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JMenu_JMenu(Object self) {
+JMenuItem_JMenuItem(self);
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+
+Object JMenu_JMenu_String(Object self, char[51] s) {
+JMenuItem_JMenuItem_String(self, s);
+self._accessiblecontext_JMenuItem = AccessibleContext_AccessibleContext(alloc@log(2));
+return self;
+}
+Object getAccessibleContext_JMenu(Object self, bit logging) {
+
+      int[P] params = { getAccessibleContext_JMenu_ent(), self.hash };
+      if (logging) check_log@log(params);
+    
+      params = { getAccessibleContext_JMenu_ext(), self._accessiblecontext_JMenuItem.hash };
+      if (logging) check_log@log(params);
+    
+return self._accessiblecontext_JMenuItem;
+}

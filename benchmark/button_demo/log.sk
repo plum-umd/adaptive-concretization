@@ -1,0 +1,815 @@
+package log;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  int O = 26; // # of objects
+
+    int log_cnt = 0;
+    int[P][N] ev;
+    int[O] obj;
+
+    // to enforce the length of logs
+    int get_log_cnt() {
+      return log_cnt;
+    }
+
+    // after writing logs, reset the cursor in order to check logs in order
+    void reset_log_cnt() {
+      log_cnt = 0;
+    }
+
+    // to clean up the logs totally
+    void clear_log() {
+      reset_log_cnt();
+      ev = {};
+      obj = {};
+    }
+
+    // to write the log from samples
+    void write_log (int[P] params) {
+      ev[log_cnt++] = params;
+    }
+
+    // to check whether control-flow conforms to the samples
+    @Native("{ std::cout << \"log::check_log::\" << params[0] << std::endl; }")
+    void check_log (int[P] params) {
+      assert params[0] == ev[log_cnt][0]; // check mid
+      for (int i = 1; i < P; i++) {
+        if (ev[log_cnt][i] != 0) {
+          if (obj[ev[log_cnt][i]] == 0) { // not set yet
+            obj[ev[log_cnt][i]] = params[i];
+          }
+          else { // o.w. check obj eq.
+            assert obj[ev[log_cnt][i]] == params[i];
+          }
+        }
+      }
+      log_cnt++; // advance
+    }
+
+    // distinct hash values for runtime objects
+    int obj_cnt = 0;
+    int nonce () {
+      return obj_cnt++;
+    }
+  
+      int obj_JButton_cnt = 0;
+      Object[O] obj_JButton;
+
+      // to register runtime instances of JButton
+      void register_JButton (Object jbutton) {
+        if (obj_JButton_cnt < O) {
+          obj_JButton[obj_JButton_cnt++] = jbutton;
+        }
+      }
+
+      // to access to a certain instance of JButton
+      Object retrieve_JButton (int idx) {
+        if (0 <= idx && idx < obj_JButton_cnt) {
+          return obj_JButton[idx];
+        }
+        else {
+          return null;
+        }
+      }
+    
+    // factory of Object
+    Object alloc(int ty) {
+      Object self = new Object(hash=nonce());
+      if (ty == 35) register_JButton@log(self);
+      return self;
+    }
+  
+// distinct class IDs
+int ButtonDemo_1 () { return 72; }
+int AWTKeyStroke () { return 4; }
+int JTextArea () { return 51; }
+int JRadioButtonMenuItem () { return 48; }
+int Container () { return 8; }
+int JComponent () { return 40; }
+int ImageIcon () { return 34; }
+int StringBuffer () { return 29; }
+int ActionListener () { return 18; }
+int BorderFactory () { return 31; }
+int AuxObserver1 () { return 80; }
+int Window () { return 16; }
+int JPanel () { return 47; }
+int ItemSelectable () { return 13; }
+int AuxAccessor1 () { return 79; }
+int JLabel () { return 43; }
+int Document () { return 67; }
+int ButtonDemo () { return 71; }
+int SwingConstants () { return 56; }
+int BorderLayout () { return 5; }
+int JTextComponent () { return 68; }
+int ComponentEvent () { return 19; }
+int SwingUtilities () { return 57; }
+int MouseEvent () { return 26; }
+int Object () { return 0; }
+int Component () { return 7; }
+int JComboBox () { return 39; }
+int JToggleButton () { return 53; }
+int Insets () { return 12; }
+int JMenuBar () { return 45; }
+int ColorSelectionModel () { return 61; }
+int ListSelectionEvent () { return 65; }
+int Graphics () { return 11; }
+int LayoutManager () { return 14; }
+int Icon () { return 33; }
+int JCheckBoxMenuItem () { return 37; }
+int JCheckBox () { return 36; }
+int Main () { return 78; }
+int Runnable () { return 28; }
+int ItemEvent () { return 23; }
+int JToolBar () { return 54; }
+int FocusEvent () { return 20; }
+int InputEvent () { return 21; }
+int JScrollPane () { return 49; }
+int EmptyBorder () { return 60; }
+int JFrame () { return 42; }
+int ButtonGroup () { return 32; }
+int JMenuItem () { return 46; }
+int JColorChooser () { return 38; }
+int KeyStroke () { return 55; }
+int JButton () { return 35; }
+int JMenu () { return 44; }
+int Accessible () { return 1; }
+int ChangeEvent () { return 63; }
+int KeyEvent () { return 25; }
+int Color () { return 6; }
+int Border () { return 59; }
+int Frame () { return 10; }
+int Toolkit () { return 15; }
+int EventObject () { return 70; }
+int AWTEvent () { return 3; }
+int AccessibleContext () { return 2; }
+int DefaultColorSelectionModel () { return 62; }
+int InvocationEvent () { return 22; }
+int AbstractBorder () { return 58; }
+int File () { return 27; }
+int EventQueue () { return 9; }
+int AbstractDocument () { return 66; }
+int ActionEvent () { return 17; }
+int JSplitPane () { return 50; }
+int JTextField () { return 52; }
+int AbstractButton () { return 30; }
+int PlainDocument () { return 69; }
+int JFileChooser () { return 41; }
+
+// distinct method IDs
+
+        int Object_Object_ent () { return  222; }
+        int Object_Object_ext () { return -222; }
+      
+        int getAccessibleContext_Accessible_ent () { return  0; }
+        int getAccessibleContext_Accessible_ext () { return -0; }
+      
+        int setAccessibleDescription_AccessibleContext_String_ent () { return  1; }
+        int setAccessibleDescription_AccessibleContext_String_ext () { return -1; }
+      
+        int AccessibleContext_AccessibleContext_ent () { return  165; }
+        int AccessibleContext_AccessibleContext_ext () { return -165; }
+      
+        int AWTEvent_AWTEvent_Object_int_ent () { return  2; }
+        int AWTEvent_AWTEvent_Object_int_ext () { return -2; }
+      
+        int AWTKeyStroke_AWTKeyStroke_ent () { return  3; }
+        int AWTKeyStroke_AWTKeyStroke_ext () { return -3; }
+      
+        int BorderLayout_BorderLayout_ent () { return  4; }
+        int BorderLayout_BorderLayout_ext () { return -4; }
+      
+        int addLayoutComponent_BorderLayout_String_Component_ent () { return  5; }
+        int addLayoutComponent_BorderLayout_String_Component_ext () { return -5; }
+      
+        int Color_Color_ent () { return  166; }
+        int Color_Color_ext () { return -166; }
+      
+        int Component_Component_ent () { return  6; }
+        int Component_Component_ext () { return -6; }
+      
+        int isEnabled_Component_ent () { return  7; }
+        int isEnabled_Component_ext () { return -7; }
+      
+        int setEnabled_Component_boolean_ent () { return  8; }
+        int setEnabled_Component_boolean_ext () { return -8; }
+      
+        int isVisible_Component_ent () { return  9; }
+        int isVisible_Component_ext () { return -9; }
+      
+        int setVisible_Component_boolean_ent () { return  10; }
+        int setVisible_Component_boolean_ext () { return -10; }
+      
+        int add_Container_Component_ent () { return  11; }
+        int add_Container_Component_ext () { return -11; }
+      
+        int Container_Container_ent () { return  167; }
+        int Container_Container_ext () { return -167; }
+      
+        int dispatchEvent_EventQueue_EventObject_ent () { return  12; }
+        int dispatchEvent_EventQueue_EventObject_ext () { return -12; }
+      
+        int getNextEvent_EventQueue_ent () { return  13; }
+        int getNextEvent_EventQueue_ext () { return -13; }
+      
+        int postEvent_EventQueue_EventObject_ent () { return  14; }
+        int postEvent_EventQueue_EventObject_ext () { return -14; }
+      
+        int invokeLater_EventQueue_Runnable_ent () { return  15; }
+        int invokeLater_EventQueue_Runnable_ext () { return -15; }
+      
+        int EventQueue_EventQueue_ent () { return  168; }
+        int EventQueue_EventQueue_ext () { return -168; }
+      
+        int Frame_Frame_ent () { return  169; }
+        int Frame_Frame_ext () { return -169; }
+      
+        int setColor_Graphics_Color_ent () { return  16; }
+        int setColor_Graphics_Color_ext () { return -16; }
+      
+        int translate_Graphics_int_int_ent () { return  17; }
+        int translate_Graphics_int_int_ext () { return -17; }
+      
+        int Graphics_Graphics_ent () { return  170; }
+        int Graphics_Graphics_ext () { return -170; }
+      
+        int Insets_Insets_int_int_int_int_ent () { return  18; }
+        int Insets_Insets_int_int_int_int_ext () { return -18; }
+      
+        int addLayoutComponent_LayoutManager_String_Component_ent () { return  21; }
+        int addLayoutComponent_LayoutManager_String_Component_ext () { return -21; }
+      
+        int getDefaultToolkit_Toolkit_ent () { return  22; }
+        int getDefaultToolkit_Toolkit_ext () { return -22; }
+      
+        int getSystemEventQueue_Toolkit_ent () { return  23; }
+        int getSystemEventQueue_Toolkit_ext () { return -23; }
+      
+        int Toolkit_Toolkit_ent () { return  171; }
+        int Toolkit_Toolkit_ext () { return -171; }
+      
+        int pack_Window_ent () { return  24; }
+        int pack_Window_ext () { return -24; }
+      
+        int setSize_Window_int_int_ent () { return  25; }
+        int setSize_Window_int_int_ext () { return -25; }
+      
+        int Window_Window_ent () { return  172; }
+        int Window_Window_ext () { return -172; }
+      
+        int ActionEvent_ActionEvent_Object_int_String_ent () { return  26; }
+        int ActionEvent_ActionEvent_Object_int_String_ext () { return -26; }
+      
+        int getActionCommand_ActionEvent_ent () { return  27; }
+        int getActionCommand_ActionEvent_ext () { return -27; }
+      
+        int actionPerformed_ActionListener_ActionEvent_ent () { return  28; }
+        int actionPerformed_ActionListener_ActionEvent_ext () { return -28; }
+      
+        int ComponentEvent_ComponentEvent_Object_int_ent () { return  173; }
+        int ComponentEvent_ComponentEvent_Object_int_ext () { return -173; }
+      
+        int FocusEvent_FocusEvent_Object_int_ent () { return  174; }
+        int FocusEvent_FocusEvent_Object_int_ext () { return -174; }
+      
+        int InputEvent_InputEvent_Object_int_ent () { return  175; }
+        int InputEvent_InputEvent_Object_int_ext () { return -175; }
+      
+        int InvocationEvent_InvocationEvent_Object_Runnable_ent () { return  29; }
+        int InvocationEvent_InvocationEvent_Object_Runnable_ext () { return -29; }
+      
+        int dispatch_InvocationEvent_ent () { return  30; }
+        int dispatch_InvocationEvent_ext () { return -30; }
+      
+        int ItemEvent_ItemEvent_ItemSelectable_int_Object_int_ent () { return  31; }
+        int ItemEvent_ItemEvent_ItemSelectable_int_Object_int_ext () { return -31; }
+      
+        int getItemSelectable_ItemEvent_ent () { return  32; }
+        int getItemSelectable_ItemEvent_ext () { return -32; }
+      
+        int getStateChange_ItemEvent_ent () { return  33; }
+        int getStateChange_ItemEvent_ext () { return -33; }
+      
+        int KeyEvent_KeyEvent_Object_int_ent () { return  176; }
+        int KeyEvent_KeyEvent_Object_int_ext () { return -176; }
+      
+        int MouseEvent_MouseEvent_Object_int_ent () { return  177; }
+        int MouseEvent_MouseEvent_Object_int_ext () { return -177; }
+      
+        int File_File_String_ent () { return  35; }
+        int File_File_String_ext () { return -35; }
+      
+        int getName_File_ent () { return  36; }
+        int getName_File_ext () { return -36; }
+      
+        int run_Runnable_ent () { return  37; }
+        int run_Runnable_ext () { return -37; }
+      
+        int StringBuffer_StringBuffer_String_ent () { return  38; }
+        int StringBuffer_StringBuffer_String_ext () { return -38; }
+      
+        int setCharAt_StringBuffer_int_char_ent () { return  39; }
+        int setCharAt_StringBuffer_int_char_ext () { return -39; }
+      
+        int toString_StringBuffer_ent () { return  40; }
+        int toString_StringBuffer_ext () { return -40; }
+      
+        int AbstractButton_AbstractButton_ent () { return  41; }
+        int AbstractButton_AbstractButton_ext () { return -41; }
+      
+        int dispatchEvent_AbstractButton_AWTEvent_ent () { return  42; }
+        int dispatchEvent_AbstractButton_AWTEvent_ext () { return -42; }
+      
+        int addActionListener_AbstractButton_ActionListener_ent () { return  43; }
+        int addActionListener_AbstractButton_ActionListener_ext () { return -43; }
+      
+        int removeActionListener_AbstractButton_ActionListener_ent () { return  44; }
+        int removeActionListener_AbstractButton_ActionListener_ext () { return -44; }
+      
+        int setVerticalTextPosition_AbstractButton_int_ent () { return  47; }
+        int setVerticalTextPosition_AbstractButton_int_ext () { return -47; }
+      
+        int setHorizontalTextPosition_AbstractButton_int_ent () { return  48; }
+        int setHorizontalTextPosition_AbstractButton_int_ext () { return -48; }
+      
+        int setMnemonic_AbstractButton_int_ent () { return  49; }
+        int setMnemonic_AbstractButton_int_ext () { return -49; }
+      
+        int getActionCommand_AbstractButton_ent () { return  50; }
+        int getActionCommand_AbstractButton_ext () { return -50; }
+      
+        int setActionCommand_AbstractButton_String_ent () { return  51; }
+        int setActionCommand_AbstractButton_String_ext () { return -51; }
+      
+        int setSelected_AbstractButton_boolean_ent () { return  52; }
+        int setSelected_AbstractButton_boolean_ext () { return -52; }
+      
+        int createEmptyBorder_BorderFactory_int_int_int_int_ent () { return  53; }
+        int createEmptyBorder_BorderFactory_int_int_int_int_ext () { return -53; }
+      
+        int BorderFactory_BorderFactory_ent () { return  178; }
+        int BorderFactory_BorderFactory_ext () { return -178; }
+      
+        int ButtonGroup_ButtonGroup_ent () { return  54; }
+        int ButtonGroup_ButtonGroup_ext () { return -54; }
+      
+        int add_ButtonGroup_AbstractButton_ent () { return  55; }
+        int add_ButtonGroup_AbstractButton_ext () { return -55; }
+      
+        int getIconHeight_Icon_ent () { return  56; }
+        int getIconHeight_Icon_ext () { return -56; }
+      
+        int getIconWidth_Icon_ent () { return  57; }
+        int getIconWidth_Icon_ext () { return -57; }
+      
+        int getIconHeight_ImageIcon_ent () { return  58; }
+        int getIconHeight_ImageIcon_ext () { return -58; }
+      
+        int getIconWidth_ImageIcon_ent () { return  59; }
+        int getIconWidth_ImageIcon_ext () { return -59; }
+      
+        int ImageIcon_ImageIcon_ent () { return  179; }
+        int ImageIcon_ImageIcon_ext () { return -179; }
+      
+        int JButton_JButton_String_Icon_ent () { return  60; }
+        int JButton_JButton_String_Icon_ext () { return -60; }
+      
+        int JCheckBox_JCheckBox_String_ent () { return  61; }
+        int JCheckBox_JCheckBox_String_ext () { return -61; }
+      
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_ent () { return  180; }
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_ext () { return -180; }
+      
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_Icon_ent () { return  181; }
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_Icon_ext () { return -181; }
+      
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_ent () { return  182; }
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_ext () { return -182; }
+      
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_Icon_ent () { return  183; }
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_Icon_ext () { return -183; }
+      
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_int_ent () { return  184; }
+        int JCheckBoxMenuItem_JCheckBoxMenuItem_String_int_ext () { return -184; }
+      
+        int JColorChooser_JColorChooser_ent () { return  62; }
+        int JColorChooser_JColorChooser_ext () { return -62; }
+      
+        int getSelectionModel_JColorChooser_ent () { return  63; }
+        int getSelectionModel_JColorChooser_ext () { return -63; }
+      
+        int setSelectionModel_JColorChooser_ColorSelectionModel_ent () { return  64; }
+        int setSelectionModel_JColorChooser_ColorSelectionModel_ext () { return -64; }
+      
+        int getColor_JColorChooser_ent () { return  65; }
+        int getColor_JColorChooser_ext () { return -65; }
+      
+        int setColor_JColorChooser_Color_ent () { return  66; }
+        int setColor_JColorChooser_Color_ext () { return -66; }
+      
+        int JComboBox_JComboBox_ent () { return  67; }
+        int JComboBox_JComboBox_ext () { return -67; }
+      
+        int dispatchEvent_JComboBox_AWTEvent_ent () { return  68; }
+        int dispatchEvent_JComboBox_AWTEvent_ext () { return -68; }
+      
+        int addActionListener_JComboBox_ActionListener_ent () { return  69; }
+        int addActionListener_JComboBox_ActionListener_ext () { return -69; }
+      
+        int removeActionListener_JComboBox_ActionListener_ent () { return  70; }
+        int removeActionListener_JComboBox_ActionListener_ext () { return -70; }
+      
+        int getSelectedIndex_JComboBox_ent () { return  73; }
+        int getSelectedIndex_JComboBox_ext () { return -73; }
+      
+        int setSelectedIndex_JComboBox_int_ent () { return  74; }
+        int setSelectedIndex_JComboBox_int_ext () { return -74; }
+      
+        int setOpaque_JComponent_boolean_ent () { return  75; }
+        int setOpaque_JComponent_boolean_ext () { return -75; }
+      
+        int setToolTipText_JComponent_String_ent () { return  76; }
+        int setToolTipText_JComponent_String_ext () { return -76; }
+      
+        int JComponent_JComponent_ent () { return  185; }
+        int JComponent_JComponent_ext () { return -185; }
+      
+        int getSelectedFile_JFileChooser_ent () { return  77; }
+        int getSelectedFile_JFileChooser_ext () { return -77; }
+      
+        int setDialogType_JFileChooser_int_ent () { return  78; }
+        int setDialogType_JFileChooser_int_ext () { return -78; }
+      
+        int showDialog_JFileChooser_Component_String_ent () { return  79; }
+        int showDialog_JFileChooser_Component_String_ext () { return -79; }
+      
+        int showOpenDialog_JFileChooser_Component_ent () { return  80; }
+        int showOpenDialog_JFileChooser_Component_ext () { return -80; }
+      
+        int showSaveDialog_JFileChooser_Component_ent () { return  81; }
+        int showSaveDialog_JFileChooser_Component_ext () { return -81; }
+      
+        int JFileChooser_JFileChooser_ent () { return  186; }
+        int JFileChooser_JFileChooser_ext () { return -186; }
+      
+        int JFrame_JFrame_String_ent () { return  82; }
+        int JFrame_JFrame_String_ext () { return -82; }
+      
+        int getContentPane_JFrame_ent () { return  83; }
+        int getContentPane_JFrame_ext () { return -83; }
+      
+        int setContentPane_JFrame_Container_ent () { return  84; }
+        int setContentPane_JFrame_Container_ext () { return -84; }
+      
+        int getDefaultCloseOperation_JFrame_ent () { return  85; }
+        int getDefaultCloseOperation_JFrame_ext () { return -85; }
+      
+        int setDefaultCloseOperation_JFrame_int_ent () { return  86; }
+        int setDefaultCloseOperation_JFrame_int_ext () { return -86; }
+      
+        int getJMenuBar_JFrame_ent () { return  87; }
+        int getJMenuBar_JFrame_ext () { return -87; }
+      
+        int setJMenuBar_JFrame_JMenuBar_ent () { return  88; }
+        int setJMenuBar_JFrame_JMenuBar_ext () { return -88; }
+      
+        int setIcon_JLabel_Icon_ent () { return  89; }
+        int setIcon_JLabel_Icon_ext () { return -89; }
+      
+        int setText_JLabel_String_ent () { return  90; }
+        int setText_JLabel_String_ext () { return -90; }
+      
+        int setHorizontalAlignment_JLabel_int_ent () { return  91; }
+        int setHorizontalAlignment_JLabel_int_ext () { return -91; }
+      
+        int JLabel_JLabel_ent () { return  187; }
+        int JLabel_JLabel_ext () { return -187; }
+      
+        int JMenu_JMenu_ent () { return  92; }
+        int JMenu_JMenu_ext () { return -92; }
+      
+        int JMenu_JMenu_String_ent () { return  93; }
+        int JMenu_JMenu_String_ext () { return -93; }
+      
+        int getAccessibleContext_JMenu_ent () { return  94; }
+        int getAccessibleContext_JMenu_ext () { return -94; }
+      
+        int JMenuBar_JMenuBar_ent () { return  95; }
+        int JMenuBar_JMenuBar_ext () { return -95; }
+      
+        int JMenuItem_JMenuItem_ent () { return  96; }
+        int JMenuItem_JMenuItem_ext () { return -96; }
+      
+        int JMenuItem_JMenuItem_Icon_ent () { return  97; }
+        int JMenuItem_JMenuItem_Icon_ext () { return -97; }
+      
+        int JMenuItem_JMenuItem_String_ent () { return  98; }
+        int JMenuItem_JMenuItem_String_ext () { return -98; }
+      
+        int JMenuItem_JMenuItem_String_Icon_ent () { return  99; }
+        int JMenuItem_JMenuItem_String_Icon_ext () { return -99; }
+      
+        int JMenuItem_JMenuItem_String_int_ent () { return  100; }
+        int JMenuItem_JMenuItem_String_int_ext () { return -100; }
+      
+        int addSeparator_JMenuItem_ent () { return  101; }
+        int addSeparator_JMenuItem_ext () { return -101; }
+      
+        int getAccelerator_JMenuItem_ent () { return  102; }
+        int getAccelerator_JMenuItem_ext () { return -102; }
+      
+        int setAccelerator_JMenuItem_KeyStroke_ent () { return  103; }
+        int setAccelerator_JMenuItem_KeyStroke_ext () { return -103; }
+      
+        int getAccessibleContext_JMenuItem_ent () { return  104; }
+        int getAccessibleContext_JMenuItem_ext () { return -104; }
+      
+        int JPanel_JPanel_ent () { return  105; }
+        int JPanel_JPanel_ext () { return -105; }
+      
+        int JPanel_JPanel_LayoutManager_ent () { return  106; }
+        int JPanel_JPanel_LayoutManager_ext () { return -106; }
+      
+        int JRadioButtonMenuItem_JRadioButtonMenuItem_String_ent () { return  107; }
+        int JRadioButtonMenuItem_JRadioButtonMenuItem_String_ext () { return -107; }
+      
+        int JScrollPane_JScrollPane_JComponent_ent () { return  108; }
+        int JScrollPane_JScrollPane_JComponent_ext () { return -108; }
+      
+        int JSplitPane_JSplitPane_int_ent () { return  109; }
+        int JSplitPane_JSplitPane_int_ext () { return -109; }
+      
+        int resetToPreferredSizes_JSplitPane_ent () { return  110; }
+        int resetToPreferredSizes_JSplitPane_ext () { return -110; }
+      
+        int setContinuousLayout_JSplitPane_boolean_ent () { return  111; }
+        int setContinuousLayout_JSplitPane_boolean_ext () { return -111; }
+      
+        int setOneTouchExpandable_JSplitPane_boolean_ent () { return  112; }
+        int setOneTouchExpandable_JSplitPane_boolean_ext () { return -112; }
+      
+        int JTextArea_JTextArea_ent () { return  113; }
+        int JTextArea_JTextArea_ext () { return -113; }
+      
+        int JTextArea_JTextArea_Document_ent () { return  114; }
+        int JTextArea_JTextArea_Document_ext () { return -114; }
+      
+        int JTextArea_JTextArea_Document_String_int_int_ent () { return  115; }
+        int JTextArea_JTextArea_Document_String_int_int_ext () { return -115; }
+      
+        int JTextArea_JTextArea_int_int_ent () { return  116; }
+        int JTextArea_JTextArea_int_int_ext () { return -116; }
+      
+        int append_JTextArea_String_ent () { return  117; }
+        int append_JTextArea_String_ext () { return -117; }
+      
+        int JTextField_JTextField_String_ent () { return  118; }
+        int JTextField_JTextField_String_ext () { return -118; }
+      
+        int setColumns_JTextField_int_ent () { return  119; }
+        int setColumns_JTextField_int_ext () { return -119; }
+      
+        int JToggleButton_JToggleButton_String_ent () { return  120; }
+        int JToggleButton_JToggleButton_String_ext () { return -120; }
+      
+        int JToolBar_JToolBar_String_ent () { return  121; }
+        int JToolBar_JToolBar_String_ext () { return -121; }
+      
+        int addSeparator_JToolBar_ent () { return  122; }
+        int addSeparator_JToolBar_ext () { return -122; }
+      
+        int setFloatable_JToolBar_boolean_ent () { return  123; }
+        int setFloatable_JToolBar_boolean_ext () { return -123; }
+      
+        int setRollover_JToolBar_boolean_ent () { return  124; }
+        int setRollover_JToolBar_boolean_ext () { return -124; }
+      
+        int getKeyStroke_KeyStroke_int_int_ent () { return  125; }
+        int getKeyStroke_KeyStroke_int_int_ext () { return -125; }
+      
+        int KeyStroke_KeyStroke_ent () { return  188; }
+        int KeyStroke_KeyStroke_ext () { return -188; }
+      
+        int invokeLater_SwingUtilities_Runnable_ent () { return  126; }
+        int invokeLater_SwingUtilities_Runnable_ext () { return -126; }
+      
+        int SwingUtilities_SwingUtilities_ent () { return  189; }
+        int SwingUtilities_SwingUtilities_ext () { return -189; }
+      
+        int AbstractBorder_AbstractBorder_ent () { return  127; }
+        int AbstractBorder_AbstractBorder_ext () { return -127; }
+      
+        int getBorderInsets_AbstractBorder_Component_ent () { return  128; }
+        int getBorderInsets_AbstractBorder_Component_ext () { return -128; }
+      
+        int getBorderInsets_Border_Component_ent () { return  129; }
+        int getBorderInsets_Border_Component_ext () { return -129; }
+      
+        int EmptyBorder_EmptyBorder_int_int_int_int_ent () { return  130; }
+        int EmptyBorder_EmptyBorder_int_int_int_int_ext () { return -130; }
+      
+        int getSelectedColor_ColorSelectionModel_ent () { return  133; }
+        int getSelectedColor_ColorSelectionModel_ext () { return -133; }
+      
+        int setSelectedColor_ColorSelectionModel_Color_ent () { return  134; }
+        int setSelectedColor_ColorSelectionModel_Color_ext () { return -134; }
+      
+        int fireStateChanged_DefaultColorSelectionModel_ChangeEvent_ent () { return  136; }
+        int fireStateChanged_DefaultColorSelectionModel_ChangeEvent_ext () { return -136; }
+      
+        int getSelectedColor_DefaultColorSelectionModel_ent () { return  138; }
+        int getSelectedColor_DefaultColorSelectionModel_ext () { return -138; }
+      
+        int setSelectedColor_DefaultColorSelectionModel_Color_ent () { return  139; }
+        int setSelectedColor_DefaultColorSelectionModel_Color_ext () { return -139; }
+      
+        int DefaultColorSelectionModel_DefaultColorSelectionModel_ent () { return  190; }
+        int DefaultColorSelectionModel_DefaultColorSelectionModel_ext () { return -190; }
+      
+        int ChangeEvent_ChangeEvent_Object_ent () { return  191; }
+        int ChangeEvent_ChangeEvent_Object_ext () { return -191; }
+      
+        int ListSelectionEvent_ListSelectionEvent_Object_int_int_boolean_ent () { return  141; }
+        int ListSelectionEvent_ListSelectionEvent_Object_int_int_boolean_ext () { return -141; }
+      
+        int getLength_AbstractDocument_ent () { return  142; }
+        int getLength_AbstractDocument_ext () { return -142; }
+      
+        int getText_AbstractDocument_int_int_ent () { return  143; }
+        int getText_AbstractDocument_int_int_ext () { return -143; }
+      
+        int AbstractDocument_AbstractDocument_ent () { return  192; }
+        int AbstractDocument_AbstractDocument_ext () { return -192; }
+      
+        int getLength_Document_ent () { return  144; }
+        int getLength_Document_ext () { return -144; }
+      
+        int getText_Document_int_int_ent () { return  145; }
+        int getText_Document_int_int_ext () { return -145; }
+      
+        int JTextComponent_JTextComponent_ent () { return  146; }
+        int JTextComponent_JTextComponent_ext () { return -146; }
+      
+        int getCaretPosition_JTextComponent_ent () { return  147; }
+        int getCaretPosition_JTextComponent_ext () { return -147; }
+      
+        int setCaretPosition_JTextComponent_int_ent () { return  148; }
+        int setCaretPosition_JTextComponent_int_ext () { return -148; }
+      
+        int getDocument_JTextComponent_ent () { return  149; }
+        int getDocument_JTextComponent_ext () { return -149; }
+      
+        int setDocument_JTextComponent_Document_ent () { return  150; }
+        int setDocument_JTextComponent_Document_ext () { return -150; }
+      
+        int getText_JTextComponent_ent () { return  151; }
+        int getText_JTextComponent_ext () { return -151; }
+      
+        int setText_JTextComponent_String_ent () { return  152; }
+        int setText_JTextComponent_String_ext () { return -152; }
+      
+        int setEditable_JTextComponent_boolean_ent () { return  153; }
+        int setEditable_JTextComponent_boolean_ext () { return -153; }
+      
+        int getMargin_JTextComponent_ent () { return  154; }
+        int getMargin_JTextComponent_ext () { return -154; }
+      
+        int setMargin_JTextComponent_Insets_ent () { return  155; }
+        int setMargin_JTextComponent_Insets_ext () { return -155; }
+      
+        int PlainDocument_PlainDocument_ent () { return  193; }
+        int PlainDocument_PlainDocument_ext () { return -193; }
+      
+        int EventObject_EventObject_Object_ent () { return  156; }
+        int EventObject_EventObject_Object_ext () { return -156; }
+      
+        int getSource_EventObject_ent () { return  157; }
+        int getSource_EventObject_ext () { return -157; }
+      
+        int ButtonDemo_ButtonDemo_ent () { return  158; }
+        int ButtonDemo_ButtonDemo_ext () { return -158; }
+      
+        int actionPerformed_ButtonDemo_ActionEvent_ent () { return  159; }
+        int actionPerformed_ButtonDemo_ActionEvent_ext () { return -159; }
+      
+        int createImageIcon_ButtonDemo_String_ent () { return  160; }
+        int createImageIcon_ButtonDemo_String_ext () { return -160; }
+      
+        int createAndShowGUI_ButtonDemo_ent () { return  161; }
+        int createAndShowGUI_ButtonDemo_ext () { return -161; }
+      
+        int main_ButtonDemo_ent () { return  162; }
+        int main_ButtonDemo_ext () { return -162; }
+      
+        int run_ButtonDemo_1_ent () { return  163; }
+        int run_ButtonDemo_1_ext () { return -163; }
+      
+        int sample1_Main_ent () { return  164; }
+        int sample1_Main_ext () { return -164; }
+      
+        int Main_Main_ent () { return  194; }
+        int Main_Main_ext () { return -194; }
+      
+        int call_adaptee_AuxAccessor1_int_AuxAccessor1_ent () { return  196; }
+        int call_adaptee_AuxAccessor1_int_AuxAccessor1_ext () { return -196; }
+      
+        int checkRange_AuxAccessor1_ent () { return  195; }
+        int checkRange_AuxAccessor1_ext () { return -195; }
+      
+        int checkJButtonGetterParam_AuxAccessor1_ent () { return  197; }
+        int checkJButtonGetterParam_AuxAccessor1_ext () { return -197; }
+      
+        int checkJButtonSetterParam_AuxAccessor1_ent () { return  198; }
+        int checkJButtonSetterParam_AuxAccessor1_ext () { return -198; }
+      
+        int checkItemEventGetterParam_AuxAccessor1_ent () { return  199; }
+        int checkItemEventGetterParam_AuxAccessor1_ext () { return -199; }
+      
+        int checkEventObjectGetterParam_AuxAccessor1_ent () { return  200; }
+        int checkEventObjectGetterParam_AuxAccessor1_ext () { return -200; }
+      
+        int checkActionEventGetterParam_AuxAccessor1_ent () { return  201; }
+        int checkActionEventGetterParam_AuxAccessor1_ext () { return -201; }
+      
+        int get_AuxAccessor1_int_Object_int_ent () { return  202; }
+        int get_AuxAccessor1_int_Object_int_ext () { return -202; }
+      
+        int iget_AuxAccessor1_int_Object_int_ent () { return  203; }
+        int iget_AuxAccessor1_int_Object_int_ext () { return -203; }
+      
+        int bget_AuxAccessor1_int_Object_int_ent () { return  204; }
+        int bget_AuxAccessor1_int_Object_int_ext () { return -204; }
+      
+        int sget_AuxAccessor1_int_Object_int_ent () { return  205; }
+        int sget_AuxAccessor1_int_Object_int_ext () { return -205; }
+      
+        int getterInOne_AuxAccessor1_int_Object_ent () { return  206; }
+        int getterInOne_AuxAccessor1_int_Object_ext () { return -206; }
+      
+        int igetterInOne_AuxAccessor1_int_Object_ent () { return  207; }
+        int igetterInOne_AuxAccessor1_int_Object_ext () { return -207; }
+      
+        int bgetterInOne_AuxAccessor1_int_Object_ent () { return  208; }
+        int bgetterInOne_AuxAccessor1_int_Object_ext () { return -208; }
+      
+        int sgetterInOne_AuxAccessor1_int_Object_ent () { return  209; }
+        int sgetterInOne_AuxAccessor1_int_Object_ext () { return -209; }
+      
+        int set_AuxAccessor1_int_Object_int_Object_ent () { return  210; }
+        int set_AuxAccessor1_int_Object_int_Object_ext () { return -210; }
+      
+        int iset_AuxAccessor1_int_Object_int_int_ent () { return  211; }
+        int iset_AuxAccessor1_int_Object_int_int_ext () { return -211; }
+      
+        int bset_AuxAccessor1_int_Object_int_boolean_ent () { return  212; }
+        int bset_AuxAccessor1_int_Object_int_boolean_ext () { return -212; }
+      
+        int sset_AuxAccessor1_int_Object_int_String_ent () { return  213; }
+        int sset_AuxAccessor1_int_Object_int_String_ext () { return -213; }
+      
+        int setterInOne_AuxAccessor1_int_Object_Object_ent () { return  214; }
+        int setterInOne_AuxAccessor1_int_Object_Object_ext () { return -214; }
+      
+        int isetterInOne_AuxAccessor1_int_Object_int_ent () { return  215; }
+        int isetterInOne_AuxAccessor1_int_Object_int_ext () { return -215; }
+      
+        int bsetterInOne_AuxAccessor1_int_Object_boolean_ent () { return  216; }
+        int bsetterInOne_AuxAccessor1_int_Object_boolean_ext () { return -216; }
+      
+        int ssetterInOne_AuxAccessor1_int_Object_String_ent () { return  217; }
+        int ssetterInOne_AuxAccessor1_int_Object_String_ext () { return -217; }
+      
+        int constructorInOne_AuxAccessor1_int_Object_Object_int_ent () { return  218; }
+        int constructorInOne_AuxAccessor1_int_Object_Object_int_ext () { return -218; }
+      
+        int iconstructorInOne_AuxAccessor1_int_Object_int_int_ent () { return  219; }
+        int iconstructorInOne_AuxAccessor1_int_Object_int_int_ext () { return -219; }
+      
+        int bconstructorInOne_AuxAccessor1_int_Object_boolean_int_ent () { return  220; }
+        int bconstructorInOne_AuxAccessor1_int_Object_boolean_int_ext () { return -220; }
+      
+        int sconstructorInOne_AuxAccessor1_int_Object_String_int_ent () { return  221; }
+        int sconstructorInOne_AuxAccessor1_int_Object_String_int_ext () { return -221; }
+      
+        int checkRule1_AuxObserver1_ent () { return  223; }
+        int checkRule1_AuxObserver1_ext () { return -223; }
+      
+        int checkRule2_AuxObserver1_ent () { return  224; }
+        int checkRule2_AuxObserver1_ext () { return -224; }
+      
+        int reflect_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent_ent () { return  225; }
+        int reflect_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent_ext () { return -225; }
+      
+        int attachCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ent () { return  226; }
+        int attachCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ext () { return -226; }
+      
+        int detachCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ent () { return  227; }
+        int detachCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ext () { return -227; }
+      
+        int handleCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ent () { return  228; }
+        int handleCode_AuxObserver1_AuxObserver1_AuxObserver1_ActionEvent_ext () { return -228; }
+      
+        int subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent_ent () { return  229; }
+        int subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent_ext () { return -229; }
+      

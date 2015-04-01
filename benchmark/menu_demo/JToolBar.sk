@@ -1,0 +1,22 @@
+package JToolBar;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JToolBar_JToolBar_String(Object self, char[51] name) {
+JComponent_JComponent(self);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(121, self, name, 0, false);
+return self;
+}
+void addSeparator_JToolBar(Object self, bit logging) {
+Object separator = JComponent_JComponent(alloc@log(40));
+call_adaptee_AuxAccessor1_int_AuxAccessor1(122, self, false);
+}
+
+void setFloatable_JToolBar_boolean(Object self, bit b, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(123, self, b, false);
+}
+
+void setRollover_JToolBar_boolean(Object self, bit rollover, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(124, self, rollover, false);
+}

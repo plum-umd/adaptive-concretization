@@ -1,0 +1,10 @@
+package Frame;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object Frame_Frame(Object self) {
+
+Window_Window(self);
+return self;
+}

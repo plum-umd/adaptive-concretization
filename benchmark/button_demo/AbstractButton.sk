@@ -1,0 +1,88 @@
+package AbstractButton;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  Object AbstractButton_AbstractButton(Object self) {
+JComponent_JComponent(self);
+Object __tmp___AuxObserver1 = self;
+__tmp___AuxObserver1._obs_AuxObserver1 = new List_Object();
+return self;
+}
+void dispatchEvent_AbstractButton_AWTEvent(Object self, Object event, bit logging) {
+int event_k = event.kind_EventObject;
+if (event_k == 9) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(42, self, null, event, false);
+}
+setterInOne_AuxAccessor1_int_Object_Object(42, self, event, false);
+}
+
+void addActionListener_AbstractButton_ActionListener(Object self, Object l, bit logging) {
+
+      int[P] params = { addActionListener_AbstractButton_ActionListener_ent(), self.hash, l.hash };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(43, self, l, null, false);
+setterInOne_AuxAccessor1_int_Object_Object(43, self, l, false);
+      params = { addActionListener_AbstractButton_ActionListener_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void removeActionListener_AbstractButton_ActionListener(Object self, Object l, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(44, self, l, null, false);
+setterInOne_AuxAccessor1_int_Object_Object(44, self, l, false);
+}
+
+void setVerticalTextPosition_AbstractButton_int(Object self, int textPosition, bit logging) {
+
+      int[P] params = { setVerticalTextPosition_AbstractButton_int_ent(), self.hash, textPosition };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(47, self, null, null, false);
+isetterInOne_AuxAccessor1_int_Object_int(47, self, textPosition, false);
+      params = { setVerticalTextPosition_AbstractButton_int_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void setHorizontalTextPosition_AbstractButton_int(Object self, int textPosition, bit logging) {
+
+      int[P] params = { setHorizontalTextPosition_AbstractButton_int_ent(), self.hash, textPosition };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(48, self, null, null, false);
+isetterInOne_AuxAccessor1_int_Object_int(48, self, textPosition, false);
+      params = { setHorizontalTextPosition_AbstractButton_int_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void setMnemonic_AbstractButton_int(Object self, int mnemonic, bit logging) {
+
+      int[P] params = { setMnemonic_AbstractButton_int_ent(), self.hash, mnemonic };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(49, self, null, null, false);
+isetterInOne_AuxAccessor1_int_Object_int(49, self, mnemonic, false);
+      params = { setMnemonic_AbstractButton_int_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+char[51] getActionCommand_AbstractButton(Object self, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(50, self, null, null, false);
+return sgetterInOne_AuxAccessor1_int_Object(50, self, false);
+}
+
+void setActionCommand_AbstractButton_String(Object self, char[51] actionCommand, bit logging) {
+
+      int[P] params = { setActionCommand_AbstractButton_String_ent(), self.hash };
+      if (logging) check_log@log(params);
+    subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(51, self, null, null, false);
+ssetterInOne_AuxAccessor1_int_Object_String(51, self, actionCommand, false);
+      params = { setActionCommand_AbstractButton_String_ext() };
+      if (logging) check_log@log(params);
+    
+}
+
+void setSelected_AbstractButton_boolean(Object self, bit b, bit logging) {
+subjectCall_AuxObserver1_int_AuxObserver1_AuxObserver1_ActionEvent(52, self, null, null, false);
+bsetterInOne_AuxAccessor1_int_Object_boolean(52, self, b, false);
+}

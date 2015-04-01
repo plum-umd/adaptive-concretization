@@ -1,0 +1,13 @@
+package ListSelectionEvent;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object ListSelectionEvent_ListSelectionEvent_Object_int_int_boolean(Object self, Object source, int firstIndex, int lastIndex, bit isAdjusting) {
+EventObject_EventObject_Object(self, source);
+constructorInOne_AuxAccessor1_int_Object_Object_int(141, self, source, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(141, self, firstIndex, 1, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(141, self, lastIndex, 2, false);
+bconstructorInOne_AuxAccessor1_int_Object_boolean_int(141, self, isAdjusting, 3, false);
+return self;
+}

@@ -1,0 +1,36 @@
+package JTextArea;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object JTextArea_JTextArea(Object self) {
+
+JTextComponent_JTextComponent(self);
+return self;
+}
+
+Object JTextArea_JTextArea_Document(Object self, Object doc) {
+JTextComponent_JTextComponent(self);
+constructorInOne_AuxAccessor1_int_Object_Object_int(114, self, doc, 0, false);
+return self;
+}
+
+Object JTextArea_JTextArea_Document_String_int_int(Object self, Object doc, char[51] text, int rows, int columns) {
+JTextComponent_JTextComponent(self);
+constructorInOne_AuxAccessor1_int_Object_Object_int(115, self, doc, 0, false);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(115, self, text, 1, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(115, self, rows, 2, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(115, self, columns, 3, false);
+return self;
+}
+
+Object JTextArea_JTextArea_int_int(Object self, int rows, int columns) {
+JTextComponent_JTextComponent(self);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(116, self, rows, 0, false);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(116, self, columns, 1, false);
+return self;
+}
+void append_JTextArea_String(Object self, char[51] str, bit logging) {
+setText_JTextComponent_String(self, str, false);
+ssetterInOne_AuxAccessor1_int_Object_String(117, self, str, false);
+}

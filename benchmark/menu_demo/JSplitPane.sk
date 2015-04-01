@@ -1,0 +1,25 @@
+package JSplitPane;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  int HORIZONTAL_SPLIT = 1;
+
+      int HORIZONTAL_SPLIT_JSplitPane() { return HORIZONTAL_SPLIT; }
+    Object JSplitPane_JSplitPane_int(Object self, int newOrientation) {
+JComponent_JComponent(self);
+iconstructorInOne_AuxAccessor1_int_Object_int_int(109, self, newOrientation, 0, false);
+return self;
+}
+void resetToPreferredSizes_JSplitPane(Object self, bit logging) {
+int _neworientation = 0;
+call_adaptee_AuxAccessor1_int_AuxAccessor1(110, self, false);
+}
+
+void setContinuousLayout_JSplitPane_boolean(Object self, bit newContinuousLayout, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(111, self, newContinuousLayout, false);
+}
+
+void setOneTouchExpandable_JSplitPane_boolean(Object self, bit newValue, bit logging) {
+bsetterInOne_AuxAccessor1_int_Object_boolean(112, self, newValue, false);
+}

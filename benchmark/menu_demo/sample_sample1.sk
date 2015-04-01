@@ -1,0 +1,437 @@
+harness void sample1 () {
+
+    clear_log@log();
+    int[P] log = { 0 };
+  
+      log = (int[P]){ main_MenuDemo_ent() };
+      write_log@log(log);
+    
+      log = (int[P]){ invokeLater_SwingUtilities_Runnable_ent(), 1 };
+      write_log@log(log);
+    
+      log = (int[P]){ invokeLater_SwingUtilities_Runnable_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ main_MenuDemo_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ run_MenuDemo_1_ent(), 1 };
+      write_log@log(log);
+    
+      log = (int[P]){ createAndShowGUI_MenuDemo_ent() };
+      write_log@log(log);
+    
+      log = (int[P]){ setDefaultCloseOperation_JFrame_int_ent(), 2, 3 };
+      write_log@log(log);
+    
+      log = (int[P]){ setDefaultCloseOperation_JFrame_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ createMenuBar_MenuDemo_ent(), 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 5, 6 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenu_ent(), 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenu_ext(), 7 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ent(), 7, 8 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 9, 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ getKeyStroke_KeyStroke_int_int_ent(), 10, 11 };
+      write_log@log(log);
+    
+      log = (int[P]){ getKeyStroke_KeyStroke_int_int_ext(), 12 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccelerator_JMenuItem_KeyStroke_ent(), 13, 12 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccelerator_JMenuItem_KeyStroke_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenuItem_ent(), 13 };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenuItem_ext(), 14 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ent(), 14, 15 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 13, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 13 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 13 };
+      write_log@log(log);
+    
+      log = (int[P]){ createImageIcon_MenuDemo_String_ent(), 16 };
+      write_log@log(log);
+    
+      log = (int[P]){ createImageIcon_MenuDemo_String_ext(), 17 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 18, 19 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 18, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 18 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 18 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 20, 21 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 20, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 20 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 20 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ent(), 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setSelected_AbstractButton_boolean_ent(), 22, 23 };
+      write_log@log(log);
+    
+      log = (int[P]){ setSelected_AbstractButton_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 22, 24 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_ButtonGroup_AbstractButton_ent(), 25, 22 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_ButtonGroup_AbstractButton_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 22, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 22 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 22 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 26, 27 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_ButtonGroup_AbstractButton_ent(), 25, 26 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_ButtonGroup_AbstractButton_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 26, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 26 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 26 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ent(), 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 28, 29 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addItemListener_AbstractButton_ItemListener_ent(), 28, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addItemListener_AbstractButton_ItemListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 28 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 28 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 30, 31 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addItemListener_AbstractButton_ItemListener_ent(), 30, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addItemListener_AbstractButton_ItemListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 30 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 30 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ent(), 5 };
+      write_log@log(log);
+    
+      log = (int[P]){ addSeparator_JMenuItem_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 32, 33 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getKeyStroke_KeyStroke_int_int_ent(), 34, 11 };
+      write_log@log(log);
+    
+      log = (int[P]){ getKeyStroke_KeyStroke_int_int_ext(), 35 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccelerator_JMenuItem_KeyStroke_ent(), 36, 35 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccelerator_JMenuItem_KeyStroke_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 36, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 32, 36 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 36 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ent(), 37, 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ addActionListener_AbstractButton_ActionListener_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 32, 37 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 37 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 5, 32 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 32 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ent(), 38, 39 };
+      write_log@log(log);
+    
+      log = (int[P]){ setMnemonic_AbstractButton_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenu_ent(), 38 };
+      write_log@log(log);
+    
+      log = (int[P]){ getAccessibleContext_JMenu_ext(), 40 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ent(), 40, 41 };
+      write_log@log(log);
+    
+      log = (int[P]){ setAccessibleDescription_AccessibleContext_String_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 9, 38 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext(), 38 };
+      write_log@log(log);
+    
+      log = (int[P]){ createMenuBar_MenuDemo_ext(), 9 };
+      write_log@log(log);
+    
+      log = (int[P]){ setJMenuBar_JFrame_JMenuBar_ent(), 2, 9 };
+      write_log@log(log);
+    
+      log = (int[P]){ setJMenuBar_JFrame_JMenuBar_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ createContentPane_MenuDemo_ent(), 4 };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ent(), 42, 23 };
+      write_log@log(log);
+    
+      log = (int[P]){ setOpaque_JComponent_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setEditable_JTextComponent_boolean_ent(), 43, 44 };
+      write_log@log(log);
+    
+      log = (int[P]){ setEditable_JTextComponent_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ent(), 42, 45, 46 };
+      write_log@log(log);
+    
+      log = (int[P]){ add_Container_Component_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ createContentPane_MenuDemo_ext(), 42 };
+      write_log@log(log);
+    
+      log = (int[P]){ setContentPane_JFrame_Container_ent(), 2, 42 };
+      write_log@log(log);
+    
+      log = (int[P]){ setContentPane_JFrame_Container_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setSize_Window_int_int_ent(), 2, 47, 48 };
+      write_log@log(log);
+    
+      log = (int[P]){ setSize_Window_int_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ setVisible_Component_boolean_ent(), 2, 23 };
+      write_log@log(log);
+    
+      log = (int[P]){ setVisible_Component_boolean_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ createAndShowGUI_MenuDemo_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ run_MenuDemo_1_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ actionPerformed_MenuDemo_ActionEvent_ent(), 4, 49 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSource_EventObject_ent(), 49 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSource_EventObject_ext(), 18 };
+      write_log@log(log);
+    
+      log = (int[P]){ append_JTextArea_String_ent(), 43, 50 };
+      write_log@log(log);
+    
+      log = (int[P]){ append_JTextArea_String_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getDocument_JTextComponent_ent(), 43 };
+      write_log@log(log);
+    
+      log = (int[P]){ getDocument_JTextComponent_ext(), 51 };
+      write_log@log(log);
+    
+      log = (int[P]){ setCaretPosition_JTextComponent_int_ent(), 43, 52 };
+      write_log@log(log);
+    
+      log = (int[P]){ setCaretPosition_JTextComponent_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ actionPerformed_MenuDemo_ActionEvent_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ itemStateChanged_MenuDemo_ItemEvent_ent(), 4, 53 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSource_EventObject_ent(), 53 };
+      write_log@log(log);
+    
+      log = (int[P]){ getSource_EventObject_ext(), 28 };
+      write_log@log(log);
+    
+      log = (int[P]){ append_JTextArea_String_ent(), 43, 54 };
+      write_log@log(log);
+    
+      log = (int[P]){ append_JTextArea_String_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ getDocument_JTextComponent_ent(), 43 };
+      write_log@log(log);
+    
+      log = (int[P]){ getDocument_JTextComponent_ext(), 51 };
+      write_log@log(log);
+    
+      log = (int[P]){ setCaretPosition_JTextComponent_int_ent(), 43, 55 };
+      write_log@log(log);
+    
+      log = (int[P]){ setCaretPosition_JTextComponent_int_ext() };
+      write_log@log(log);
+    
+      log = (int[P]){ itemStateChanged_MenuDemo_ItemEvent_ext() };
+      write_log@log(log);
+    
+    int len_log = get_log_cnt@log();
+    reset_log_cnt@log();
+  
+  sample1_Main(false);
+assert len_log == get_log_cnt@log();
+}

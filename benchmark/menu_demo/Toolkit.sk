@@ -1,0 +1,22 @@
+package Toolkit;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object defaultToolkit;
+Object Toolkit_Toolkit(Object self) {
+
+self._systemeventqueue_Toolkit = EventQueue_EventQueue(alloc@log(9));
+return self;
+}
+Object getDefaultToolkit_Toolkit(bit logging) {
+if (defaultToolkit == null) {
+defaultToolkit = Toolkit_Toolkit(alloc@log(15));
+}
+return defaultToolkit;
+}
+
+Object getSystemEventQueue_Toolkit(Object self, bit logging) {
+
+return self._systemeventqueue_Toolkit;
+}

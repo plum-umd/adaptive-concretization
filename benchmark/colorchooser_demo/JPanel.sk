@@ -1,0 +1,16 @@
+package JPanel;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 38; // length of logs
+  Object JPanel_JPanel(Object self) {
+
+JComponent_JComponent(self);
+return self;
+}
+
+Object JPanel_JPanel_LayoutManager(Object self, Object layout) {
+JComponent_JComponent(self);
+constructorInOne_AuxAccessor1_int_Object_Object_int(106, self, layout, 0, false);
+return self;
+}

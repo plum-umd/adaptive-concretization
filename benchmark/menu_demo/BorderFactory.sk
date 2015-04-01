@@ -1,0 +1,13 @@
+package BorderFactory;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object BorderFactory_BorderFactory(Object self) {
+
+return self;
+}
+Object createEmptyBorder_BorderFactory_int_int_int_int(int top, int left, int bottom, int right, bit logging) {
+Object obj = EmptyBorder_EmptyBorder_int_int_int_int(alloc@log(60), top, left, bottom, right);
+return obj;
+}

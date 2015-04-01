@@ -1,0 +1,20 @@
+package Container;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object Container_Container(Object self) {
+
+Component_Component(self);
+return self;
+}
+Object add_Container_Component(Object self, Object comp, bit logging) {
+
+      int[P] params = { add_Container_Component_ent(), self.hash, comp.hash };
+      if (logging) check_log@log(params);
+    
+      params = { add_Container_Component_ext(), comp.hash };
+      if (logging) check_log@log(params);
+    
+return comp;
+}

@@ -1,0 +1,10 @@
+package JRadioButtonMenuItem;
+
+    int P = 4; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 150; // length of logs
+  Object JRadioButtonMenuItem_JRadioButtonMenuItem_String(Object self, char[51] text) {
+JMenuItem_JMenuItem_String(self, text);
+sconstructorInOne_AuxAccessor1_int_Object_String_int(107, self, text, 0, false);
+return self;
+}

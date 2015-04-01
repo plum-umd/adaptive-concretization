@@ -1,0 +1,513 @@
+package AuxAccessor1;
+
+    int P = 3; // length of parameters (0: (>|<)mid, 1: receiver, 2...)
+    int S = 5; // length of arrays for Java collections
+    int N = 82; // length of logs
+  int gs_field_JButton_0_AuxAccessor1 = ??;
+int gs_field_ItemEvent_0_AuxAccessor1 = ??;
+int gs_field_ItemEvent_1_AuxAccessor1 = ??;
+int gs_field_EventObject_0_AuxAccessor1 = ??;
+int gs_field_ActionEvent_0_AuxAccessor1 = ??;
+int accessor_InvocationEvent_AuxAccessor1 = {| 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 15 | 16 | 17 | 19 | 20 | 21 | 22 | 23 | 25 | 26 | 27 | 29 | 30 | 31 | 32 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 57 | 58 | 60 | 62 | 63 | 65 | 66 | 68 | 69 | 70 | 71 | 78 |};
+int accessor_JButton_AuxAccessor1 = {| 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 15 | 16 | 17 | 19 | 20 | 21 | 22 | 23 | 25 | 26 | 27 | 29 | 30 | 31 | 32 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 57 | 58 | 60 | 62 | 63 | 65 | 66 | 68 | 69 | 70 | 71 | 78 |};
+int accessor_ItemEvent_AuxAccessor1 = {| 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 15 | 16 | 17 | 19 | 20 | 21 | 22 | 23 | 25 | 26 | 27 | 29 | 30 | 31 | 32 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 57 | 58 | 60 | 62 | 63 | 65 | 66 | 68 | 69 | 70 | 71 | 78 |};
+int accessor_EventObject_AuxAccessor1 = {| 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 15 | 16 | 17 | 19 | 20 | 21 | 22 | 23 | 25 | 26 | 27 | 29 | 30 | 31 | 32 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 57 | 58 | 60 | 62 | 63 | 65 | 66 | 68 | 69 | 70 | 71 | 78 |};
+int accessor_ActionEvent_AuxAccessor1 = {| 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 15 | 16 | 17 | 19 | 20 | 21 | 22 | 23 | 25 | 26 | 27 | 29 | 30 | 31 | 32 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 57 | 58 | 60 | 62 | 63 | 65 | 66 | 68 | 69 | 70 | 71 | 78 |};
+int getter_JButton_0_AuxAccessor1 = {| 94 | 102 | 104 | 7 | 9 | 13 | 50 | 23 | 27 | 32 | 33 | 36 | 40 | 50 | 58 | 59 | 58 | 59 | 63 | 65 | 73 | 77 | 83 | 85 | 87 | 94 | 102 | 104 | 50 | 138 | 138 | 142 | 142 | 147 | 149 | 151 | 154 | 157 |};
+int setter_JButton_0_AuxAccessor1 = {| 103 | 1 | 8 | 10 | 12 | 14 | 16 | 42 | 43 | 44 | 47 | 48 | 49 | 51 | 52 | 159 | 42 | 43 | 44 | 47 | 48 | 49 | 51 | 52 | 55 | 64 | 66 | 68 | 69 | 70 | 74 | 75 | 76 | 78 | 84 | 86 | 88 | 89 | 90 | 91 | 103 | 111 | 112 | 117 | 119 | 123 | 124 | 42 | 43 | 44 | 47 | 48 | 49 | 51 | 52 | 89 | 90 | 91 | 136 | 139 | 136 | 139 | 148 | 150 | 152 | 153 | 155 | 159 |};
+int getter_ItemEvent_0_AuxAccessor1 = {| 94 | 102 | 104 | 7 | 9 | 13 | 50 | 23 | 27 | 32 | 33 | 36 | 40 | 50 | 58 | 59 | 58 | 59 | 63 | 65 | 73 | 77 | 83 | 85 | 87 | 94 | 102 | 104 | 50 | 138 | 138 | 142 | 142 | 147 | 149 | 151 | 154 | 157 |};
+int getter_ItemEvent_1_AuxAccessor1 = {| 94 | 102 | 104 | 7 | 9 | 13 | 50 | 23 | 27 | 32 | 33 | 36 | 40 | 50 | 58 | 59 | 58 | 59 | 63 | 65 | 73 | 77 | 83 | 85 | 87 | 94 | 102 | 104 | 50 | 138 | 138 | 142 | 142 | 147 | 149 | 151 | 154 | 157 |};
+int getter_EventObject_0_AuxAccessor1 = {| 94 | 102 | 104 | 7 | 9 | 13 | 50 | 23 | 27 | 32 | 33 | 36 | 40 | 50 | 58 | 59 | 58 | 59 | 63 | 65 | 73 | 77 | 83 | 85 | 87 | 94 | 102 | 104 | 50 | 138 | 138 | 142 | 142 | 147 | 149 | 151 | 154 | 157 |};
+int getter_ActionEvent_0_AuxAccessor1 = {| 94 | 102 | 104 | 7 | 9 | 13 | 50 | 23 | 27 | 32 | 33 | 36 | 40 | 50 | 58 | 59 | 58 | 59 | 63 | 65 | 73 | 77 | 83 | 85 | 87 | 94 | 102 | 104 | 50 | 138 | 138 | 142 | 142 | 147 | 149 | 151 | 154 | 157 |};
+int cons_InvocationEvent_AuxAccessor1 = {| 165 | 2 | 3 | 4 | 166 | 6 | 167 | 168 | 169 | 170 | 18 | 171 | 172 | 26 | 173 | 174 | 175 | 29 | 31 | 176 | 177 | 35 | 38 | 41 | 178 | 54 | 179 | 60 | 61 | 180 | 181 | 182 | 183 | 184 | 62 | 67 | 185 | 186 | 82 | 187 | 92 | 93 | 95 | 96 | 97 | 98 | 99 | 100 | 105 | 106 | 107 | 108 | 109 | 113 | 114 | 115 | 116 | 118 | 120 | 121 | 188 | 189 | 127 | 130 | 190 | 191 | 141 | 192 | 146 | 193 | 156 | 158 | 194 |};
+int cons_JButton_AuxAccessor1 = {| 165 | 2 | 3 | 4 | 166 | 6 | 167 | 168 | 169 | 170 | 18 | 171 | 172 | 26 | 173 | 174 | 175 | 29 | 31 | 176 | 177 | 35 | 38 | 41 | 178 | 54 | 179 | 60 | 61 | 180 | 181 | 182 | 183 | 184 | 62 | 67 | 185 | 186 | 82 | 187 | 92 | 93 | 95 | 96 | 97 | 98 | 99 | 100 | 105 | 106 | 107 | 108 | 109 | 113 | 114 | 115 | 116 | 118 | 120 | 121 | 188 | 189 | 127 | 130 | 190 | 191 | 141 | 192 | 146 | 193 | 156 | 158 | 194 |};
+int cons_ItemEvent_AuxAccessor1 = {| 165 | 2 | 3 | 4 | 166 | 6 | 167 | 168 | 169 | 170 | 18 | 171 | 172 | 26 | 173 | 174 | 175 | 29 | 31 | 176 | 177 | 35 | 38 | 41 | 178 | 54 | 179 | 60 | 61 | 180 | 181 | 182 | 183 | 184 | 62 | 67 | 185 | 186 | 82 | 187 | 92 | 93 | 95 | 96 | 97 | 98 | 99 | 100 | 105 | 106 | 107 | 108 | 109 | 113 | 114 | 115 | 116 | 118 | 120 | 121 | 188 | 189 | 127 | 130 | 190 | 191 | 141 | 192 | 146 | 193 | 156 | 158 | 194 |};
+int cons_EventObject_AuxAccessor1 = {| 165 | 2 | 3 | 4 | 166 | 6 | 167 | 168 | 169 | 170 | 18 | 171 | 172 | 26 | 173 | 174 | 175 | 29 | 31 | 176 | 177 | 35 | 38 | 41 | 178 | 54 | 179 | 60 | 61 | 180 | 181 | 182 | 183 | 184 | 62 | 67 | 185 | 186 | 82 | 187 | 92 | 93 | 95 | 96 | 97 | 98 | 99 | 100 | 105 | 106 | 107 | 108 | 109 | 113 | 114 | 115 | 116 | 118 | 120 | 121 | 188 | 189 | 127 | 130 | 190 | 191 | 141 | 192 | 146 | 193 | 156 | 158 | 194 |};
+int cons_ActionEvent_AuxAccessor1 = {| 165 | 2 | 3 | 4 | 166 | 6 | 167 | 168 | 169 | 170 | 18 | 171 | 172 | 26 | 173 | 174 | 175 | 29 | 31 | 176 | 177 | 35 | 38 | 41 | 178 | 54 | 179 | 60 | 61 | 180 | 181 | 182 | 183 | 184 | 62 | 67 | 185 | 186 | 82 | 187 | 92 | 93 | 95 | 96 | 97 | 98 | 99 | 100 | 105 | 106 | 107 | 108 | 109 | 113 | 114 | 115 | 116 | 118 | 120 | 121 | 188 | 189 | 127 | 130 | 190 | 191 | 141 | 192 | 146 | 193 | 156 | 158 | 194 |};
+int adapter_AuxAccessor1 = {| 94 | 101 | 102 | 103 | 104 | 1 | 5 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 16 | 17 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 5 | 23 | 24 | 25 | 27 | 159 | 30 | 32 | 33 | 36 | 163 | 39 | 40 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 55 | 58 | 59 | 58 | 59 | 63 | 64 | 65 | 66 | 68 | 69 | 70 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 94 | 101 | 102 | 103 | 104 | 110 | 111 | 112 | 117 | 119 | 122 | 123 | 124 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 89 | 90 | 91 | 128 | 128 | 136 | 138 | 139 | 136 | 138 | 139 | 142 | 143 | 142 | 143 | 147 | 148 | 149 | 150 | 151 | 152 | 153 | 154 | 155 | 157 | 159 | 163 |};
+int adaptee_AuxAccessor1 = {| 94 | 101 | 102 | 103 | 104 | 1 | 5 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 16 | 17 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 5 | 23 | 24 | 25 | 27 | 159 | 30 | 32 | 33 | 36 | 163 | 39 | 40 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 55 | 58 | 59 | 58 | 59 | 63 | 64 | 65 | 66 | 68 | 69 | 70 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 94 | 101 | 102 | 103 | 104 | 110 | 111 | 112 | 117 | 119 | 122 | 123 | 124 | 42 | 43 | 44 | 47 | 48 | 49 | 50 | 51 | 52 | 89 | 90 | 91 | 128 | 128 | 136 | 138 | 139 | 136 | 138 | 139 | 142 | 143 | 142 | 143 | 147 | 148 | 149 | 150 | 151 | 152 | 153 | 154 | 155 | 157 | 159 | 163 |};
+int field_AuxAccessor1 = ??;
+int call_adaptee_depth = 0;
+int getter_cnt = 0;
+int setter_cnt = 0;
+int constructor_cnt = 0;
+
+      int gs_field_JButton_0_AuxAccessor1_AuxAccessor1() { return gs_field_JButton_0_AuxAccessor1; }
+    
+      int gs_field_ItemEvent_0_AuxAccessor1_AuxAccessor1() { return gs_field_ItemEvent_0_AuxAccessor1; }
+    
+      int gs_field_ItemEvent_1_AuxAccessor1_AuxAccessor1() { return gs_field_ItemEvent_1_AuxAccessor1; }
+    
+      int gs_field_EventObject_0_AuxAccessor1_AuxAccessor1() { return gs_field_EventObject_0_AuxAccessor1; }
+    
+      int gs_field_ActionEvent_0_AuxAccessor1_AuxAccessor1() { return gs_field_ActionEvent_0_AuxAccessor1; }
+    
+      int accessor_InvocationEvent_AuxAccessor1_AuxAccessor1() { return accessor_InvocationEvent_AuxAccessor1; }
+    
+      int accessor_JButton_AuxAccessor1_AuxAccessor1() { return accessor_JButton_AuxAccessor1; }
+    
+      int accessor_ItemEvent_AuxAccessor1_AuxAccessor1() { return accessor_ItemEvent_AuxAccessor1; }
+    
+      int accessor_EventObject_AuxAccessor1_AuxAccessor1() { return accessor_EventObject_AuxAccessor1; }
+    
+      int accessor_ActionEvent_AuxAccessor1_AuxAccessor1() { return accessor_ActionEvent_AuxAccessor1; }
+    
+      int getter_JButton_0_AuxAccessor1_AuxAccessor1() { return getter_JButton_0_AuxAccessor1; }
+    
+      int setter_JButton_0_AuxAccessor1_AuxAccessor1() { return setter_JButton_0_AuxAccessor1; }
+    
+      int getter_ItemEvent_0_AuxAccessor1_AuxAccessor1() { return getter_ItemEvent_0_AuxAccessor1; }
+    
+      int getter_ItemEvent_1_AuxAccessor1_AuxAccessor1() { return getter_ItemEvent_1_AuxAccessor1; }
+    
+      int getter_EventObject_0_AuxAccessor1_AuxAccessor1() { return getter_EventObject_0_AuxAccessor1; }
+    
+      int getter_ActionEvent_0_AuxAccessor1_AuxAccessor1() { return getter_ActionEvent_0_AuxAccessor1; }
+    
+      int cons_InvocationEvent_AuxAccessor1_AuxAccessor1() { return cons_InvocationEvent_AuxAccessor1; }
+    
+      int cons_JButton_AuxAccessor1_AuxAccessor1() { return cons_JButton_AuxAccessor1; }
+    
+      int cons_ItemEvent_AuxAccessor1_AuxAccessor1() { return cons_ItemEvent_AuxAccessor1; }
+    
+      int cons_EventObject_AuxAccessor1_AuxAccessor1() { return cons_EventObject_AuxAccessor1; }
+    
+      int cons_ActionEvent_AuxAccessor1_AuxAccessor1() { return cons_ActionEvent_AuxAccessor1; }
+    
+      int adapter_AuxAccessor1_AuxAccessor1() { return adapter_AuxAccessor1; }
+    
+      int adaptee_AuxAccessor1_AuxAccessor1() { return adaptee_AuxAccessor1; }
+    
+      int field_AuxAccessor1_AuxAccessor1() { return field_AuxAccessor1; }
+    void call_adaptee_AuxAccessor1_int_AuxAccessor1(int mtd_id, Object rcv_AuxAccessor1, bit logging) {
+if (call_adaptee_depth > 2) {
+return;
+}
+call_adaptee_depth = call_adaptee_depth + 1;
+if (adapter_AuxAccessor1 == mtd_id) {
+if (adaptee_AuxAccessor1 == 101) {
+if (rcv_AuxAccessor1 != null) {
+addSeparator_JMenuItem(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 24) {
+if (rcv_AuxAccessor1 != null) {
+pack_Window(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 30) {
+if (rcv_AuxAccessor1 != null) {
+dispatch_InvocationEvent(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 163) {
+if (rcv_AuxAccessor1 != null) {
+run_ButtonDemo_1(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], true);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 101) {
+if (rcv_AuxAccessor1 != null) {
+addSeparator_JMenuItem(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 110) {
+if (rcv_AuxAccessor1 != null) {
+resetToPreferredSizes_JSplitPane(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 122) {
+if (rcv_AuxAccessor1 != null) {
+addSeparator_JMenuItem(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], false);
+}
+}
+else {
+if (adaptee_AuxAccessor1 == 163) {
+if (rcv_AuxAccessor1 != null) {
+run_ButtonDemo_1(rcv_AuxAccessor1._prvt_fld_Object[field_AuxAccessor1], true);
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+call_adaptee_depth = call_adaptee_depth - 1;
+}
+
+harness void checkRange_AuxAccessor1(bit logging) {
+assert argNum(cons_InvocationEvent_AuxAccessor1) == 2;
+assert belongsTo(cons_InvocationEvent_AuxAccessor1) == accessor_InvocationEvent_AuxAccessor1;
+assert argNum(cons_JButton_AuxAccessor1) == 2;
+assert belongsTo(cons_JButton_AuxAccessor1) == accessor_JButton_AuxAccessor1;
+assert argNum(cons_ItemEvent_AuxAccessor1) == 4;
+assert belongsTo(cons_ItemEvent_AuxAccessor1) == accessor_ItemEvent_AuxAccessor1;
+assert argNum(cons_EventObject_AuxAccessor1) == 1;
+assert belongsTo(cons_EventObject_AuxAccessor1) == accessor_EventObject_AuxAccessor1;
+assert argNum(cons_ActionEvent_AuxAccessor1) == 3;
+assert belongsTo(cons_ActionEvent_AuxAccessor1) == accessor_ActionEvent_AuxAccessor1;
+assert subcls(accessor_JButton_AuxAccessor1, belongsTo(getter_JButton_0_AuxAccessor1));
+assert subcls(accessor_JButton_AuxAccessor1, belongsTo(setter_JButton_0_AuxAccessor1));
+assert subcls(accessor_ItemEvent_AuxAccessor1, belongsTo(getter_ItemEvent_0_AuxAccessor1));
+assert subcls(accessor_ItemEvent_AuxAccessor1, belongsTo(getter_ItemEvent_1_AuxAccessor1));
+assert subcls(accessor_EventObject_AuxAccessor1, belongsTo(getter_EventObject_0_AuxAccessor1));
+assert subcls(accessor_ActionEvent_AuxAccessor1, belongsTo(getter_ActionEvent_0_AuxAccessor1));
+assert belongsTo(getter_JButton_0_AuxAccessor1) == belongsTo(setter_JButton_0_AuxAccessor1);
+assert argNum(getter_JButton_0_AuxAccessor1) == 0;
+assert argNum(getter_ItemEvent_0_AuxAccessor1) == 0;
+assert argNum(getter_ItemEvent_1_AuxAccessor1) == 0;
+assert argNum(getter_EventObject_0_AuxAccessor1) == 0;
+assert argNum(getter_ActionEvent_0_AuxAccessor1) == 0;
+assert argNum(setter_JButton_0_AuxAccessor1) == 1;
+assert subcls(argType(setter_JButton_0_AuxAccessor1, 0), retType(getter_JButton_0_AuxAccessor1));
+assert argType(cons_JButton_AuxAccessor1, gs_field_JButton_0_AuxAccessor1) == retType(getter_JButton_0_AuxAccessor1);
+assert argType(cons_ItemEvent_AuxAccessor1, gs_field_ItemEvent_0_AuxAccessor1) == retType(getter_ItemEvent_0_AuxAccessor1);
+assert argType(cons_ItemEvent_AuxAccessor1, gs_field_ItemEvent_1_AuxAccessor1) == retType(getter_ItemEvent_1_AuxAccessor1);
+assert argType(cons_EventObject_AuxAccessor1, gs_field_EventObject_0_AuxAccessor1) == retType(getter_EventObject_0_AuxAccessor1);
+assert argType(cons_ActionEvent_AuxAccessor1, gs_field_ActionEvent_0_AuxAccessor1) == retType(getter_ActionEvent_0_AuxAccessor1);
+}
+
+harness void checkJButtonGetterParam_AuxAccessor1(bit logging) {
+assert 0 == argNum(getter_JButton_0_AuxAccessor1);
+}
+
+harness void checkJButtonSetterParam_AuxAccessor1(bit logging) {
+assert 1 == argNum(setter_JButton_0_AuxAccessor1);
+}
+
+harness void checkItemEventGetterParam_AuxAccessor1(bit logging) {
+assert 0 == argNum(getter_ItemEvent_0_AuxAccessor1);
+assert 0 == argNum(getter_ItemEvent_1_AuxAccessor1);
+}
+
+harness void checkEventObjectGetterParam_AuxAccessor1(bit logging) {
+assert 0 == argNum(getter_EventObject_0_AuxAccessor1);
+}
+
+harness void checkActionEventGetterParam_AuxAccessor1(bit logging) {
+assert 0 == argNum(getter_ActionEvent_0_AuxAccessor1);
+}
+
+Object get_AuxAccessor1_int_Object_int(int mtd_id, Object callee, int fld_id, bit logging) {
+
+return callee._prvt_fld_Object[fld_id];
+}
+
+int iget_AuxAccessor1_int_Object_int(int mtd_id, Object callee, int fld_id, bit logging) {
+
+return callee._prvt_ifld_Object[fld_id];
+}
+
+bit bget_AuxAccessor1_int_Object_int(int mtd_id, Object callee, int fld_id, bit logging) {
+
+return callee._prvt_bfld_Object[fld_id];
+}
+
+char[51] sget_AuxAccessor1_int_Object_int(int mtd_id, Object callee, int fld_id, bit logging) {
+
+return callee._prvt_sfld_Object[fld_id];
+}
+
+Object getterInOne_AuxAccessor1_int_Object(int mtd_id, Object callee, bit logging) {
+if (getter_cnt > 10) {
+return null;
+}
+getter_cnt = getter_cnt + 1;
+if (mtd_id == getter_JButton_0_AuxAccessor1) {
+return get_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_0_AuxAccessor1) {
+return get_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_1_AuxAccessor1) {
+return get_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_1_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_EventObject_0_AuxAccessor1) {
+return get_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_EventObject_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ActionEvent_0_AuxAccessor1) {
+return get_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ActionEvent_0_AuxAccessor1, false);
+}
+}
+}
+}
+}
+}
+
+int igetterInOne_AuxAccessor1_int_Object(int mtd_id, Object callee, bit logging) {
+if (getter_cnt > 10) {
+return - 1;
+}
+getter_cnt = getter_cnt + 1;
+if (mtd_id == getter_JButton_0_AuxAccessor1) {
+return iget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_0_AuxAccessor1) {
+return iget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_1_AuxAccessor1) {
+return iget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_1_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_EventObject_0_AuxAccessor1) {
+return iget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_EventObject_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ActionEvent_0_AuxAccessor1) {
+return iget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ActionEvent_0_AuxAccessor1, false);
+}
+}
+}
+}
+}
+}
+
+bit bgetterInOne_AuxAccessor1_int_Object(int mtd_id, Object callee, bit logging) {
+if (getter_cnt > 10) {
+return false;
+}
+getter_cnt = getter_cnt + 1;
+if (mtd_id == getter_JButton_0_AuxAccessor1) {
+return bget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_0_AuxAccessor1) {
+return bget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_1_AuxAccessor1) {
+return bget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_1_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_EventObject_0_AuxAccessor1) {
+return bget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_EventObject_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ActionEvent_0_AuxAccessor1) {
+return bget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ActionEvent_0_AuxAccessor1, false);
+}
+}
+}
+}
+}
+}
+
+char[51] sgetterInOne_AuxAccessor1_int_Object(int mtd_id, Object callee, bit logging) {
+if (getter_cnt > 10) {
+return false;
+}
+getter_cnt = getter_cnt + 1;
+if (mtd_id == getter_JButton_0_AuxAccessor1) {
+return sget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_0_AuxAccessor1) {
+return sget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ItemEvent_1_AuxAccessor1) {
+return sget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ItemEvent_1_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_EventObject_0_AuxAccessor1) {
+return sget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_EventObject_0_AuxAccessor1, false);
+}
+else {
+if (mtd_id == getter_ActionEvent_0_AuxAccessor1) {
+return sget_AuxAccessor1_int_Object_int(mtd_id, callee, gs_field_ActionEvent_0_AuxAccessor1, false);
+}
+}
+}
+}
+}
+}
+
+void set_AuxAccessor1_int_Object_int_Object(int mtd_id, Object callee, int fld_id, Object val, bit logging) {
+callee._prvt_fld_Object[fld_id] = val;
+}
+
+void iset_AuxAccessor1_int_Object_int_int(int mtd_id, Object callee, int fld_id, int val, bit logging) {
+callee._prvt_ifld_Object[fld_id] = val;
+}
+
+void bset_AuxAccessor1_int_Object_int_boolean(int mtd_id, Object callee, int fld_id, bit val, bit logging) {
+callee._prvt_bfld_Object[fld_id] = val;
+}
+
+void sset_AuxAccessor1_int_Object_int_String(int mtd_id, Object callee, int fld_id, char[51] val, bit logging) {
+callee._prvt_sfld_Object[fld_id] = val;
+}
+
+void setterInOne_AuxAccessor1_int_Object_Object(int mtd_id, Object callee, Object val, bit logging) {
+if (setter_cnt > 30) {
+return;
+}
+setter_cnt = setter_cnt + 1;
+if (mtd_id == setter_JButton_0_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, val, false);
+}
+}
+
+void isetterInOne_AuxAccessor1_int_Object_int(int mtd_id, Object callee, int val, bit logging) {
+if (setter_cnt > 30) {
+return;
+}
+setter_cnt = setter_cnt + 1;
+if (mtd_id == setter_JButton_0_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, val, false);
+}
+}
+
+void bsetterInOne_AuxAccessor1_int_Object_boolean(int mtd_id, Object callee, bit val, bit logging) {
+if (setter_cnt > 30) {
+return;
+}
+setter_cnt = setter_cnt + 1;
+if (mtd_id == setter_JButton_0_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, val, false);
+}
+}
+
+void ssetterInOne_AuxAccessor1_int_Object_String(int mtd_id, Object callee, char[51] val, bit logging) {
+if (setter_cnt > 30) {
+return;
+}
+setter_cnt = setter_cnt + 1;
+if (mtd_id == setter_JButton_0_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, gs_field_JButton_0_AuxAccessor1, val, false);
+}
+}
+
+void constructorInOne_AuxAccessor1_int_Object_Object_int(int mtd_id, Object callee, Object val, int fld_id, bit logging) {
+if (constructor_cnt > 28) {
+return;
+}
+constructor_cnt = constructor_cnt + 1;
+if (mtd_id == cons_InvocationEvent_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_JButton_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ItemEvent_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_EventObject_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ActionEvent_AuxAccessor1) {
+set_AuxAccessor1_int_Object_int_Object(mtd_id, callee, fld_id, val, false);
+}
+}
+}
+}
+}
+}
+
+void iconstructorInOne_AuxAccessor1_int_Object_int_int(int mtd_id, Object callee, int val, int fld_id, bit logging) {
+if (constructor_cnt > 28) {
+return;
+}
+constructor_cnt = constructor_cnt + 1;
+if (mtd_id == cons_InvocationEvent_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_JButton_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ItemEvent_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_EventObject_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ActionEvent_AuxAccessor1) {
+iset_AuxAccessor1_int_Object_int_int(mtd_id, callee, fld_id, val, false);
+}
+}
+}
+}
+}
+}
+
+void bconstructorInOne_AuxAccessor1_int_Object_boolean_int(int mtd_id, Object callee, bit val, int fld_id, bit logging) {
+if (constructor_cnt > 28) {
+return;
+}
+constructor_cnt = constructor_cnt + 1;
+if (mtd_id == cons_InvocationEvent_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_JButton_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ItemEvent_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_EventObject_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ActionEvent_AuxAccessor1) {
+bset_AuxAccessor1_int_Object_int_boolean(mtd_id, callee, fld_id, val, false);
+}
+}
+}
+}
+}
+}
+
+void sconstructorInOne_AuxAccessor1_int_Object_String_int(int mtd_id, Object callee, char[51] val, int fld_id, bit logging) {
+if (constructor_cnt > 28) {
+return;
+}
+constructor_cnt = constructor_cnt + 1;
+if (mtd_id == cons_InvocationEvent_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_JButton_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ItemEvent_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_EventObject_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, fld_id, val, false);
+}
+else {
+if (mtd_id == cons_ActionEvent_AuxAccessor1) {
+sset_AuxAccessor1_int_Object_int_String(mtd_id, callee, fld_id, val, false);
+}
+}
+}
+}
+}
+}
