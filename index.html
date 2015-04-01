@@ -145,7 +145,9 @@ Another way to build Sketch is to use an easy-to-install tar ball:
       </div>
       <p>
 Inside the tar ball, all Java files in sketch-frontend are already compiled,
-so all you need to do is building the back-end as follows:
+so all you need to do is building the back-end.  Make sure that you have
+<code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
+Then, build the beck-end as follows:
       </p>
 <pre><code>.../ae $ tar xvfz sketch-1.6.8.tgz
 .../ae $ cd sketch-1.6.8/sketch-backend
@@ -173,7 +175,9 @@ and
 > https://bitbucket.org/gatoatigrado/sketch-backend
 </code></pre>
       <p>
-Next, build Sketch as follows:
+Make sure that you have <code>java</code>, <code>javac</code>,
+<code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
+Then, build Sketch as follows:
       </p>
 <pre><code>.../ae $ cd sketch-frontend
 .../ae/sketch-frontend $ make assemble-noarch
