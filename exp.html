@@ -96,6 +96,37 @@ Clone our testing infrastructure as follows:
       </p>
 <pre><code>.../ae $ git clone https://github.com/plum-umd/adaptive-concretization.git
 </code></pre>
+      <p>
+This infrastructure is tested under Python 2.7.x.
+If you are using Python 3.2/3.3, replace the usage of <code>subprocess32</code>
+at line 8 in <code>psketch.py</code> with <code>subprocess</code>.
+If you are using Python 2.x and want to examine the back-end behavior for
+various randdegree, which corresponds to Table 1 in the paper, you need to install
+<a href="https://pypi.python.org/pypi/subprocess32/">subprocess32</a>.
+If you are not using Python 2.7.9 or Python 3.4 and later, you need to install
+<a href="https://pip.pypa.io/en/latest/installing.html">pip</a> first.
+      </p>
+      <p>
+On Debian and Ubuntu,
+      </p>
+<pre><code>$ sudo apt-get install python-pip
+</code></pre>
+      <p>
+On Mac OS X, if you prefer to use <code>macport</code>,
+      </p>
+<pre><code>$ sudo port install py-pip
+</code></pre>
+      <p>
+On other OSes, download <a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a>
+and run the following (which may require administrator access):
+      </p>
+<pre><code>$ (sudo) python get-pip.py
+</code></pre>
+      <p>
+Once <code>pip</code> is ready, install <code>subprocess32</code>:
+      </p>
+<pre><code>$ pip install subprocess32
+</code></pre>
 
     </div>
 
