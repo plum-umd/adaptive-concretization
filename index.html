@@ -57,6 +57,9 @@
                 <li class="popover-item">
                   <a class="popover-link" href="#source">source</a>
                 </li>
+                <li class="popover-item">
+                  <a class="popover-link" href="#usage">usage</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -65,7 +68,10 @@
             <div id="expNavPopover" class="popover">
               <ul class="popover-list">
                 <li class="popover-item">
-                  <a class="popover-link" href="exp.html#DB">DB setup</a>
+                  <a class="popover-link" href="exp.html#infra">infra</a>
+                </li>
+                <li class="popover-item">
+                  <a class="popover-link" href="exp.html#DB">database</a>
                 </li>
                 <li class="popover-item">
                   <a class="popover-link" href="exp.html#exp-short">short</a>
@@ -83,8 +89,8 @@
       </div>
     </nav>
 
-	<div class="docs-section" id="intro">
-	  <h4 class="title">Adaptive Concretization for Parallel Program Synthesis</h4>
+    <div class="docs-section" id="intro">
+      <h4 class="title">Adaptive Concretization for Parallel Program Synthesis</h4>
       <p>
 Program synthesis tools work by searching for an implementation that satisfies
 a given specification. Two popular search strategies are <em>symbolic search</em>,
@@ -104,43 +110,86 @@ in practice, outperforming Sketch in many cases, sometimes significantly, and ha
 parallel scalability.
       </p>
       <ul>
-        <li><a href="paper.pdf">PDF</a> (submission)</li>
+        <li><a href="downloads/paper.pdf">PDF</a> (submission)</li>
         <li>
 The testing infrastructure and web pages are maintained at
 <a href="https://github.com/plum-umd/adaptive-concretization">here</a>.
         </li>
       </ul>
-	</div>
+    </div>
 
-	<div class="docs-section" id="OVA">
+    <div class="docs-section" id="OVA">
       <h5 class="docs-header">VM image</h5>
       <p>
-OVA link and instructions to use
+The easiest way: OVA link and instructions to use
       </p>
       <div>
         <a class="button button-primary" href="#">Download OVA</a>
       </div>
-	</div>
+    </div>
 
-	<div class="docs-section" id="tar-ball">
+    <div class="docs-section" id="tar-ball">
       <h5 class="docs-header">Tar ball</h5>
       <p>
-easy-to-install tar ball of Sketch front-end and back-end
+Another way to build Sketch is to use an easy-to-install tar ball:
       </p>
       <div>
-        <a class="button button-primary" href="#">Download tar ball</a>
+        <a class="button button-primary" href="downloads/sketch-1.6.8.tgz">Download tar ball</a>
       </div>
-	</div>
+      <p>
+Inside the tar ball, all Java files in sketch-frontend are already compiled,
+so all you need to do is building the back-end as follows:
+      </p>
+<pre><code>.../ae $ tar xvfz sketch-1.6.8.tgz
+.../ae $ cd sketch-1.6.8/sketch-backend
+.../ae/sketch-1.6.8/sketch-backend $ chmod +x ./configure
+.../ae/sketch-1.6.8/sketch-backend $ ./configure
+.../ae/sketch-1.6.8/sketch-backend $ make clean; make -j4
+</code></pre>
+      <p>
+Skip to the <a href="#usage">Usage</a> section to learn how to use Sketch.
+      </p>
+    </div>
 
-	<div class="docs-section" id="source">
+    <div class="docs-section" id="source">
       <h5 class="docs-header">Source</h5>
       <p>
-harder way to build Sketch
+In case you are interested, here is a harder way to set up Sketch.
+To reclaim what we claim in the paper, clone the specific versions of
+<a href="https://bitbucket.org/gatoatigrado/sketch-frontend">sketch-frontend</a>
+and
+<a href="https://bitbucket.org/gatoatigrado/sketch-backend">sketch-backend</a>:
       </p>
-<pre><code>
-... $ command...
+<pre><code>.../ae $ hg clone -r 4916b0c679b4f8ab3bb18e5482f5a58d8deae122 \
+> https://bitbucket.org/gatoatigrado/sketch-frontend
+.../ae $ hg clone -r 4609620d4f62c481c6be0aaac9d8611c0e8ae573 \
+> https://bitbucket.org/gatoatigrado/sketch-backend
 </code></pre>
-	</div>
+      <p>
+Next, build Sketch as follows:
+      </p>
+<pre><code>.../ae $ cd sketch-frontend
+.../ae/sketch-frontend $ make assemble-noarch
+</code></pre>
+<pre><code>.../ae $ cd sketch-backend
+.../ae/sketch-backend $ ./autogen.sh
+.../ae/sketch-backend $ chmod +x ./configure
+.../ae/sketch-backend $ ./configure
+.../ae/sketch-backend $ make clean; make -j4
+</code></pre>
+      <p>
+If you encounter any build errors, please contact the authors.
+      </p>
+    </div>
+
+    <div class="docs-section" id="usage">
+      <h5 class="docs-header">Usage</h5>
+      <p>
+--slv-randassign (--slv-randdegree)
+--slv-parallel
+--slv-strategy WILCOXON
+      </p>
+    </div>
 
   </div>
 </body>
