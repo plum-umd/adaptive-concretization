@@ -129,15 +129,142 @@ Once <code>pip</code> is ready, install <code>subprocess32</code>:
       </p>
 <pre><code>$ sudo pip install subprocess32
 </code></pre>
+      <p>
+To post-analyze Sketch output, we use
+<a href="http://www.scipy.org/install.html">SciPy</a>.
+      </p>
+      <p>
+On Debian and Ubuntu,
+      </p>
+<pre><code>sudo apt-get install python-numpy python-scipy python-matplotlib
+</code></pre>
+      <p>
+On Mac OS X,
+      </p>
+<pre><code>sudo port install py27-numpy py27-scipy py27-matplotlib
+</code></pre>
 
     </div>
 
-
     <div class="docs-section" id="DB">
-      <h5 class="docs-header">DB setup</h5>
+      <h5 class="docs-header">Database setup</h5>
       <p>
-database setup
+We thoroughly tested our algorithm by running Sketch over 7K times
+across different sets of benchmarks, different degrees,
+and different numbers of cores.  Needless to say, it might be very
+painful if we run test cases; post-analyze outputs; and depict tables,
+like Tables 2 and 3 in the paper, <em>by hand</em>.
+The main purpose of this testing infrastructure is to conduct
+intensive experimental evaluations in an <em>automated</em> way.
+Our first step towards such automation is using database
+to save and retrieve experiment results easily.
+(You can still see raw data under data/ folder.)
       </p>
+      <p>
+On Debian and Ubuntu,
+      </p>
+<pre><code>$ sudo apt-get install mysql-server mysql-client
+</code></pre>
+      <p>
+On Mac OS X,
+      </p>
+<pre><code>$ sudo port install mysql5
+</code></pre>
+      <p>
+The prompt (or install GUI) will ask you for the current root password.
+Type whatever password you want.  (Note that this will be used later.)
+      </p>
+<pre><code>Enter current password for root (enter for none):
+
+OK, successfully used password, moving on...
+</code></pre>
+      <p>
+Once you've installed MySQL, you need to activate it and
+run the MySQL set up script:
+      </p>
+<pre><code>$ sudo mysql_install_db
+$ sudo /usr/bin/mysql_secure_installation
+</code></pre>
+      <p>
+Then, the prompt will ask several options you can configure.
+Since we are using this database for experiment purpose only,
+we recommend you to set it up in the most secure manner,
+for example, no anonymous access and no remote access;
+the easiest way is just to say Yes to all options
+(except for changing the root password):
+      </p>
+<pre><code>...
+Remove anonymous users? [Y/n] y
+ ... Success!
+
+...
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+...
+Remove test database and access to it? [Y/n] y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+...
+Reload privilege tables now? [Y/n] y
+ ... Success!
+</code></pre>
+      <p>
+Access to the db server and create an account for this experiment:
+      </p>
+<pre><code>$ mysql --user=root -p -h 127.0.0.1 mysql
+password: *******
+mysql> CREATE USER 'sketchperf'@'localhost';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'sketchperf'@'localhost';
+</code></pre>
+      <p>
+Access to the db server with that account and generate a database:
+      </p>
+<pre><code>$ mysql --user=sketchperf -h 127.0.0.1
+mysql> CREATE DATABASE concretization;
+mysql> SHOW DATABASES;
+</code></pre>
+      <p>
+From now on, you can connect to that database like this:
+      </p>
+<pre><code>$ mysql --user=sketchperf -h 127.0.0.1 concretization
+</code></pre>
+      <p>
+In case you want to use different account and database names,
+revise lines 173--174 in <code>db.py</code> accordingly.
+      </p>
+      <p>
+To connect to the database, you need to install
+<a href="https://www.mysql.com/products/connector/">MySQL connector</a>.
+      </p>
+      <p>
+On Debian and Ubuntu,
+      </p>
+<pre><code>$ sudo apt-get install python-mysql.connector
+</code></pre>
+      <p>
+On Mac OS X,
+      </p>
+<pre><code>$ sudo port install py-mysql
+</code></pre>
+      <p>
+Then, you can easily re/define and clean tables in that database:
+      </p>
+<pre><code>.../ae/adaptive-concretization $ ./db.py -c init [-v]
+.../ae/adaptive-concretization $ ./db.py -c clean [-v]
+.../ae/adaptive-concretization $ ./db.py -c reset [-v]
+</code></pre>
+      <p>
+Refer to lines <a href="https://github.com/plum-umd/adaptive-concretization/blob/master/db.py#L21">21</a>--45 in <code>db.py</code>
+to see the schemas for experiment tables.
+You can also see detailed queries when running <code>db.py</code> with
+verbosity option <code>-v</code>.
+(This option is applicable for all the other commands explained below.)
+      </p>
+
     </div>
 
     <div class="docs-section" id="exp-short">
