@@ -188,6 +188,9 @@ def run_sygus(opt, config):
 
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
+  parser.add_option("--config",
+    action="store", dest="config", default="config.json",
+    help="configuration")
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
     help="benchmark(s) under test")
@@ -227,7 +230,7 @@ def main():
   if not opt.benchmarks:
     opt.benchmarks = os.listdir(BENCHMARK)
 
-  config = json.load(open("config.json"))
+  config = json.load(open(opt.config))
 
   if opt.sygus:
     for i in xrange(opt.repeat):
