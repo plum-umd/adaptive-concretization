@@ -3,48 +3,48 @@
   {
     "main": "sample.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "list_prepend":
   {
     "main": "sll_prepend.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "shoaib_1":
   {
     "main": "advec_mom_kernel1.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "cg":
   {
     "main": "CG.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "qbs_noti":
   {
     "main": "NotificationServiceImpl2.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "deriv2":
   {
     "main": "demo2.py.sk",
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   },
   "sygus":
   {
     "strategies": ["NOT_SET", "WILCOXON"],
-    "cores": [1, 2, 4, 8, 16, 32],
-    "degrees": [16, 64, 128, 512, 1024, 4096]
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
   }
 }
