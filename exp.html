@@ -251,18 +251,37 @@ On Mac OS X,
 <pre><code>$ sudo port install py-mysql
 </code></pre>
       <p>
-Then, you can easily re/define and clean tables in that database:
+Inside the database, we will have the following tables:
+<ol>
+  <li>Experiment: groups each experiment</li>
+  <li>RunS: records single-threaded runs (for Table 1)</li>
+  <li>RunP: records (strategical) parallel runs (for Tables 2 and 3)</li>
+  <li>Dag: records DAG sizes for every harness</li>
+  <li>Hole: records hole concretization</li>
+</ol>
+Experiment is simply a pair of EID and RID,
+<em>i.e.</em>, Runs that have the same EID are grouped as an experiment.
+All statistics will be calculated per experiment.
+Dag and Hole are connected to RunS via RID; these were used
+for our preliminary experiments, and not included in the paper.
+Refer to comments around lines
+<a href="https://github.com/plum-umd/adaptive-concretization/blob/master/db.py#L21">21</a>--45 in <code>db.py</code>
+to see the schemas for aforementioned experiment tables.
+      </p>
+      <p>
+You can easily re/define and clean tables in that database:
       </p>
 <pre><code>.../ae/adaptive-concretization $ ./db.py -c init [-v]
 .../ae/adaptive-concretization $ ./db.py -c clean [-v]
 .../ae/adaptive-concretization $ ./db.py -c reset [-v]
 </code></pre>
       <p>
-Refer to lines <a href="https://github.com/plum-umd/adaptive-concretization/blob/master/db.py#L21">21</a>--45 in <code>db.py</code>
-to see the schemas for experiment tables.
 You can also see detailed queries when running <code>db.py</code> with
 verbosity option <code>-v</code>.
 (This option is applicable for all the other commands explained below.)
+All those commands are guarded by either <code>IF EXISTS</code> or
+<code>IF NOT EXISTS</code>, and thus it is safe to execute under
+any conditions.
       </p>
 
     </div>
