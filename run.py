@@ -133,8 +133,7 @@ def be_p_run(b, path, main, degree):
   # trick to pass arguments to the wrapper
   opts.append("--be:conc-benchmark={}".format(b))
   opts.append("--be:conc-repeat={}".format(g_opt.repeat))
-  if g_opt.timeout:
-    opts.append("--be:conc-timeout={}".format(g_opt.timeout))
+  opts.append("--be:conc-timeout={}".format(g_opt.timeout))
   opts.append("--be:conc-register={}".format(g_opt.register))
 
   cmd = ["sketch"] + opts + [main]

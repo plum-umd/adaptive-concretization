@@ -40,7 +40,7 @@ def repl_output_path(argv, path):
 
 
 def run(cmd, argv, seed):
-  _timeout = timeout * 60 if timeout else None
+  _timeout = timeout * 60 if timeout > 0 else None
   output_path = find_arg(argv, "-o", 1)
   _argv = argv[:]
   _argv.insert(0, str(seed))
