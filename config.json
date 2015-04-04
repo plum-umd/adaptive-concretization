@@ -23,27 +23,27 @@
   "cg":
   {
     "main": "CG.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["WILCOXON"],
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
   },
   "qbs_noti":
   {
     "main": "NotificationServiceImpl2.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["WILCOXON"],
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
   },
   "deriv2":
   {
     "main": "demo2.py.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["WILCOXON"],
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
   },
   "sygus":
   {
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["WILCOXON"],
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
   }
