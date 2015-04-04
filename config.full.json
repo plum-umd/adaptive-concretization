@@ -2,49 +2,49 @@
   "button_demo":
   {
     "main": "sample.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "colorchooser_demo":
   {
     "main": "sample.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "menu_demo":
   {
     "main": "sample.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "list_prepend":
   {
     "main": "sll_prepend.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "list_min":
   {
     "main": "list_min.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "shoaib_1":
   {
     "main": "advec_mom_kernel1.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
   "shoaib_2":
   {
     "main": "advec_mom_kernel2.sk",
-    "strategies": ["NOT_SET", "WILCOXON"],
+    "strategies": ["SINGLE", "WILCOXON"],
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },

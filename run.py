@@ -202,7 +202,7 @@ def main():
     cores = opt.cores if opt.cores else config[b]["cores"]
     degrees = opt.degrees if opt.degrees else config[b]["degrees"]
 
-    if opt.single: # run backend in parallel via wrapper
+    if opt.single or "SINGLE" in strategies: # parallel running via wrapper
       for degree in degrees:
         be_p_run(b, path, main, str(degree))
 
@@ -217,7 +217,7 @@ def main():
               for degree in degrees:
                 fe_p_run(b, path, main, strategy, core, str(degree))
 
-          else: # WILCOXON
+          elif strategy == "WILCOXON": # adaptive concretization
             for core in cores:
               fe_p_run(b, path, main, strategy, core)
 
