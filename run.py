@@ -15,7 +15,6 @@ import tempfile
 
 BENCHMARK = "benchmark"
 DATA = "data"
-SYGUS = "sygus"
 
 
 def run(b, path, main, seed):
@@ -82,7 +81,7 @@ def get_datetime():
 
 g_opt = None
 
-def fe_p_run(b, path, main, strategy, core, degree="100"):
+def fe_p_run(b, path, main, strategy, core, degree=None):
   opts = []
   opts.extend(["-V", "5"])
   if g_opt.timeout:
@@ -91,8 +90,13 @@ def fe_p_run(b, path, main, strategy, core, degree="100"):
   opts.extend(["--slv-randassign"])
   opts.extend(["--slv-p-cpus", str(core)])
   opts.extend(["--slv-p-trials", str(32*32*3)])
-  opts.extend(["--slv-randdegree", degree])
+  if degree: opts.extend(["--slv-randdegree", degree])
   opts.extend(["--slv-strategy", strategy])
+
+  if "sygus" in path:
+    opts.extend(["--fe-def", "BND=5"])
+    opts.extend(["--bnd-unroll-amnt", '64'])
+
   opts.extend(["--fe-inc", path])
   cmd = ["sketch"] + opts + [main]
 
@@ -111,35 +115,6 @@ def fe_p_run(b, path, main, strategy, core, degree="100"):
       pass
 
   return 0
-
-def s_run(b, main, strategy, core):
-  opts = []
-  opts.extend(["-V", "5"])
-  if g_opt.timeout:
-    opts.extend(["--slv-timeout", str(g_opt.timeout)])
-  opts.extend(["--slv-parallel"])
-  opts.extend(["--slv-randassign"])
-  opts.extend(["--slv-p-cpus", str(core)])
-  opts.extend(["--slv-p-trials", str(32*32*3)])
-  opts.extend(["--slv-strategy", strategy])
-  opts.extend(["--fe-def", "BND=5"])
-  opts.extend(["--bnd-unroll-amnt", '64'])
-  cmd = ["sketch"] + opts + [main]
-
-  s_cmd = ' '.join(cmd)
-  print "running: {}".format(s_cmd)
-
-  _strategy = strategy
-
-  output = os.path.join(DATA, "{}_parallel_core{}_{}_{}.txt".format(b, core, _strategy, get_datetime()))
-  with open(output, 'w') as f:
-    try:
-      subprocess.check_call(cmd, stdout=f)
-    except subprocess.CalledProcessError:
-      pass
-
-  return 0
-
 
 def be_p_run(b, path, main, degree):
   opts = []
@@ -174,17 +149,6 @@ def be_p_run(b, path, main, degree):
 
   return 0
 
-def run_sygus(opt, config):
-  path = os.path.join(BENCHMARK, SYGUS)
-  cores = opt.cores if opt.cores else config[SYGUS]["cores"]
-  for b in os.listdir(path):
-    main = os.path.join(path, b)
-    for core in cores:
-      for i in xrange(opt.repeat):
-        r = s_run(b, main, "WILCOXON", core)
-        if r: return r
-    #os.remove("temp.sk")
-  return 0
 
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
@@ -218,9 +182,6 @@ def main():
   parser.add_option("--vanilla",
     action="store_true", dest="vanilla", default=False,
     help="run vanilla Sketch (in parallel, with different seeds)")
-  parser.add_option("--sygus",
-    action="store_true", dest="sygus", default=False,
-    help="run benchmarks from SyGuS")
 
   (opt, args) = parser.parse_args()
   global g_opt
@@ -231,10 +192,6 @@ def main():
     opt.benchmarks = os.listdir(BENCHMARK)
 
   config = json.load(open(opt.config))
-
-  if opt.sygus:
-    for i in xrange(opt.repeat):
-      return run_sygus(opt, config)
 
   for b in opt.benchmarks:
     if b not in config: continue
@@ -260,7 +217,7 @@ def main():
               for degree in degrees:
                 fe_p_run(b, path, main, strategy, core, str(degree))
 
-          else: # MIN_TIME, MAX_TIME, WILCOXON
+          else: # WILCOXON
             for core in cores:
               fe_p_run(b, path, main, strategy, core)
 

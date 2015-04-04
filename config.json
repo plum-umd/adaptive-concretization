@@ -41,8 +41,16 @@
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
   },
-  "sygus":
+  "sygus_ar_s_5":
   {
+    "main": "array_search_5.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [1, 4],
+    "degrees": [64, 512, 4096]
+  },
+  "sygus_hd_13_d5":
+  {
+    "main": "hd_13_d5.sk",
     "strategies": ["WILCOXON"],
     "cores": [1, 4],
     "degrees": [64, 512, 4096]
