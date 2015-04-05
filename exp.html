@@ -312,6 +312,25 @@ via <code>-c stat</code> command in <code>db.py</code>.
 (All detailed uses will be explained again with concrete examples.)
       </p>
       <p>
+If you are running only the experiment specified in the configuration,
+just follow these instructions:
+      </p>
+<pre><code>.../ae/adaptive-concretization $ ./clean.sh
+.../ae/adaptive-concretization $ ./run.py -r 13
+.../ae/adaptive-concretization $ ./run.py -r 13 --vanilla
+.../ae/adaptive-concretization $ ./db.py -c register -s
+.../ae/adaptive-concretization $ ./db.py -c register
+.../ae/adaptive-concretization $ ./db.py -c stat -s
+.../ae/adaptive-concretization $ ./db.py -c stat
+</code></pre>
+      <p>
+The second-to-last command will retrieve the statistics for Table 1,
+while the last command will show you the statistics for Tables 2 and 3.
+For non-adaptive concretization, which is the last column in Table 2,
+please refer to the last part of the experiments below.
+The following instructions will explain detailed experiments step by step.
+      </p>
+      <p>
 The first experiment is about examining Sketch back-end behavior with various
 randdegrees, to show the hypothesis that optimal randdegree varies
 from benchmark to benchmark.  <code>run.py</code> has an option, <code>-s</code>,
@@ -393,9 +412,24 @@ for our paper.  To make <code>run.py</code> use a different configuration
 file, you need to pass the following option:
 <code>--config config.full.json</code>.  For example,
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r #n [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r #n [--timeout 30] [...]
 (post-analysis, registration, and statistics steps are same as above.)
 </code></pre>
+      <p>
+Notice that you may need to set timeout because Sketch might take too long in some cases
+(e.g., plain Sketch for <code>p_menu</code>).
+In sum, the simplest way to conduct the experiments is using the configuration
+as follows:
+      </p>
+<pre><code>.../ae/adaptive-concretization $ ./clean.sh
+.../ae/adaptive-concretization $ ./run.py --config config.full.json -r 13
+.../ae/adaptive-concretization $ ./run.py --config config.full.json -r 13 --vanilla --timeout 30
+.../ae/adaptive-concretization $ ./db.py -c register -s
+.../ae/adaptive-concretization $ ./db.py -c register
+.../ae/adaptive-concretization $ ./db.py -c stat -s
+.../ae/adaptive-concretization $ ./db.py -c stat
+</code></pre>
+
     </div>
 
     <div class="docs-section" id="exp-raw">
