@@ -186,6 +186,9 @@ def main():
   global g_opt
   g_opt = opt
 
+  if opt.single:
+    opt.strategies.append("SINGLE")
+
   # if not specified, run all benchmarks under benchmark/ folder
   if not opt.benchmarks:
     opt.benchmarks = os.listdir(BENCHMARK)
@@ -201,17 +204,24 @@ def main():
     cores = opt.cores if opt.cores else config[b]["cores"]
     degrees = opt.degrees if opt.degrees else config[b]["degrees"]
 
-    if opt.single or "SINGLE" in strategies: # parallel running via wrapper
-      for degree in degrees:
-        be_p_run(b, path, main, str(degree))
-
-    elif opt.vanilla: # run vanilla Sketch in parallel
+    if opt.vanilla: # run vanilla Sketch in parallel
       p_run(b, path, main, opt.repeat)
 
     else: # use sketch-frontend's parallel running
       for i in xrange(opt.repeat):
         for strategy in strategies:
-          if strategy == "NOT_SET": # fixed degree
+
+          if strategy == "SINGLE": # parallel running via wrapper
+            for degree in degrees:
+              r_bak = opt.repeat
+              if "single_repeat" in config[b]:
+                opt.repeat = config[b]["single_repeat"]
+
+              be_p_run(b, path, main, str(degree))
+
+              opt.repeat = r_bak
+
+          elif strategy == "NOT_SET": # fixed degree
             for core in cores:
               for degree in degrees:
                 fe_p_run(b, path, main, strategy, core, str(degree))

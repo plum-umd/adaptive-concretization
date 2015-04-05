@@ -3,6 +3,7 @@
   {
     "main": "sample.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -10,6 +11,7 @@
   {
     "main": "sample.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -17,6 +19,7 @@
   {
     "main": "sample.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -24,6 +27,7 @@
   {
     "main": "sll_prepend.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -31,6 +35,7 @@
   {
     "main": "list_min.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -38,6 +43,7 @@
   {
     "main": "advec_mom_kernel1.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
@@ -45,6 +51,7 @@
   {
     "main": "advec_mom_kernel2.sk",
     "strategies": ["SINGLE", "WILCOXON"],
+    "single_repeat": 32,
     "cores": [1, 4, 32],
     "degrees": [16, 64, 128, 512, 1024, 4096]
   },
