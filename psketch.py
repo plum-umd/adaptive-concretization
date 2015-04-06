@@ -132,7 +132,11 @@ def p_run(cmd, argv):
 
 if __name__ == "__main__":
   sketch_home = os.environ["SKETCH_HOME"]
-  cegis = os.path.join(sketch_home, "..", "sketch-backend", "src", "SketchSolver", "cegis")
+  if "runtime" in sketch_home: # using tar ball
+    sketch_root = os.path.join(sketch_home, "..", "..")
+  else: # from source
+    sketch_root = os.path.join(sketch_home, "..")
+  cegis = os.path.join(sketch_root, "sketch-backend", "src", "SketchSolver", "cegis")
 
   argv = sys.argv[1:]
 
