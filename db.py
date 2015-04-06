@@ -169,9 +169,9 @@ def calc_siqr(lst):
 
 class PerfDB(object):
 
-  def __init__(self):
-    self.cnx = mysql.connector.connect(host="127.0.0.1", user="sketchperf")
-    self.cnx.database = "concretization" # assume this db is already set up
+  def __init__(self, user="sketchperf", db="concretization"):
+    self.cnx = mysql.connector.connect(host="127.0.0.1", user=user)
+    self.cnx.database = db # assume this db is already set up
     self.cnx.get_warnings = True
     self._drawing = False
     self._raw_data = {}
@@ -670,6 +670,12 @@ def main():
     action="store", dest="cmd",
     type="choice", choices=["init", "reset", "clean", "register", "stat"],
     default=None, help="command to run")
+  parser.add_option("--user",
+    action="store", dest="user", default="sketchperf",
+    help="user name for database")
+  parser.add_option("--db",
+    action="store", dest="db", default="concretization",
+    help="database name")
   parser.add_option("-e", "--eid",
     action="store", dest="eid", type="int", default=0,
     help="experiment id")
@@ -700,7 +706,7 @@ def main():
   global verbose
   verbose = opt.verbose
 
-  db = PerfDB()
+  db = PerfDB(opt.user, opt.db)
 
   if opt.cmd == "init":
     for t in schemas:
