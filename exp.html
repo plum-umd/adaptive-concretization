@@ -113,6 +113,7 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install python-dev python-pip
 </code></pre>
+<!--
       <p>
 On Mac OS X,
       </p>
@@ -125,6 +126,7 @@ and run the following (which may require administrator access):
 <pre><code>$ (sudo) python get-pip.py
 </code></pre>
       <p>
+--!>
 Once <code>pip</code> is ready, install <code>subprocess32</code>:
       </p>
 <pre><code>$ sudo pip install subprocess32
@@ -138,12 +140,13 @@ On Debian and Ubuntu,
       </p>
 <pre><code>sudo apt-get install python-numpy python-scipy python-matplotlib
 </code></pre>
+<!--
       <p>
 On Mac OS X,
       </p>
 <pre><code>sudo port install py27-numpy py27-scipy py27-matplotlib
 </code></pre>
-
+-->
     </div>
 
     <div class="docs-section" id="DB">
@@ -165,11 +168,13 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install mysql-server mysql-client
 </code></pre>
+<!--
       <p>
 On Mac OS X,
       </p>
 <pre><code>$ sudo port install mysql5
 </code></pre>
+-->
       <p>
 The prompt (or install GUI) will ask you for the current root password.
 Type whatever password you want.  (Note that this will be used later.)
@@ -234,8 +239,11 @@ From now on, you can connect to that database like this:
 </code></pre>
       <p>
 In case you want to use different account and database names,
-revise lines 173--174 in <code>db.py</code> accordingly.
+use options <code>--user</code> and <code>--db</code>
+in <code>db.py</code> accordingly.
       </p>
+<pre><code>.../ae/adaptive-concretization $ ./db.py --user user_name --db db_name ...
+</code></pre>
       <p>
 To connect to the database, you need to install
 <a href="https://www.mysql.com/products/connector/">MySQL connector</a>.
@@ -245,11 +253,13 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install python-mysql.connector
 </code></pre>
+<!--
       <p>
 On Mac OS X,
       </p>
 <pre><code>$ sudo port install py-mysql
 </code></pre>
+-->
       <p>
 Inside the database, we will have the following tables:
 <ol>
