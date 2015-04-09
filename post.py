@@ -40,13 +40,13 @@ def find_config(output, single):
       return (None, None, None, None)
 
 
-f_trial_re = re.compile(r"parallel trial \((\d+)\) failed")
+f_trial_re = re.compile(r"parallel trial.* \((\d+)\) failed")
 s_trial_re = re.compile(r"resolved within (\d+) complete parallel trial")
 ttime_re = re.compile(r"Total time = ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
 deg_re = re.compile(r"degree choice: (\d+)")
 lucky_re = re.compile(r"lucky \(degree: (\d+)\)")
 
-be_separator_re = re.compile(r"=== parallel trial \((\d+)\) (\S+) ===")
+be_separator_re = re.compile(r"=== parallel trial.* \((\d+)\) (\S+) ===")
 
 
 def analyze(output, b, s, c, d):
