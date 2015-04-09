@@ -104,6 +104,14 @@ def analyze(output, b, s, c, d):
       else:
         lines.append(line)
 
+    # for plain Sketch, the whole message is from back-end
+    if s == "VANILLA":
+      record = be_analyze_lines(lines, b, s, degree)
+      if record["succeed"] == "Succeed":
+        s_times.append(record["ttime"])
+      else: # "Failed"
+        f_times.append(record["ttime"])
+
     run_record["degree"] = degree
     trial = len(f_times) + len(s_times)
     run_record["trial"] = trial
@@ -118,7 +126,7 @@ def analyze(output, b, s, c, d):
   return run_record
 
 
-exit_re = re.compile(r"backend exit code: ([-]?\d+)")
+exit_re = re.compile(r"Solver exit value: ([-]?\d+)")
 be_tout_re = re.compile(r"timed out: (\d+)")
 be_etime_re = re.compile(r"Total elapsed time \(ms\):\s*([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
 be_ttime_re = re.compile(r"TOTAL TIME ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
@@ -153,9 +161,9 @@ def be_analyze_lines(lines, b, s, d):
     m = re.search(exit_re, line)
     if m:
       exit_code = int(m.group(1))
-      succeed = exit_code == 0
-    elif "ALL CORRECT" in line:
-      succeed = True
+      succeed |= exit_code == 0
+    if "ALL CORRECT" in line:
+      succeed |= True
 
     m = re.search(be_ttime_re, line)
     if m:
@@ -171,7 +179,7 @@ def be_analyze_lines(lines, b, s, d):
       propagation = int(m.group(1))
       break
 
-  if ttime < 0: succeed = False
+  if ttime <= 0 and etime <= 0: succeed = False
 
   s_succeed = "Succeed" if succeed else "Failed"
   run_record["succeed"] = s_succeed
