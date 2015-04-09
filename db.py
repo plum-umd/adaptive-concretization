@@ -206,8 +206,8 @@ class PerfDB(object):
     query = """
       SELECT COUNT(*)
       FROM information_schema.tables
-      WHERE table_name = '{0}'
-    """.format(sanitize_table_name(table_name))
+      WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}'
+    """.format(self.cnx.database, sanitize_table_name(table_name))
     PerfDB.__execute(cur, query)
     ret = False
     if cur.fetchone()[0] == 1: ret = True
