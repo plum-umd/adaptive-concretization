@@ -122,6 +122,7 @@ def analyze(output, b, s, c, d):
     run_record["ttime"] = ttime
     run_record["stime"] = s_time_sum
     run_record["ftime"] = float(f_time_sum) / len(f_times) if f_times else 0
+    run_record["ctime"] = f_time_sum + s_time_sum
 
   return run_record
 

@@ -40,9 +40,9 @@ table Hole (key: auto_inc HID)
 +-------------------------------------------+
 
 table RunP (key: auto_inc RID)
-+---------------------------------------------------------------------------+
-| RID | Benchmark | Core | Degree | Succeed | Trial | TTime | STime | FTime |
-+---------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------+
+| RID | Benchmark | Core | Degree | Succeed | Trial | TTime | STime | FTime | CTime |
++-----------------------------------------------------------------------------------+
 
 """
 
@@ -102,7 +102,8 @@ pr_schema = [
   ["TRIAL", t_i, nnull],
   ["TTIME", t_i, nnull],
   ["STIME", t_i, nnull],
-  ["FTIME", t_f, nnull]
+  ["FTIME", t_f, nnull],
+  ["CTIME", t_i, nnull]
 ]
 
 schemas = {
@@ -515,6 +516,7 @@ class PerfDB(object):
     __stat_col("FTIME")
     __stat_col("STIME")
     __stat_col("TTIME")
+    __stat_col("CTIME")
 
     __stat_col("DEGREE")
     _conds = conds[:]
