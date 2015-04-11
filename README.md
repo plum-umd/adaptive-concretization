@@ -39,7 +39,7 @@ This script is the main runner that runs Sketch in various settings:
 All Sketch outputs will be saved under ```data/``` folder.
 
 ```sh
-$ ./run.py -r #n [-b benchmark_name]* [-d degree]* [-c #n] [--strategy WILCOXON] [-s] [--timeout t]
+$ ./run.py -r n [-b benchmark_name]* [-d degree]* [-c n] [--strategy WILCOXON] [-s] [--timeout t]
 ```
 You can run multiple benchmarks and
 multiple degrees (if not using adaptive concretization):
