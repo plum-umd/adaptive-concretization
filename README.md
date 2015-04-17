@@ -7,6 +7,13 @@ the algorithm and the usage of this infrastructure,
 visit our GitHub page [here][gh].
 
 
+## Publication
+
+* Adaptive Concretization for Parallel Program Synthesis
+  Jinseong Jeon, Xiaokang Qiu, Armando Solar-Lezama, and Jeffrey S. Foster.
+  In International Conference on Computer Aided Verification (CAV '15), Jul 2015.
+
+
 ## Structure
 
 * \_\_init\_\_.py : a placeholder to enable other python modules to use each other
