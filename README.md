@@ -9,7 +9,7 @@ visit our GitHub page [here][gh].
 
 ## Publication
 
-* Adaptive Concretization for Parallel Program Synthesis
+* Adaptive Concretization for Parallel Program Synthesis.
   Jinseong Jeon, Xiaokang Qiu, Armando Solar-Lezama, and Jeffrey S. Foster.
   In International Conference on Computer Aided Verification (CAV '15), Jul 2015.
 
