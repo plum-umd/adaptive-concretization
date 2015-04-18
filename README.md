@@ -77,7 +77,7 @@ $ ./run.py --config config.full.json [...]
 #### post.py
 
 This script interprets Sketch outputs (under `data/` folder unless specifed elsewhere)
-and retrives statistical information, such as elapsed time, number of trials,
+and retrieves statistical information, such as elapsed time, number of trials,
 chosen randdegree, etc.
 ```sh
 $ ./post.py [-s] [-d data_dir] [-b benchmark_name]*
@@ -94,7 +94,7 @@ This script has various features to manipulate database:
 
 By default, this script assumes to access to the database
 with username `sketchperf` and database name `concretization`.
-(See GitHub page [here][gh] for how to set up database.)
+(See GitHub page [here][db] for how to set up database.)
 If you are using different names, specify them:
 ```sh
 $ ./db.py --user user_name --db db_name [...]
@@ -124,4 +124,5 @@ to be described later...
 to be decribed later...
 
 [gh]: http://plum-umd.github.io/adaptive-concretization/
+[db]: http://plum-umd.github.io/adaptive-concretization/exp.html#DB
 
