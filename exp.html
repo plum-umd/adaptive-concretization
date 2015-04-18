@@ -308,7 +308,7 @@ where we can literally configure all the experiments we want to conduct.
 <code>config.full.json</code> (for full version of experiments, respectively),
 and <code>run.py</code> uses <code>config.json</code> by default.
 One thing that is missed in those configuration files is
-the number of times to repeat the experiments: <code>-r #n</code>.
+the number of times to repeat the experiments: <code>-r n</code>.
       </p>
       <p>
 All Sketch output files will be placed under <code>data/</code> folder.
@@ -356,12 +356,12 @@ stops all active instances if one found a solution.)
 In this regard, we can properly collect empirical success rates.
       </p>
 <pre><code>.../ae/adaptive-concretization $ ./clean.sh
-.../ae/adaptive-concretization $ ./run.py -s -r #n
+.../ae/adaptive-concretization $ ./run.py -s -r n
 </code></pre>
       <p>
 You can run particular benchmarks with particular degrees:
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py -s -r #n [-b name]* [-d degree]*
+<pre><code>.../ae/adaptive-concretization $ ./run.py -s -r n [-b name]* [-d degree]*
 .../ae/adaptive-concretization $ ./run.py -s -r 1024 -b p_color -b deriv2 -d 64 -d 1024
 </code></pre>
       <p>
@@ -375,7 +375,7 @@ Check and register Sketch outputs as follows.
 As mentioned earlier, you can run and register at the same time,
 which is applicable to all other experiments below:
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py -s -r #n --register
+<pre><code>.../ae/adaptive-concretization $ ./run.py -s -r n --register
 </code></pre>
       <p>
 You can retrieve the statistics from the database:
@@ -387,7 +387,7 @@ The next experiment is about parallel scalability of our algorithm.
 To obtain statistics about plain Sketch (as in Tables 2 and 3),
 use <code>--vanilla</code> option in <code>run.py</code>.
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --vanilla -r #n [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --vanilla -r n [...]
 .../ae/adaptive-concretization $ ./post.py
 .../ae/adaptive-concretization $ ./db.py -c register [-e EID]
 .../ae/adaptive-concretization $ ./db.py -c state [-e EID]
@@ -398,7 +398,7 @@ specify the strategy: <code>--strategy WILCOXON</code>.
 Otherwise, it will repeat the first experiment using Sketch front-end's parallel running.
 (This happens in order to encompass all experiments settings in one.)
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --strategy WILCOXON -r #n [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --strategy WILCOXON -r n [...]
 (post-analysis, registration, and statistics steps are same as above.)
 </code></pre>
       <p>
@@ -406,7 +406,7 @@ From the statistics, you can learn which degree was mostly chosen at the adaptio
 To test the efficiency of the adaption phase,
 we can run Sketch with that particular degree, assuming we already knew it:
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --strategy NOT_SET -d degree -r #n [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --strategy NOT_SET -d degree -r n [...]
 (post-analysis, registration, and statistics steps are same as above.)
 </code></pre>
     </div>
@@ -422,7 +422,7 @@ for our paper.  To make <code>run.py</code> use a different configuration
 file, you need to pass the following option:
 <code>--config config.full.json</code>.  For example,
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r #n [--timeout 30] [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r n [--timeout 30] [...]
 (post-analysis, registration, and statistics steps are same as above.)
 </code></pre>
       <p>
