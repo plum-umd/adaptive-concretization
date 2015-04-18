@@ -132,13 +132,22 @@ login credential: (
 )
       </div>
       <p>
-This VM image includes Sketch, the testing infrastructure, and
+This VM image includes Sketch, this testing infrastructure, and
 <a href="exp.html#DB">database</a> setup.
 You can directly move to <a href="exp.html#exp-short">short</a>
 version of experiment to learn the usages of this testing infrastructure
-and experiments in details; and then visit
+and experiments in detail; and then visit
 <a href="exp.html#exp-full">full</a> version of experiment
 to conduct the whole experiments discussed in the paper.
+      </p>
+      <p>
+Notice that the VM image is set to use just one single core.
+This means that even experiments for multi-core will be run on a single core
+if you don't change the setting.  To reproduce all the experiments we reported
+in the paper, you should use a machine with more than 32 cores
+and accordingly change the number of cores for the VM image by yourself.
+(Or, read through and follow the other options below,
+which are not that difficult.)
       </p>
     </div>
 
@@ -152,7 +161,7 @@ Another way to build Sketch is to use an easy-to-install tar ball:
       </div>
       <p>
 Inside the tar ball, all Java files in sketch-frontend are already compiled,
-so all you need to do is building the back-end.  Make sure that you have
+so all you need to do is building sketch-backend.  Make sure that you have
 <code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
 Then, build the beck-end as follows:
       </p>
@@ -216,12 +225,17 @@ export PATH=$PATH:$SKETCH_HOME/..
 For the source users:
       </p>
 <pre><code>export SKETCH_HOME=/path/to/sketch-frontend
-export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.9-noarch-launchers.dir
+export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.8-noarch-launchers.dir
 </code></pre>
       <p>
-Our testing infrastructure takes care of all the options that will be explained
-below.  Therefore, if you are not interested, you can move to
-the <a href="exp.html">Experiments</a> page now.
+If you are using the up-to-date Sketch, double-check Sketch version number,
+which may be <code>1.6.9</code>.
+You can see the version number while building sketch-frontend.
+      </p>
+      <p>
+Our testing infrastructure takes care of all the Sketch options
+that will be explained below.  Therefore, if you are not interested,
+you can move to the <a href="exp.html">Experiments</a> page now.
       </p>
       <p>
 The option to enable (random) concretization is:
@@ -254,9 +268,9 @@ until it figures out a statistically better degree than another.
       <p>
 There are couple more minor options to tune Sketch behavior:
         <ul>
-          <li><code>--slv-p-cpus n</code>: number of cores to use</li>
-          <li><code>--slv-p-timeout n</code>: timeout for parallel trials</li>
-          <li><code>--slv-p-trials n</code>: number of parallel trials</li>
+          <li><code>--slv-p-cpus n</code>: number of cores to use (default: 80% of available cores to not exhaust the system)</li>
+          <li><code>--slv-p-timeout n</code>: (adaptive) timeout for parallel trials (default: 1 minute)</li>
+          <li><code>--slv-p-trials n</code>: number of parallel trials (default: 32 * 32 * 3)</li>
         </ul>
       </p>
     </div>
