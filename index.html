@@ -110,7 +110,7 @@ in practice, outperforming Sketch in many cases, sometimes significantly, and ha
 parallel scalability.
       </p>
       <ul>
-        <li><a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/paper.pdf">PDF</a> (submission)</li>
+        <li><a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_submission_174.pdf">PDF</a> (submission)</li>
         <li>
 The testing infrastructure and web pages are maintained at
 <a href="https://github.com/plum-umd/adaptive-concretization">here</a>.
@@ -163,13 +163,15 @@ Another way to build Sketch is to use an easy-to-install tar ball:
 Inside the tar ball, all Java files in sketch-frontend are already compiled,
 so all you need to do is building sketch-backend.  Make sure that you have
 <code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
+(You may need to install <code>autoconf</code>, <code>automake</code>,
+and <code>libtool</code>, too.)
 Then, build the beck-end as follows:
       </p>
 <pre><code>.../ae $ tar xvfz sketch-1.6.8.tgz
 .../ae $ cd sketch-1.6.8/sketch-backend
 .../ae/sketch-1.6.8/sketch-backend $ chmod +x ./configure
 .../ae/sketch-1.6.8/sketch-backend $ ./configure
-.../ae/sketch-1.6.8/sketch-backend $ make clean; make -j4
+.../ae/sketch-1.6.8/sketch-backend $ make clean; make
 </code></pre>
       <p>
 Skip to the <a href="#usage">Usage</a> section to learn how to use Sketch.
@@ -193,6 +195,8 @@ and
       <p>
 Make sure that you have <code>java</code>, <code>javac</code>,
 <code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
+(You may need to install <code>autoconf</code>, <code>automake</code>,
+and <code>libtool</code>, too.)
 Then, build Sketch as follows:
       </p>
 <pre><code>.../ae $ cd sketch-frontend
@@ -202,7 +206,7 @@ Then, build Sketch as follows:
 .../ae/sketch-backend $ ./autogen.sh
 .../ae/sketch-backend $ chmod +x ./configure
 .../ae/sketch-backend $ ./configure
-.../ae/sketch-backend $ make clean; make -j4
+.../ae/sketch-backend $ make clean; make
 </code></pre>
       <p>
 If you encounter any build errors, please contact the authors.

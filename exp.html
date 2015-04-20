@@ -176,7 +176,8 @@ On Mac OS X,
 </code></pre>
 -->
       <p>
-The prompt (or install GUI) will ask you for the current root password.
+The prompt (or install GUI) will ask you for a password for the MySQL
+root user. (This is not the system root password.)
 Type whatever password you want.  (Note that this will be used later.)
       </p>
 <pre><code>Enter current password for root (enter for none):
@@ -224,6 +225,8 @@ Access to the db server and create an account for this experiment:
 password: *******
 mysql> CREATE USER 'sketchperf'@'localhost';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'sketchperf'@'localhost';
+mysql> exit
+Bye
 </code></pre>
       <p>
 Access to the db server with that account and generate a database:
@@ -231,6 +234,8 @@ Access to the db server with that account and generate a database:
 <pre><code>$ mysql --user=sketchperf -h 127.0.0.1
 mysql> CREATE DATABASE concretization;
 mysql> SHOW DATABASES;
+mysql> exit
+Bye
 </code></pre>
       <p>
 From now on, you can connect to that database like this:
