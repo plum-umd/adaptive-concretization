@@ -212,6 +212,12 @@ Then, build Sketch as follows:
 .../ae/sketch-backend $ make clean; make
 </code></pre>
       <p>
+You can run a simple test case to make sure the build is correct:
+      </p>
+<pre><code>.../ae $ cd sketch-frontend
+.../ae/sketch-frontend $ make run-local-seq EXEC_ARGS="src/test/sk/seq/miniTest1.sk"
+</code></pre>
+      <p>
 One possible issue you may encounter while building sketch-frontend is
 the inconsistent Java version in Maven, e.g., Maven refers to Java 1.6
 while the main Java you're using is 1.7 or higher.  In that case, set up
