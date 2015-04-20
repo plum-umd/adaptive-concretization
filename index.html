@@ -54,11 +54,21 @@
                 <li class="popover-item">
                   <a class="popover-link" href="#tar-ball">tar ball</a>
                 </li>
+              </ul>
+            </div>
+          </li>
+          <li class="navbar-item">
+            <a class="navbar-link" href="#" data-popover="#sketchPopover">Sketch</a>
+            <div id="downloadPopover" class="popover">
+              <ul class="popover-list">
                 <li class="popover-item">
-                  <a class="popover-link" href="#source">source</a>
+                  <a class="popover-link" href="sketch.html#source">source</a>
                 </li>
                 <li class="popover-item">
-                  <a class="popover-link" href="#usage">usage</a>
+                  <a class="popover-link" href="sketch.html#usage">usage</a>
+                </li>
+                <li class="popover-item">
+                  <a class="popover-link" href="sketch.html#output">output</a>
                 </li>
               </ul>
             </div>
@@ -147,8 +157,9 @@ This means that even experiments for multi-core will be run on a single core
 if you don't change the setting.  To reproduce all the experiments we reported
 in the paper, you should use a machine with more than 32 cores
 and accordingly change the number of cores for the VM image by yourself.
-(Or, read through and follow the other options below,
-which are not that difficult.)
+Instead of the VM image, we provide two more options:
+an easy-to-install tar ball (below) or
+building Sketch from <a href="sketch.html#source">source</a>.
       </p>
     </div>
 
@@ -175,150 +186,7 @@ Then, build the beck-end as follows:
 .../ae/sketch-1.6.8/sketch-backend $ make clean; make
 </code></pre>
       <p>
-Skip to the <a href="#usage">Usage</a> section to learn how to use Sketch.
-      </p>
-    </div>
-
-    <div class="docs-section" id="source">
-      <h5 class="docs-header">Source</h5>
-      <p>
-In case you are interested, here is a harder way to build Sketch.
-To reclaim what we claim in the paper, clone the specific versions of
-<a href="https://bitbucket.org/gatoatigrado/sketch-frontend">sketch-frontend</a>
-and
-<a href="https://bitbucket.org/gatoatigrado/sketch-backend">sketch-backend</a>:
-      </p>
-<pre><code>.../ae $ hg clone -r 4916b0c679b4f8ab3bb18e5482f5a58d8deae122 \
-> https://bitbucket.org/gatoatigrado/sketch-frontend
-.../ae $ hg clone -r 4609620d4f62c481c6be0aaac9d8611c0e8ae573 \
-> https://bitbucket.org/gatoatigrado/sketch-backend
-</code></pre>
-      <p>
-Make sure that you have <code>java</code>, <code>javac</code>,
-and <code>mvn</code> for sketch-frontend;
-<code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>
-for sketch-backend.
-(You may need to install <code>autoconf</code>, <code>automake</code>,
-and <code>libtool</code>, too.)
-Then, build Sketch as follows:
-      </p>
-<pre><code>.../ae $ cd sketch-frontend
-.../ae/sketch-frontend $ make assemble-noarch
-</code></pre>
-<pre><code>.../ae $ cd sketch-backend
-.../ae/sketch-backend $ ./autogen.sh
-.../ae/sketch-backend $ chmod +x ./configure
-.../ae/sketch-backend $ ./configure
-.../ae/sketch-backend $ make clean; make
-</code></pre>
-      <p>
-You can run a simple test case to make sure the build is correct:
-      </p>
-<pre><code>.../ae $ cd sketch-frontend
-.../ae/sketch-frontend $ make run-local-seq EXEC_ARGS="src/test/sk/seq/miniTest1.sk"
-</code></pre>
-      <p>
-One possible issue you may encounter while building sketch-frontend is
-the inconsistent Java version in Maven, e.g., Maven refers to Java 1.6
-while the main Java you're using is 1.7 or higher.  In that case, set up
-<code>$JAVA_HOME</code> properly:
-<a href="http://stackoverflow.com/questions/18813828/why-maven-use-jdk-1-6-but-my-java-version-is-1-7">stackoverflow</a>.
-      </p>
-      <p>
-If you suffer from any other build errors, please contact the authors.
-      </p>
-    </div>
-
-    <div class="docs-section" id="usage">
-      <h5 class="docs-header">Usage</h5>
-      <p>
-To use <code>sketch</code> from anywhere,
-we recommend you to set up your environment accordingly.
-      </p>
-      <p>
-For the tar ball users:
-      </p>
-<pre><code>export SKETCH_HOME=/path/to/sketch-1.6.8/sketch-frontend/runtime
-export PATH=$PATH:$SKETCH_HOME/..
-</code></pre>
-      <p>
-For the source users:
-      </p>
-<pre><code>export SKETCH_HOME=/path/to/sketch-frontend
-export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.8-noarch-launchers
-</code></pre>
-      <p>
-If you are using the up-to-date Sketch, double-check Sketch version number,
-which may be <code>1.6.9</code>.
-You can see the version number while building sketch-frontend.
-      </p>
-      <p>
-Our testing infrastructure takes care of all the Sketch options
-that will be explained below.  Therefore, if you are not interested,
-you can move to the <a href="exp.html">Experiments</a> page now.
-      </p>
-      <p>
-The option to enable (random) concretization is:
-<code>--slv-randassign</code>.
-You can also specify the degree of concretization via
-<code>--slv-randdegree n</code>.
-(Please refer to the paper for the notions of concretization and its degree.)
-      </p>
-<pre><code>$ sketch --slv-randassign [--slv-randdegree n] ... target.sk
-</code></pre>
-      <p>
-Since concretized values for holes are random,
-the UNSAT result from the back-end doesn't mean the given sketch is indeed UNSAT.
-That is, if you are sure that the target sketch is satisfiable,
-you need to run concretized sub-problems many times until resolved.
-The option <code>--slv-parallel</code> will run many instances of sketch-backend
-in parallel.  Note that that option merely runs <em>same</em> instances of
-sketch-backend in parallel if you don't pass any options about concretization.
-Thus, the preferred usage is:
-      </p>
-<pre><code>$ sketch --slv-parallel --slv-randassign [--slv-randdegree n] ... target.sk
-</code></pre>
-      <p>
-Rather than a fixed degree of concretization,
-the option <code>--slv-strategy WILCOXON</code> will adjust the degree adaptively
-until it figures out a statistically better degree than another.
-      </p>
-<pre><code>$ sketch --slv-parallel --slv-randassign --slv-strategy WILCOXON ... target.sk
-</code></pre>
-      <p>
-There are couple more minor options to tune Sketch behavior:
-        <ul>
-          <li><code>--slv-p-cpus n</code>: number of cores to use
-            <ul>
-              <li>Default: 3 quarters of available cores (to not exhaust the system)</li>
-              <li>This number is used for set up the size of Java <code>Thread</code> pool. 
-                So, if it's set something bigger than what the system has,
-                Sketch will still use what the system has.
-              </li>
-            </ul>
-          </li>
-          <li><code>--slv-p-timeout t</code>: (adaptive) timeout for parallel trials
-            <ul>
-              <li>Default: 1 minute</li>
-              <li>This will be (adaptively) doubled if timeout happens.</li>
-            </ul>
-          </li>
-          <li><code>--slv-p-trials n</code>: number of parallel trials
-            <ul>
-              <li>Default: |cores| * 32 * 3</li>
-            </ul>
-          </li>
-          <li><code>--slv-timeout t</code>: timeout for overall Sketch (in minute)
-            <ul>
-              <li>This option precedes <code>--slv-p-trials</code>.</li>
-              <li>That is, if the overall timeout is set, the number of parallel trials
-                will be set much bigger (e.g., |cores| * 32 * 32),
-                so as to run until that timeout limit.
-                (As always, Sketch will stop if one of parallel trials has found a solution.)
-              </li>
-            </ul>
-          </li>
-        </ul>
+Skip to the <a href="sketch.html#usage">Usage</a> section to learn how to use Sketch.
       </p>
     </div>
 
