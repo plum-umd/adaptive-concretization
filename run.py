@@ -170,7 +170,7 @@ def main():
     action="store", dest="repeat", type="int", default=1,
     help="# of experiments to be conducted")
   parser.add_option("--timeout",
-    action="store", dest="timeout", type="int", default=0,
+    action="store", dest="timeout", type="int", default=30,
     help="sketch timeout (min)")
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
