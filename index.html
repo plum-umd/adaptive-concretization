@@ -115,7 +115,8 @@ parallel scalability.
 The testing infrastructure and web pages are maintained at
 <a href="https://github.com/plum-umd/adaptive-concretization">here</a>.
         </li>
-        <li>Last updated: Apr, 2015</li>
+        <li>All the instructions are based on Debian and Ubuntu.</li>
+        <li>Last updated: Apr 20, 2015</li>
       </ul>
     </div>
 
@@ -194,7 +195,9 @@ and
 </code></pre>
       <p>
 Make sure that you have <code>java</code>, <code>javac</code>,
-<code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>.
+and <code>mvn</code> for sketch-frontend;
+<code>gcc</code>, <code>g++</code>, <code>bison</code>, and <code>flex</code>
+for sketch-backend.
 (You may need to install <code>autoconf</code>, <code>automake</code>,
 and <code>libtool</code>, too.)
 Then, build Sketch as follows:
@@ -209,7 +212,14 @@ Then, build Sketch as follows:
 .../ae/sketch-backend $ make clean; make
 </code></pre>
       <p>
-If you encounter any build errors, please contact the authors.
+One possible issue you may encounter while building sketch-frontend is
+the inconsistent Java version in Maven, e.g., Maven refers to Java 1.6
+while the main Java you're using is 1.7 or higher.  In that case, set up
+<code>$JAVA_HOME</code> properly:
+<a href="http://stackoverflow.com/questions/18813828/why-maven-use-jdk-1-6-but-my-java-version-is-1-7">stackoverflow</a>.
+      </p>
+      <p>
+If you suffer from any other build errors, please contact the authors.
       </p>
     </div>
 
@@ -229,7 +239,7 @@ export PATH=$PATH:$SKETCH_HOME/..
 For the source users:
       </p>
 <pre><code>export SKETCH_HOME=/path/to/sketch-frontend
-export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.8-noarch-launchers.dir
+export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.8-noarch-launchers
 </code></pre>
       <p>
 If you are using the up-to-date Sketch, double-check Sketch version number,
@@ -272,9 +282,36 @@ until it figures out a statistically better degree than another.
       <p>
 There are couple more minor options to tune Sketch behavior:
         <ul>
-          <li><code>--slv-p-cpus n</code>: number of cores to use (default: 80% of available cores to not exhaust the system)</li>
-          <li><code>--slv-p-timeout n</code>: (adaptive) timeout for parallel trials (default: 1 minute)</li>
-          <li><code>--slv-p-trials n</code>: number of parallel trials (default: 32 * 32 * 3)</li>
+          <li><code>--slv-p-cpus n</code>: number of cores to use
+            <ul>
+              <li>Default: 3 quarters of available cores (to not exhaust the system)</li>
+              <li>This number is used for set up the size of Java <code>Thread</code> pool. 
+                So, if it's set something bigger than what the system has,
+                Sketch will still use what the system has.
+              </li>
+            </ul>
+          </li>
+          <li><code>--slv-p-timeout t</code>: (adaptive) timeout for parallel trials
+            <ul>
+              <li>Default: 1 minute</li>
+              <li>This will be (adaptively) doubled if timeout happens.</li>
+            </ul>
+          </li>
+          <li><code>--slv-p-trials n</code>: number of parallel trials
+            <ul>
+              <li>Default: |cores| * 32 * 3</li>
+            </ul>
+          </li>
+          <li><code>--slv-timeout t</code>: timeout for overall Sketch (in minute)
+            <ul>
+              <li>This option precedes <code>--slv-p-trials</code>.</li>
+              <li>That is, if the overall timeout is set, the number of parallel trials
+                will be set much bigger (e.g., |cores| * 32 * 32),
+                so as to run until that timeout limit.
+                (As always, Sketch will stop if one of parallel trials has found a solution.)
+              </li>
+            </ul>
+          </li>
         </ul>
       </p>
     </div>
