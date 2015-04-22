@@ -97,10 +97,9 @@ def analyze(output, b, s, c, d):
             s_times.append(record["ttime"])
           else: # "Failed"
             f_times.append(record["ttime"])
-            
-        else: # ["start", "aborted"]
+
           lines = []
-          continue
+
       else:
         lines.append(line)
 
@@ -129,7 +128,8 @@ def analyze(output, b, s, c, d):
 
 exit_re = re.compile(r"Solver exit value: ([-]?\d+)")
 be_tout_re = re.compile(r"timed out: (\d+)")
-be_etime_re = re.compile(r"Total elapsed time \(ms\):\s*([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
+be_etime_re = re.compile(r"elapsed time \(s\) .* ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
+be_stime_re = re.compile(r"Total elapsed time \(ms\):\s*([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
 be_ttime_re = re.compile(r"TOTAL TIME ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
 
 propg_re = re.compile(r"f# %assign: .* propagated: (\d+)")
@@ -169,7 +169,7 @@ def be_analyze_lines(lines, b, s, d):
     m = re.search(be_ttime_re, line)
     if m:
       ttime = ttime + int(float(m.group(1)))
-    m = re.search(be_etime_re, line)
+    m = re.search(be_stime_re, line)
     if m:
       etime = float(m.group(1))
     m = re.search(be_tout_re, line)
@@ -180,7 +180,11 @@ def be_analyze_lines(lines, b, s, d):
       propagation = int(m.group(1))
       break
 
-  if ttime <= 0 and etime <= 0: succeed = False
+  for line in lines:
+    m = re.search(be_etime_re, line)
+    if m:
+      etime = int(float(m.group(1)) * 1000)
+      break
 
   s_succeed = "Succeed" if succeed else "Failed"
   run_record["succeed"] = s_succeed
