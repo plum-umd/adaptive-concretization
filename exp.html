@@ -90,6 +90,9 @@
                   <a class="popover-link" href="#exp-full">full</a>
                 </li>
                 <li class="popover-item">
+                  <a class="popover-link" href="#output">output</a>
+                </li>
+                <li class="popover-item">
                   <a class="popover-link" href="#exp-raw">raw data</a>
                 </li>
               </ul>
@@ -457,6 +460,11 @@ as follows:
 
     </div>
 
+    <div class="docs-section" id="output">
+      <h5 class="docs-header">Output</h5>
+
+    </div>
+
     <div class="docs-section" id="exp-raw">
       <h5 class="docs-header">Raw Data</h5>
       <p>
@@ -464,7 +472,15 @@ You can download our database dumps and check data inside it:
       </p>
 <pre><code>$ mysql -u username [-p] new_db_name < dump.sql
 </code></pre>
-<ol>
+<ul>
+<!--
+  <li>CAV 2015 camera ready (as of May 1, 2015): <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_ae.sql">cav2015_final.sql</a>
+  <ul>
+    <li>EID 11: backend behavior with various randdegrees (option <code>-s</code>)</li>
+    <li>EID 9: vanilla Sketch</li>
+  </ul>
+  </li>
+-->
   <li>CAV 2015 submission (as of Feb 5, 2015):
 <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_submission.sql">cav2015_submission.sql</a>
   <ul>
@@ -474,9 +490,15 @@ You can download our database dumps and check data inside it:
     <li>EID 4: Sketch performance benchmarks</li>
     <li>EID 9: vanilla Sketch</li>
   </ul>
+<pre><code>... $ mysql -u sketchperf cav2015_submission < cav2015_submission.sql
+.../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 11 -s
+.../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 2
+.../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 3
+.../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 4
+.../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 9
+</code></pre>
   </li>
-  <li>CAV 2015 artifact evaluation (as of Apr 24, 2015): <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_ae.sql">cav2015_ae.sql</a></li>
-</ol>
+</ul>
     </div>
 
   </div>
