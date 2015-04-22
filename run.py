@@ -22,13 +22,18 @@ g_opt = None
 def run(b, path, main, seed):
   res = False
   try:
-    tmp_dir = tempfile.mkdtemp()
     opts = []
     opts.extend(["-V", "5"])
-    if g_opt.timeout:
-      opts.extend(["--slv-timeout", str(g_opt.timeout)])
     opts.extend(["--slv-mem-limit", str(32*1024*1024*1024)])
     opts.extend(["--slv-seed", str(seed)])
+    if g_opt.timeout:
+      opts.extend(["--slv-timeout", str(g_opt.timeout)])
+
+    if "sygus" in path:
+      opts.extend(["--fe-def", "BND=5"])
+      opts.extend(["--bnd-unroll-amnt", '64'])
+
+    tmp_dir = tempfile.mkdtemp()
     opts.extend(["--fe-output", tmp_dir])
     opts.extend(["--fe-inc", path])
     cmd = ["sketch"] + opts + [main]
