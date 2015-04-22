@@ -16,6 +16,8 @@ import tempfile
 BENCHMARK = "benchmark"
 DATA = "data"
 
+g_opt = None
+
 
 def run(b, path, main, seed):
   res = False
@@ -23,6 +25,9 @@ def run(b, path, main, seed):
     tmp_dir = tempfile.mkdtemp()
     opts = []
     opts.extend(["-V", "5"])
+    if g_opt.timeout:
+      opts.extend(["--slv-timeout", str(g_opt.timeout)])
+    opts.extend(["--slv-mem-limit", str(32*1024*1024*1024)])
     opts.extend(["--slv-seed", str(seed)])
     opts.extend(["--fe-output", tmp_dir])
     opts.extend(["--fe-inc", path])
@@ -79,7 +84,6 @@ def p_run(b, path, main, repeat):
 def get_datetime():
   return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 
-g_opt = None
 
 def fe_p_run(b, path, main, strategy, core, degree=None):
   opts = []
