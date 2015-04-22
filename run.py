@@ -84,14 +84,17 @@ g_opt = None
 def fe_p_run(b, path, main, strategy, core, degree=None):
   opts = []
   opts.extend(["-V", "5"])
-  if g_opt.timeout:
-    opts.extend(["--slv-timeout", str(g_opt.timeout)])
   opts.extend(["--slv-parallel"])
   opts.extend(["--slv-randassign"])
+  opts.extend(["--slv-strategy", strategy])
   opts.extend(["--slv-p-cpus", str(core)])
   opts.extend(["--slv-p-trials", str(32*32*3)])
-  if degree: opts.extend(["--slv-randdegree", degree])
-  opts.extend(["--slv-strategy", strategy])
+  if degree:
+    opts.extend(["--slv-randdegree", degree])
+  if g_opt.timeout:
+    opts.extend(["--slv-timeout", str(g_opt.timeout)])
+  if g_opt.ntimes:
+    opts.extend(["--slv-ntimes", str(g_opt.ntimes)])
 
   if "sygus" in path:
     opts.extend(["--fe-def", "BND=5"])
@@ -115,6 +118,7 @@ def fe_p_run(b, path, main, strategy, core, degree=None):
       pass
 
   return 0
+
 
 def be_p_run(b, path, main, degree):
   opts = []
@@ -171,7 +175,10 @@ def main():
     help="# of experiments to be conducted")
   parser.add_option("--timeout",
     action="store", dest="timeout", type="int", default=30,
-    help="sketch timeout (min)")
+    help="Sketch timeout (min)")
+  parser.add_option("--ntimes",
+    action="store", dest="ntimes", type="int", default=None,
+    help="number of rounds on a single back-end invocation")
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
     help="single threaded execution with various random degree and verbose outputs")
