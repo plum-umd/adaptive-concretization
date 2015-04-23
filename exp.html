@@ -329,7 +329,8 @@ One thing that is missed in those configuration files is
 the number of times to repeat the experiments: <code>-r n</code>.
       </p>
       <p>
-All Sketch output files will be placed under <code>data/</code> folder.
+All Sketch <a href="sketch.html#output">output</a>
+files will be placed under <code>data/</code> folder.
 You can check those outputs by running <code>post.py</code>;
 register those post-analyzed outputs to the database via
 <code>-c register</code> command in <code>db.py</code>;
@@ -391,7 +392,7 @@ Check and register Sketch outputs as follows.
 </code></pre>
       <p>
 As mentioned earlier, you can run and register at the same time,
-which is applicable to all other experiments below:
+but it is applicable to <code>-s</code> option only:
       </p>
 <pre><code>.../ae/adaptive-concretization $ ./run.py -s -r n --register
 </code></pre>
@@ -440,7 +441,7 @@ for our paper.  To make <code>run.py</code> use a different configuration
 file, you need to pass the following option:
 <code>--config config.full.json</code>.  For example,
       </p>
-<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r n [--timeout 30] [...]
+<pre><code>.../ae/adaptive-concretization $ ./run.py --config config.full.json -r n [--timeout t] [...]
 (post-analysis, registration, and statistics steps are same as above.)
 </code></pre>
       <p>
@@ -451,7 +452,7 @@ as follows:
       </p>
 <pre><code>.../ae/adaptive-concretization $ ./clean.sh
 .../ae/adaptive-concretization $ ./run.py --config config.full.json -r 13
-.../ae/adaptive-concretization $ ./run.py --config config.full.json -r 13 --vanilla --timeout 30
+.../ae/adaptive-concretization $ ./run.py --config config.full.json -r 13 --vanilla
 .../ae/adaptive-concretization $ ./db.py -c register -s
 .../ae/adaptive-concretization $ ./db.py -c register
 .../ae/adaptive-concretization $ ./db.py -c stat -s
