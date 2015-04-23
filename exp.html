@@ -463,7 +463,78 @@ as follows:
 
     <div class="docs-section" id="exp-output">
       <h5 class="docs-header">Output</h5>
-
+      <p>
+Once Sketch outputs were collected, post-analyzed, and registered,
+we can retrieve detailed statistics from the database.
+The first experiment about back-end behaviors for various randdegrees
+shows that optimal degrees vary from benchmark to benchmark.
+Statistics about this experiment (with <code>-s</code> option)
+would look like as follows:
+      </p>
+<pre><code>benchmark: name, degree: d
+success rate: x / n
+lucky runs' solution time: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+unlucky runs' solution time: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+...
+ & \timeout{} & \timeout{} & \mso{Median}{SIQR}{} & ...
+</code></pre>
+      <p>
+where SIQR stands for Semi-InterQuartile Range.
+For each benchmark and degree, we measured empirical success rate
+and both successful and failed runs' elapsed times.  Based on those,
+we calculated expected running time and printed them out in a TeX format:
+<code>\timeout{}</code> means zero success rate,
+and <code>\mso{}{}{}</code> is one of our own TeX commends
+that represent median and SIQR together.
+      </p>
+      <p>
+The second experiment compares our adaptive concretization against
+plain Sketch and shows its scalability by varying the number of cores.
+Statistics about this experiment would look like as follows:
+      </p>
+<pre><code>benchmark: name, core: c, strategy: S
+success rate: x / n
+TRIAL: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+CTIME: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+FTIME: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+STIME: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+TTIME: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+DEGREE: Mean (Var)
+        quantiles: [ 0% | 25% | 50% | 75% | 100% ]
+degree histogram
+  d: n (n')
+  ...
+</code></pre>
+      <p>
+where FTIME, STIME, TTIME, and CTIME stand for
+failed, successful, wall-clock, and CPU times.
+(CTIME was missed in the dumped database for the submitted version.)
+In the degree histogram, <code>n (n')</code> means
+n' out of n selections were successful.
+      </p>
+      <p>
+At the end, the script will print out statistics 'per benchmark'
+in a TeX format:
+      </p>
+<pre><code>Strategy1 & degree1 & column1 & \mso{Median}{SIQR}{}
+Strategy1 & degree1 & column2 & \mso{Median}{SIQR}{}
+...
+Strategy1 & degree2 & column1 & \mso{Median}{SIQR}{}
+Strategy1 & degree2 & column2 & \mso{Median}{SIQR}{}
+...
+Strategy2 & degree1 & column1 & \mso{Median}{SIQR}{}
+...
+</code></pre>
+      <p>
+where possible strategies are: VANILLA, FIXED, and WILCOXON.
+      </p>
     </div>
 
     <div class="docs-section" id="exp-raw">
@@ -475,7 +546,7 @@ You can download our database dumps and check data inside it:
 </code></pre>
 <ul>
 <!--
-  <li>CAV 2015 camera ready (as of May 1, 2015): <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_ae.sql">cav2015_final.sql</a>
+  <li>CAV 2015 final (as of May 22, 2015): <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/cav2015_ae.sql">cav2015_final.sql</a>
   <ul>
     <li>EID 11: backend behavior with various randdegrees (option <code>-s</code>)</li>
     <li>EID 9: vanilla Sketch</li>
@@ -489,7 +560,13 @@ You can download our database dumps and check data inside it:
     <li>EID 2: parallel running with (non-)adaptive concretization</li>
     <li>EID 3: SyGuS benchmarks</li>
     <li>EID 4: Sketch performance benchmarks</li>
-    <li>EID 9: vanilla Sketch</li>
+    <li>EID 9: vanilla Sketch
+      <ul>
+        <li>Due to the known bug (which has been fixed now),
+          all the success rates in this EID is zero (i.e., 0 / n).
+        </li>
+      </ul>
+    </li>
   </ul>
 <pre><code>... $ mysql -u sketchperf cav2015_submission < cav2015_submission.sql
 .../ae/adaptive-concretization $ ./db.py --db cav2015_submission -c stat -e 11 -s
