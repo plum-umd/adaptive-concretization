@@ -206,9 +206,24 @@ class PerfDB(object):
     cur = self.cnx.cursor()
     query = """
       SELECT COUNT(*)
-      FROM information_schema.tables
+      FROM information_schema.TABLES
       WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}'
     """.format(self.cnx.database, sanitize_table_name(table_name))
+    PerfDB.__execute(cur, query)
+    ret = False
+    if cur.fetchone()[0] == 1: ret = True
+    cur.close()
+    return ret
+
+  # True if the column of interest indeed exists
+  def col_exists(self, table_name, col_name):
+    cur = self.cnx.cursor()
+    query = """
+      SELECT COUNT(*)
+      FROM information_schema.COLUMNS
+      WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}'
+          and COLUMN_NAME = '{2}'
+    """.format(self.cnx.database, sanitize_table_name(table_name), col_name)
     PerfDB.__execute(cur, query)
     ret = False
     if cur.fetchone()[0] == 1: ret = True
@@ -516,7 +531,9 @@ class PerfDB(object):
     __stat_col("FTIME")
     __stat_col("STIME")
     __stat_col("TTIME")
-    __stat_col("CTIME")
+    # CPU TIME is newly added, so it may not exist in old db/dumps
+    if self.col_exists(pr_name, "CTIME"):
+      __stat_col("CTIME")
 
     __stat_col("DEGREE")
     _conds = conds[:]
