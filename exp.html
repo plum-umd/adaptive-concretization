@@ -542,7 +542,11 @@ where possible strategies are: VANILLA, FIXED, and WILCOXON.
       <p>
 You can download our database dumps and check data inside it:
       </p>
-<pre><code>$ mysql -u username [-p] new_db_name < dump.sql
+<pre><code>$ mysql --user=sketchperf -h 127.0.0.1
+mysql> CREATE DATABASE new_db_name;
+mysql> exit
+Bye
+$ mysql -u sketchperf new_db_name < dump.sql
 </code></pre>
 <ul>
 <!--
