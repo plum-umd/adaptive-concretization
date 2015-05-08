@@ -659,28 +659,32 @@ class PerfDB(object):
 
 
   # statistics per experiment
-  def _stat_exp(self, single, eid, detailed=False):
+  def _stat_exp(self, benchmarks, single, eid, detailed=False):
     r_name = sr_name if single else pr_name
     conds = []
     conds.append(PerfDB.match_EID(eid))
     conds.append(PerfDB.match_RID(e_name, r_name))
-    benchmarks = self.__get_distinct("BENCHMARK", [e_name, r_name], conds)
+
     if not benchmarks:
-      self.log("no benchmark for eid={}".format(eid))
-      return
-    for b in split(benchmarks):
+      _benchmarks = self.__get_distinct("BENCHMARK", [e_name, r_name], conds)
+      if not _benchmarks:
+        self.log("no benchmark for eid={}".format(eid))
+        return
+      benchmarks = split(_benchmarks)
+
+    for b in benchmarks:
       self._raw_data[b] = {}
       self._stat_benchmark(single, eid, b, detailed)
 
 
   # statistics
-  def calc_stat(self, single=True, eid=0, detailed=False):
+  def calc_stat(self, benchmarks, single=True, eid=0, detailed=False):
     if eid > 0:
-      self._stat_exp(single, eid, detailed)
+      self._stat_exp(benchmarks, single, eid, detailed)
     else: # for all EIDs
       eids = self.__get_distinct("EID", [e_name], ["TRUE"])
       for (_eid,) in eids:
-        self._stat_exp(single, _eid, detailed)
+        self._stat_exp(benchmarks, single, _eid, detailed)
 
 
 def main():
@@ -704,6 +708,9 @@ def main():
   parser.add_option("-f", "--file",
     action="append", dest="outputs", default=[],
     help="output files to post-analyze")
+  parser.add_option("-b", "--benchmark",
+    action="append", dest="benchmarks", default=[],
+    help="benchmark(s) of interest")
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
     help="refer to backend behavior from single threaded executions")
@@ -760,7 +767,7 @@ def main():
 
   elif opt.cmd == "stat":
     db.chk_integrity()
-    db.calc_stat(opt.single, opt.eid, opt.detail)
+    db.calc_stat(opt.benchmarks, opt.single, opt.eid, opt.detail)
 
   return 0
 
