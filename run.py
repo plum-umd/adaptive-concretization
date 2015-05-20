@@ -101,7 +101,7 @@ def fe_p_run(b, path, main, strategy, core, degree=None):
   if degree:
     opts.extend(["--slv-randdegree", degree])
   if g_opt.timeout:
-    opts.extend(["--slv-timeout", str(g_opt.timeout)])
+    opts.extend(["--fe-timeout", str(g_opt.timeout)])
   if g_opt.ntimes:
     opts.extend(["--slv-ntimes", str(g_opt.ntimes)])
 
@@ -183,7 +183,7 @@ def main():
     action="store", dest="repeat", type="int", default=1,
     help="# of experiments to be conducted")
   parser.add_option("--timeout",
-    action="store", dest="timeout", type="int", default=30,
+    action="store", dest="timeout", type="int", default=120,
     help="Sketch timeout (min)")
   parser.add_option("--ntimes",
     action="store", dest="ntimes", type="int", default=None,
