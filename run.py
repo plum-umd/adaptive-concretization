@@ -102,6 +102,7 @@ def fe_p_run(b, path, main, strategy, core, degree=None):
     opts.extend(["--slv-randdegree", degree])
   if g_opt.timeout:
     opts.extend(["--fe-timeout", str(g_opt.timeout)])
+    opts.extend(["--slv-timeout", str(g_opt.timeout)])
   if g_opt.ntimes:
     opts.extend(["--slv-ntimes", str(g_opt.ntimes)])
 
