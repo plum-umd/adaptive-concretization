@@ -35,6 +35,7 @@ visit our GitHub page [here][gh].
 This section explains script usages in the order of experiments conducted.
 For more details, again, refer to our GitHub page [here][gh].
 
+
 #### run.py
 
 This script is the main runner that runs Sketch in various settings:
@@ -74,6 +75,7 @@ configurations, pass `config.full.json` to `run.py`:
 $ ./run.py --config config.full.json [...]
 ```
 
+
 #### post.py
 
 This script interprets Sketch outputs (under `data/` folder unless specifed elsewhere)
@@ -83,6 +85,7 @@ chosen randdegree, etc.
 $ ./post.py [-s] [-d data_dir] [-b benchmark_name]*
 ```
 
+
 #### db.py
 
 This script has various features to manipulate database:
@@ -90,11 +93,11 @@ This script has various features to manipulate database:
 * `-c clean`: cleaning data in the tables
 * `-c reset`: resetting tables
 * `-c register`: registering statistics data (from `post.py`)
-* `-c stat`: retriveing statistics
+* `-c stat`: retrieving statistics
 
 By default, this script assumes to access to the database
 with username `sketchperf` and database name `concretization`.
-(See GitHub page [here][db] for how to set up database.)
+(See our GitHub page [here][db] for how to set up database.)
 If you are using different names, specify them:
 ```sh
 $ ./db.py --user user_name --db db_name [...]
@@ -106,22 +109,45 @@ $ ./db.py -d data_dir [...]
 $ ./db.py -f path/to/file [...]
 ```
 For the experiment about back-end behaviors, similar to `run.py`,
-explicitly say it:
+explicitly specify it (along with a distinct EID number):
 ```sh
-$ ./db.py -s [...]
+$ ./db.py -s -e 11 [...]
 ```
 If you want to see what queries this script makes, turn on the verbosity option:
 ```sh
 $ ./db.py -v [...]
 ```
 
+
 #### simulate.py
 
-to be described later...
+As a proof-of-concept, this script simulates several
+online concretization strategies, such as random, fixed degree,
+minimal time, and wilcoxon-based statistical comparison.
+The calculation of expected running time is based on the empirical
+data in the database, especially the experiment about back-end behaviors,
+where SAT propagation information is recorded.
+If you use a different EID for that experiment
+(see our GitHub page [gh] and/or `db.py` above),
+you may need to specify it.
+```sh
+$ ./simulate.py [-e EID]
+```
+Since the simulation depends on the empirical data in the database,
+similar options for the database are available:
+```sh
+$ ./simulate.py [--user user_name] [--db db_name]
+```
+
+The output of this script is simulated running time,
+along with variance and quantiles.  I.e., the smaller, the better.
+However, Note that it is quite tricky to simulate parallel running,
+so this simulation result can not guarantee the best solution.
+
 
 #### figure.py
 
-to be decribed later...
+to be described later...
 
 [gh]: http://plum-umd.github.io/adaptive-concretization/
 [db]: http://plum-umd.github.io/adaptive-concretization/exp.html#DB

@@ -2,6 +2,7 @@
 
 from functools import partial
 import random
+from optparse import OptionParser
 import sys
 
 import numpy as np
@@ -10,7 +11,7 @@ from scipy.stats import wilcoxon
 
 from db import PerfDB, calc_percentile
 
-degrees = [10, 50, 100, 500, 1000, 5000]
+degrees = [16, 64, 128, 512, 1024, 4096]
 
 
 def stat_oracle(data, b, d, n=1):
@@ -132,7 +133,7 @@ def strategy_wilcoxon(oracle, n_cpu):
       dist_d1 = [ t1 / p1 for t1 in model[d1]["runs"] ]
       dist_d2 = [ t2 / p2 for t2 in model[d2]["runs"] ]
       rank_sum, pvalue = wilcoxon(dist_d1, dist_d2)
-      if pvalue < 0.1: # the median diff. is significatly different
+      if pvalue < 0.2: # the median diff. is significatly different
         if np.mean(dist_d1) < np.mean(dist_d2):
           # left one is better, so move right pivot to left
           pivots[1] = pivots[1] - 1
@@ -164,9 +165,28 @@ def simulate(data, n_cpu, strategy, b):
 
 
 def main():
-  db = PerfDB()
+  parser = OptionParser(usage="usage: %prog [options]")
+  parser.add_option("--user",
+    action="store", dest="user", default="sketchperf",
+    help="user name for database")
+  parser.add_option("--db",
+    action="store", dest="db", default="concretization",
+    help="database name")
+  parser.add_option("-e", "--eid",
+    action="store", dest="eid", type="int", default=11,
+    help="experiment id")
+  parser.add_option("-d", "--dir",
+    action="store", dest="data_dir", default="data",
+    help="output folder")
+  parser.add_option("-b", "--benchmark",
+    action="append", dest="benchmarks", default=[],
+    help="benchmark(s) of interest")
+
+  (opt, args) = parser.parse_args()
+
+  db = PerfDB(opt.user, opt.db)
   db.drawing = True
-  db.calc_stat()
+  db.calc_stat(opt.benchmarks, True, opt.eid)
   data = db.raw_data
 
   _merged = {}
@@ -203,14 +223,14 @@ def main():
   simulators["max(time)"] = partial(_simulate, strategy_max_time)
   simulators["wilcoxon"] = partial(_simulate, strategy_wilcoxon)
 
-  strategy_fixed_100  = partial(strategy_fixed, 100)
-  strategy_fixed_500  = partial(strategy_fixed, 500)
-  strategy_fixed_1000 = partial(strategy_fixed, 1000)
-  strategy_fixed_5000 = partial(strategy_fixed, 5000)
-  simulators["fixed(0100)"] = partial(_simulate, strategy_fixed_100)
-  simulators["fixed(0500)"] = partial(_simulate, strategy_fixed_500)
-  simulators["fixed(1000)"] = partial(_simulate, strategy_fixed_1000)
-  simulators["fixed(5000)"] = partial(_simulate, strategy_fixed_5000)
+  strategy_fixed_128  = partial(strategy_fixed, 128)
+  strategy_fixed_512  = partial(strategy_fixed, 512)
+  strategy_fixed_1024 = partial(strategy_fixed, 1024)
+  strategy_fixed_4096 = partial(strategy_fixed, 4096)
+  simulators["fixed(0128)"] = partial(_simulate, strategy_fixed_128)
+  simulators["fixed(0512)"] = partial(_simulate, strategy_fixed_512)
+  simulators["fixed(1024)"] = partial(_simulate, strategy_fixed_1024)
+  simulators["fixed(4096)"] = partial(_simulate, strategy_fixed_4096)
 
   for b in _merged:
     print "\n=== benchmark: {} ===".format(b)
