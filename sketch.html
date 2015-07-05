@@ -161,19 +161,18 @@ we recommend you to set up your environment accordingly.
       <p>
 For the tar ball users:
       </p>
-<pre><code>export SKETCH_HOME=/path/to/sketch-1.6.8/sketch-frontend/runtime
+<pre><code>export SKETCH_HOME=/path/to/sketch-1.6.9/sketch-frontend/runtime
 export PATH=$PATH:$SKETCH_HOME/..
 </code></pre>
       <p>
 For the source users:
       </p>
 <pre><code>export SKETCH_HOME=/path/to/sketch-frontend
-export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.8-noarch-launchers
+export PATH=$PATH:$SKETCH_HOME/target/sketch-1.6.9-noarch-launchers
 </code></pre>
       <p>
 If you are using the up-to-date Sketch, double-check Sketch version number,
-which may be higher, e.g., <code>1.6.9</code>.
-You can see the version number while building sketch-frontend.
+which can be seen while building sketch-frontend.
       </p>
       <p>
 Our testing infrastructure takes care of all the Sketch options
@@ -197,9 +196,14 @@ you need to run concretized sub-problems many times until resolved.
 The option <code>--slv-parallel</code> will run many instances of sketch-backend
 in parallel.  Note that that option merely runs <em>same</em> instances of
 sketch-backend in parallel if you don't pass any options about concretization.
-Thus, the preferred usage is:
+Thus, the preferred usage is using it along with <code>--slv-randassign</code>:
       </p>
 <pre><code>$ sketch --slv-parallel --slv-randassign [--slv-randdegree n] ... target.sk
+</code></pre>
+      <p>
+You can also run parallel instances of sketch-backend with different degrees:
+      </p>
+<pre><code>$ sketch --slv-parallel --slv-randassign --slv-randdegrees n1,n2,n3,n4 ... target.sk
 </code></pre>
       <p>
 Rather than a fixed degree of concretization,
