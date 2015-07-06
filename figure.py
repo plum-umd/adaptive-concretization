@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from optparse import OptionParser
 import os
 import sys
 
@@ -9,16 +10,9 @@ import matplotlib.pyplot as plt
 
 from db import PerfDB
 
-DATA="data"
 
-def main():
-  db = PerfDB()
-  db.drawing = True
-  db.calc_stat()
-  data = db.raw_data
-
+def fig_single(data, out_dir):
   # { benchmark: { degree: { k: v ... } } }
-
   for b in data:
     _keys = set([])
     for d in data[b]:
@@ -41,10 +35,44 @@ def main():
           x = [int(d)] * len(data[b][d][k])
           ax.scatter(x, data[b][d][k])
 
-      png = os.path.join(DATA, "{}_{}.png".format(b,k))
+      png = os.path.join(out_dir, "{}_{}.png".format(b,k))
       print png
       plt.savefig(png)
       plt.close()
+
+
+def main():
+  parser = OptionParser(usage="usage: %prog [options]")
+  parser.add_option("--user",
+    action="store", dest="user", default="sketchperf",
+    help="user name for database")
+  parser.add_option("--db",
+    action="store", dest="db", default="concretization",
+    help="database name")
+  parser.add_option("-e", "--eid",
+    action="store", dest="eid", type="int", default=0,
+    help="experiment id")
+  parser.add_option("-d", "--dir",
+    action="store", dest="data_dir", default="data",
+    help="output folder")
+  parser.add_option("-b", "--benchmark",
+    action="append", dest="benchmarks", default=[],
+    help="benchmark(s) of interest")
+  parser.add_option("-s", "--single",
+    action="store_true", dest="single", default=False,
+    help="refer to backend behavior from single threaded executions")
+
+  (opt, args) = parser.parse_args()
+
+  db = PerfDB(opt.user, opt.db)
+  db.drawing = True
+  db.calc_stat(opt.benchmarks, opt.single, opt.eid)
+  data = db.raw_data
+
+  if opt.single:
+    fig_single(data, opt.data_dir)
+  else:
+    pass
 
 
 if __name__ == "__main__":
