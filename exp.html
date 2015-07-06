@@ -126,7 +126,6 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install python-dev python-pip
 </code></pre>
-<!--
       <p>
 On Mac OS X,
       </p>
@@ -139,7 +138,6 @@ and run the following (which may require administrator access):
 <pre><code>$ (sudo) python get-pip.py
 </code></pre>
       <p>
---!>
 Once <code>pip</code> is ready, install <code>subprocess32</code>:
       </p>
 <pre><code>$ sudo pip install subprocess32
@@ -153,19 +151,17 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install python-numpy python-scipy python-matplotlib
 </code></pre>
-<!--
       <p>
 On Mac OS X,
       </p>
-<pre><code>sudo port install py27-numpy py27-scipy py27-matplotlib
+<pre><code>sudo pip install numpy scipy matplotlib
 </code></pre>
--->
     </div>
 
     <div class="docs-section" id="DB">
       <h5 class="docs-header">Database setup</h5>
       <p>
-We thoroughly tested our algorithm by running Sketch over 7K times
+We thoroughly tested our algorithm by running Sketch over 12K times
 across different sets of benchmarks, different degrees,
 and different numbers of cores.  Needless to say, it might be very
 painful if we run test cases; post-analyze outputs; and depict tables,
@@ -181,13 +177,12 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install mysql-server mysql-client
 </code></pre>
-<!--
       <p>
 On Mac OS X,
       </p>
-<pre><code>$ sudo port install mysql5
+<pre><code>$ brew install mysql
+$ mysql.server restart
 </code></pre>
--->
       <p>
 The prompt (or install GUI) will ask you for a password for the MySQL
 root user. (This is not the system root password.)
@@ -198,8 +193,9 @@ Type whatever password you want.  (Note that this will be used later.)
 OK, successfully used password, moving on...
 </code></pre>
       <p>
-Once you've installed MySQL, you need to activate it and
-run the MySQL set up script:
+Once you've installed MySQL, you need to activate it and run the MySQL
+set up script. (Mac users with <code>brew</code> can skip to the second
+command below.)
       </p>
 <pre><code>$ sudo mysql_install_db
 $ sudo /usr/bin/mysql_secure_installation
@@ -213,22 +209,22 @@ the easiest way is just to say Yes to all options
 (except for changing the root password):
       </p>
 <pre><code>...
-Remove anonymous users? [Y/n] y
+Remove anonymous users? [Y/n] Y
  ... Success!
 
 ...
-Disallow root login remotely? [Y/n] y
+Disallow root login remotely? [Y/n] Y
  ... Success!
 
 ...
-Remove test database and access to it? [Y/n] y
+Remove test database and access to it? [Y/n] Y
  - Dropping test database...
  ... Success!
  - Removing privileges on test database...
  ... Success!
 
 ...
-Reload privilege tables now? [Y/n] y
+Reload privilege tables now? [Y/n] Y
  ... Success!
 </code></pre>
       <p>
@@ -271,13 +267,11 @@ On Debian and Ubuntu,
       </p>
 <pre><code>$ sudo apt-get install python-mysql.connector
 </code></pre>
-<!--
       <p>
 On Mac OS X,
       </p>
-<pre><code>$ sudo port install py-mysql
+<pre><code>$ sudo pip install --allow-external mysql-connector-python mysql-connector-python
 </code></pre>
--->
       <p>
 Inside the database, we will have the following tables:
 <ol>
