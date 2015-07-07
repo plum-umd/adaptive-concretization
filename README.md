@@ -165,6 +165,8 @@ It will generate figures _per benchmark_;
 x-axis of those figures is various degrees, whereas
 y-axis is either average size of SAT formulae propagation or
 average time of successful cases and failure cases.
+Besides, it will also generate so-called vee chart that shows
+the idea that optimal degrees vary from benchmark to benchmark.
 
 
 [gh]: http://plum-umd.github.io/adaptive-concretization/

@@ -8,16 +8,33 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+import util
 from db import PerfDB
 
-
 def fig_single(data, out_dir):
+  # { benchmark: [(m, siqr)_d1, (m, siqr)_d2, ...], ... }
+  e_ts = {}
+
   # { benchmark: { degree: { k: v ... } } }
   for b in data:
+    _e_ts = {}
+
     _keys = set([])
     for d in data[b]:
       for k in data[b][d]:
         if type(data[b][d][k]) in [list, dict]: _keys.add(k)
+
+      if "E(t)" in data[b][d]:
+        _e_ts[d] = data[b][d]["E(t)"]
+
+    # normalizing
+    min_e_ts = min([m for (m, _) in _e_ts.values()])
+    e_ts[b] = {}
+    for (d, (m, siqr)) in _e_ts.iteritems():
+      if m == float("inf"):
+        e_ts[b][d] = (1000, 0)
+      else:
+        e_ts[b][d] = (m/min_e_ts, siqr/m)
 
     for k in _keys:
       fig = plt.figure()
@@ -35,11 +52,52 @@ def fig_single(data, out_dir):
           x = [int(d)] * len(data[b][d][k])
           ax.scatter(x, data[b][d][k])
 
+      # figure per benchmark and key
       png = os.path.join(out_dir, "{}_{}.png".format(b,k))
-      print png
+      print "drawing ", png
       plt.savefig(png)
       plt.close()
 
+  # vee chart
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.set_xscale("log", nonposx="clip")
+  ax.set_xlabel("degree")
+  ax.set_yscale("log", nonposx="clip")
+  ax.set_ylabel("expected running time (normalized)")
+
+  colors = "bgrcmykw"
+  color_index = 0
+
+  for b in e_ts:
+    # not sorted...
+    #xs = e_ts[b].keys()
+    #ys, es = util.split(e_ts[b].values())
+
+    xs = []
+    ys = []
+    es = []
+    for d in sorted(e_ts[b].keys()):
+      xs.append(d)
+      m, siqr = e_ts[b][d]
+      ys.append(m)
+      es.append(siqr)
+
+    #ax.errorbar(xs, ys, yerr=es, label=b, fmt="-o", color=colors[color_index])
+    ax.plot(xs, ys, colors[color_index]+"o-", label=b)
+    color_index += 1
+
+  plt.legend(loc="best")
+
+  png = os.path.join(out_dir, "vee.png")
+  print "drawing ", png
+  plt.savefig(png)
+  plt.close()
+
+
+def fig_parallel(data, out_dir):
+  # { benchmark: { strategy: { #core: { k: v ... } } } }
+  pass
 
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
@@ -72,7 +130,7 @@ def main():
   if opt.single:
     fig_single(data, opt.data_dir)
   else:
-    pass
+    fig_parallel(data, opt.data_dir)
 
 
 if __name__ == "__main__":
