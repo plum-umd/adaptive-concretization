@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from itertools import combinations
-from functools import partial
 import glob
 from optparse import OptionParser
 import operator as op
@@ -16,6 +15,7 @@ import numpy as np
 from scipy import stats
 from scipy.stats import wilcoxon
 
+import util
 import post
 
 """
@@ -116,58 +116,6 @@ schemas = {
 
 verbose = False
 
-def sanitize_table_name(table_name):
-  return table_name.replace('\'', '\'\'')
-
-
-# benchmark => "'benchmark'"
-# 100 => "100"
-def quote(x):
-  if type(x) in [str, unicode]: return "\'{}\'".format(x)
-  else: return str(x)
-
-
-# "\infty" => "\infty"
-# 3.141592654 => "3.14"
-def formatter(x, d=0):
-  if type(x) is str: return x
-  else: return "{0:,.{1}f}".format(x, d)
-
-
-# ~ List.split in OCaml
-# transform a list of pairs into a pair of lists
-# e.g., [ (1, 'a'), (2, 'b'), (3, 'c') ] -> ([1, 2, 3], ['a', 'b', 'c'])
-def split(lst):
-  if not lst: return ([], [])
-  else:
-    try:
-      a, b = zip(*lst) # zip doesn't handle an empty list
-      return (list(a), list(b))
-    except ValueError: # [ (1, ), (2, ) ] -> [1, 2]
-      return list(zip(*lst)[0])
-    except TypeError: # already 1d list
-      return lst
-
-
-# transform a list of pairs into a dict
-def to_dict(lst):
-  if not lst: return {}
-  else: return { k: v for k, v in lst }
-
-
-def calc_percentile(lst, ps=[0, 25, 50, 75, 100]):
-  _lst = split(lst)
-  a = np.array(_lst)
-  f = partial(np.percentile, a)
-  return map(f, ps)
-
-
-def calc_siqr(lst):
-  _, q1, q2, q3, _ = calc_percentile(lst)
-  siqr = (q3 - q1) / 2
-  return q2, siqr
-
-
 class PerfDB(object):
 
   def __init__(self, user="sketchperf", db="concretization"):
@@ -208,7 +156,7 @@ class PerfDB(object):
       SELECT COUNT(*)
       FROM information_schema.TABLES
       WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}'
-    """.format(self.cnx.database, sanitize_table_name(table_name))
+    """.format(self.cnx.database, util.sanitize_table_name(table_name))
     PerfDB.__execute(cur, query)
     ret = False
     if cur.fetchone()[0] == 1: ret = True
@@ -223,7 +171,7 @@ class PerfDB(object):
       FROM information_schema.COLUMNS
       WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}'
           and COLUMN_NAME = '{2}'
-    """.format(self.cnx.database, sanitize_table_name(table_name), col_name)
+    """.format(self.cnx.database, util.sanitize_table_name(table_name), col_name)
     PerfDB.__execute(cur, query)
     ret = False
     if cur.fetchone()[0] == 1: ret = True
@@ -238,7 +186,7 @@ class PerfDB(object):
       CREATE TABLE IF NOT EXISTS {0} (
         {1}
       )
-    """.format(sanitize_table_name(table_name), s_schema)
+    """.format(util.sanitize_table_name(table_name), s_schema)
     PerfDB.__execute(cur, query)
     cur.close()
 
@@ -247,7 +195,7 @@ class PerfDB(object):
     cur = self.cnx.cursor()
     query = """
       DROP TABLE IF EXISTS {0}
-    """.format(sanitize_table_name(table_name))
+    """.format(util.sanitize_table_name(table_name))
     PerfDB.__execute(cur, query)
     cur.close()
 
@@ -273,7 +221,7 @@ class PerfDB(object):
       _record[k] = record[k]
 
     up_keys = ','.join(map(up_call, _record.keys()))
-    _values = '(' + ", ".join(map(quote, _record.values())) + ')'
+    _values = '(' + ", ".join(map(util.quote, _record.values())) + ')'
     PerfDB.__execute(cur, PerfDB.insert_query.format(sr_name, up_keys, _values))
     rid = cur.lastrowid
     if not rid:
@@ -285,7 +233,7 @@ class PerfDB(object):
     def reg_list_of_dict(table_name, lst):
       up_keys = ','.join(["RID"] + map(up_call, lst[0].keys()))
       def to_val(dic):
-        return '(' + ','.join(map(quote, [rid] + dic.values())) + ')'
+        return '(' + ','.join(map(util.quote, [rid] + dic.values())) + ')'
       _values = map(to_val, lst)
       valuess = ",\n\t".join(_values)
       PerfDB.__execute(cur, PerfDB.insert_query.format(table_name, up_keys, valuess))
@@ -317,7 +265,7 @@ class PerfDB(object):
       _record[k] = record[k]
 
     up_keys = ','.join(map(up_call, _record.keys()))
-    _values = '(' + ", ".join(map(quote, _record.values())) + ')'
+    _values = '(' + ", ".join(map(util.quote, _record.values())) + ')'
     PerfDB.__execute(cur, PerfDB.insert_query.format(pr_name, up_keys, _values))
     rid = cur.lastrowid
     if not rid:
@@ -411,7 +359,7 @@ class PerfDB(object):
 
   @staticmethod
   def match(table_name, what, v):
-    return "{}.{} = {}".format(table_name, what, quote(v))
+    return "{}.{} = {}".format(table_name, what, util.quote(v))
 
   # statistics per benchmark and degree
   def _stat_benchmark_degree_single(self, eid, b, d, detailed=False):
@@ -440,8 +388,8 @@ class PerfDB(object):
       _ttimes = self.__select_all([], ["TTIME"], [e_name, sr_name], _conds, None)
       _percentile = ""
       if _ttimes:
-        self._raw_data[b][d][succeed] = split(_ttimes)
-        _vals = calc_percentile(_ttimes)
+        self._raw_data[b][d][succeed] = util.split(_ttimes)
+        _vals = util.calc_percentile(_ttimes)
         _percentile = "[" + " | ".join(map(str, _vals)) + "]"
 
       lucky = "lucky" if succeed == "Succeed" else "unlucky"
@@ -452,8 +400,8 @@ class PerfDB(object):
     __stat_ttime("Failed")
 
     props = self.__select_all([], ["PROPAGATION"], [e_name, sr_name], conds, None)
-    self._raw_data[b][d]["propagation"] = split(props)
-    _percentile = calc_percentile(props)
+    self._raw_data[b][d]["propagation"] = util.split(props)
+    _percentile = util.calc_percentile(props)
     self.log("propagation: [{}]".format(" | ".join(map(str, _percentile))))
 
     _conds = conds[:]
@@ -470,7 +418,7 @@ class PerfDB(object):
     _conds = conds[:]
     _conds.append(PerfDB.match_RID(sr_name, h_name))
     hole_szs = self.__select_all([], ["SIZE"], [e_name, sr_name, h_name], _conds, "NAME")
-    _, _szs = split(hole_szs)
+    _, _szs = util.split(hole_szs)
     s_space = float(reduce(op.mul, _szs))
     self.log("search space: {}".format(s_space))
 
@@ -480,12 +428,12 @@ class PerfDB(object):
     self.log("concretization rate: {}".format(float(rpl) / n_total))
 
     rpl_holes = self.__select_all(["COUNT"], ["*"], [e_name, sr_name, h_name], _conds, "NAME")
-    hole_dict = to_dict(rpl_holes)
+    hole_dict = util.to_dict(rpl_holes)
     s_hole_dict = {}
     if n_succeed:
       _conds.append(PerfDB.match(sr_name, "SUCCEED", "Succeed"))
       s_holes = self.__select_all(["COUNT"], ["*"], [e_name, sr_name, h_name], _conds, "NAME")
-      s_hole_dict = to_dict(s_holes)
+      s_hole_dict = util.to_dict(s_holes)
 
     self.log("hole concretization histogram")
     for hole in hole_dict:
@@ -519,8 +467,8 @@ class PerfDB(object):
 
       _percentile = ""
       if _cols:
-        self._raw_data[b][s][c][cname] = split(_cols)
-        _vals = calc_percentile(_cols)
+        self._raw_data[b][s][c][cname] = util.split(_cols)
+        _vals = util.calc_percentile(_cols)
         _percentile = "[" + " | ".join(map(str, _vals)) + "]"
 
       self.log("{}: {} ({})".format(cname, _avg, _dev))
@@ -538,12 +486,12 @@ class PerfDB(object):
     __stat_col("DEGREE")
     _conds = conds[:]
     degrees = self.__select_all(["COUNT"], ["*"], [e_name, pr_name], _conds, "DEGREE")
-    d_dict = to_dict(degrees)
+    d_dict = util.to_dict(degrees)
     s_d_dict = {}
     if n_succeed:
       _conds.append(PerfDB.match(pr_name, "SUCCEED", "Succeed"))
       s_degrees = self.__select_all(["COUNT"], ["*"], [e_name, pr_name], _conds, "DEGREE")
-      s_d_dict = to_dict(s_degrees)
+      s_d_dict = util.to_dict(s_degrees)
 
     self.log("degree histogram")
     for degree in sorted(d_dict.keys()):
@@ -565,9 +513,9 @@ class PerfDB(object):
       conds.append(PerfDB.match(sr_name, "BENCHMARK", b))
       degrees = self.__get_distinct("DEGREE", [e_name, sr_name], conds)
       if not degrees: return
-      sorted_degrees = sorted(split(degrees))
+      sorted_degrees = sorted(util.split(degrees))
       for d in sorted_degrees:
-        self._raw_data[b][d] = {}
+        util.init_k(self._raw_data[b], d)
         self._stat_benchmark_degree_single(eid, b, d, detailed)
 
       ## tex
@@ -575,6 +523,7 @@ class PerfDB(object):
       for d in sorted_degrees:
         p = self._raw_data[b][d]["p"]
         if not p:
+          self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
           dist.append("\\timeout{}")
 
         else:
@@ -584,8 +533,9 @@ class PerfDB(object):
           if "Failed" in self._raw_data[b][d]:
             _ts.extend(self._raw_data[b][d]["Failed"])
           _dist = [ t / (100*p) for t in _ts ]
-          m, siqr = calc_siqr(_dist)
-          _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(formatter(m), formatter(siqr))
+          m, siqr = util.calc_siqr(_dist)
+          self._raw_data[b][d]["E(t)"] = (m, siqr)
+          _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
           dist.append(_m_siqr)
 
       _tex = " & ".join(dist)
@@ -597,14 +547,14 @@ class PerfDB(object):
       conds.append(PerfDB.match_RID(e_name, pr_name))
       conds.append(PerfDB.match(pr_name, "BENCHMARK", b))
       strategies = self.__get_distinct("STRATEGY", [e_name, pr_name], conds)
-      for s in split(strategies):
+      for s in util.split(strategies):
         _conds = conds[:]
         _conds.append(PerfDB.match(pr_name, "STRATEGY", s))
         cores = self.__get_distinct("CORE", [e_name, pr_name], _conds)
         if not cores: return
-        self._raw_data[b][s] = {}
-        for c in split(cores):
-          self._raw_data[b][s][c] = {}
+        util.init_k(self._raw_data[b], s)
+        for c in util.split(cores):
+          util.init_k(self._raw_data[b][s], c)
           self._stat_benchmark_parallel(eid, b, s, c)
 
       ## tex
@@ -614,8 +564,8 @@ class PerfDB(object):
             _dist = self._raw_data[b][s][c][col]
             if "TIME" in col:
               _dist = [ t / 1000 for t in _dist ]
-            m, siqr = calc_siqr(_dist)
-            _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(formatter(m), formatter(siqr))
+            m, siqr = util.calc_siqr(_dist)
+            _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
             self.log(" & ".join([s, str(c), col, _m_siqr]))
 
     if not single or not detailed: return
@@ -650,10 +600,10 @@ class PerfDB(object):
         ps.append(pvalue)
 
       self.log("\nWilcoxon test for {} and {}".format(d1, d2))
-      rs_percentile = calc_percentile(rs)
+      rs_percentile = util.calc_percentile(rs)
       s_rs_p = " | ".join(map(str, rs_percentile))
       self.log("rank: {} ({}) [ {} ]".format(np.mean(rs), np.var(rs), s_rs_p))
-      ps_percentile = calc_percentile(ps)
+      ps_percentile = util.calc_percentile(ps)
       s_ps_p = " | ".join(map(str, ps_percentile))
       self.log("pvalue: {} ({}) [ {} ]".format(np.mean(ps), np.var(ps), s_ps_p))
 
@@ -670,10 +620,10 @@ class PerfDB(object):
       if not _benchmarks:
         self.log("no benchmark for eid={}".format(eid))
         return
-      benchmarks = split(_benchmarks)
+      benchmarks = util.split(_benchmarks)
 
     for b in benchmarks:
-      self._raw_data[b] = {}
+      util.init_k(self._raw_data, b)
       self._stat_benchmark(single, eid, b, detailed)
 
 
