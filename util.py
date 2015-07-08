@@ -1,4 +1,5 @@
 from functools import partial
+import operator as op
 
 import numpy as np
 
@@ -60,4 +61,7 @@ def calc_siqr(lst):
   return q2, siqr
 
 
+# sort both lists according to the order of the 1st list
+def sort_both(l1, l2):
+  return zip(*sorted(zip(l1, l2), key=op.itemgetter(0)))
 

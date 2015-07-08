@@ -168,6 +168,15 @@ average time of successful cases and failure cases.
 Besides, it will also generate so-called vee chart that shows
 the idea that optimal degrees vary from benchmark to benchmark.
 
+For the experiments about adaptive concretization and its
+scalability, just run the script:
+```sh
+$ ./figure.py [...]
+```
+It will generate two figures: the one that compares adaptive
+concretization against the plain Sketch, and the other that
+contrasts adaptive concretization with different numbers of cores.
+
 
 [gh]: http://plum-umd.github.io/adaptive-concretization/
 [db]: http://plum-umd.github.io/adaptive-concretization/exp.html#DB
