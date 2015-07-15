@@ -55,7 +55,7 @@ def fig_single(data, out_dir):
 
       # figure per benchmark and key
       png = os.path.join(out_dir, "{}_{}.png".format(b,k))
-      print "drawing ", png
+      print "drawing", png
       plt.savefig(png)
       plt.close()
 
@@ -91,12 +91,12 @@ def fig_single(data, out_dir):
   plt.legend(loc="best")
 
   png = os.path.join(out_dir, "vee.png")
-  print "drawing ", png
+  print "drawing", png
   plt.savefig(png)
   plt.close()
 
 
-def fig_parallel(data, out_dir):
+def fig_parallel(data, out_dir, invert):
   # { benchmark: { strategy: (m, siqr) } }
   bsv = {}
 
@@ -115,7 +115,10 @@ def fig_parallel(data, out_dir):
   ## plain Sketch vs. AC
   fig = plt.figure()
   ax = fig.add_subplot(111)
-  ax.set_ylabel("running time (normalized)")
+  if invert:
+    ax.set_ylabel("speedup")
+  else:
+    ax.set_ylabel("running time (normalized)")
 
   xs = []
   ys = []
@@ -129,8 +132,14 @@ def fig_parallel(data, out_dir):
 
     xs.append(b)
     m, siqr = bsv[b]["WILCOXON32"]
-    ys.append(m / base)
-    es.append(siqr / base)
+    if invert:
+      speedup = min(15, base / m)
+      ys.append(speedup)
+      es.append(siqr / m)
+    else:
+      slowdown = max(1/15, m / base)
+      ys.append(slowdown)
+      es.append(siqr / base)
 
   ys_sorted, xs_sorted = util.sort_both(ys, xs)
   ys_sorted, es_sorted = util.sort_both(ys, es)
@@ -143,7 +152,7 @@ def fig_parallel(data, out_dir):
   plt.tight_layout()
 
   png = os.path.join(out_dir, "sketch-ac.png")
-  print "drawing ", png
+  print "drawing", png
   plt.savefig(png)
   plt.close()
 
@@ -205,7 +214,7 @@ def fig_parallel(data, out_dir):
   plt.tight_layout()
 
   png = os.path.join(out_dir, "scalability.png")
-  print "drawing ", png
+  print "drawing", png
   plt.savefig(png)
   plt.close()
 
@@ -230,6 +239,9 @@ def main():
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
     help="refer to backend behavior from single threaded executions")
+  parser.add_option("-i", "--invert",
+    action="store_true", dest="invert", default=False,
+    help="invert the graph, e.g., speedup instead of slowdown")
 
   (opt, args) = parser.parse_args()
 
@@ -241,7 +253,7 @@ def main():
   if opt.single:
     fig_single(data, opt.data_dir)
   else:
-    fig_parallel(data, opt.data_dir)
+    fig_parallel(data, opt.data_dir, opt.invert)
 
 
 if __name__ == "__main__":
