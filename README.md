@@ -14,7 +14,7 @@ visit our GitHub page [here][gh].
   In International Conference on Computer Aided Verification (CAV '15), Jul 2015.
 
 
-[cav]: http://dx.doi.org/to_be_updated
+[cav]: http://dx.doi.org/10.1007/978-3-319-21668-3_22
 
 
 ## Structure
