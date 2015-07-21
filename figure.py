@@ -144,7 +144,17 @@ def fig_parallel(data, out_dir, invert):
   ys_sorted, xs_sorted = util.sort_both(ys, xs)
   ys_sorted, es_sorted = util.sort_both(ys, es)
   xr = np.arange(len(xs))
-  plt.bar(xr, ys_sorted, yerr=es_sorted, ecolor='r', align="center")
+  bars = plt.bar(xr, ys_sorted, yerr=es_sorted, ecolor='k', align="center")
+  for i, ys in enumerate(ys_sorted):
+    if invert:
+      if ys < 1: bars[i].set_color('r')
+      elif ys >= 2: bars[i].set_color('g')
+      else: bars[i].set_color('y')
+    else:
+      if ys > 1: bars[i].set_color('r')
+      elif ys <= 0.5: bars[i].set_color('g')
+      else: bars[i].set_color('y')
+
   plt.xticks(xr, xs_sorted, rotation="vertical")
 
   plt.axhline(y=1.0, color='m')
