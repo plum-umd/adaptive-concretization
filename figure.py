@@ -147,12 +147,14 @@ def fig_parallel(data, out_dir, invert):
   bars = plt.bar(xr, ys_sorted, yerr=es_sorted, ecolor='k', align="center")
   for i, ys in enumerate(ys_sorted):
     if invert:
-      if ys < 1: bars[i].set_color('r')
-      elif ys >= 2: bars[i].set_color('g')
+      if ys < 0.9: bars[i].set_color('r')
+      elif ys >= 2.0: bars[i].set_color('g')
+      elif ys >= 1.1: bars[i].set_color("yellowgreen")
       else: bars[i].set_color('y')
     else:
-      if ys > 1: bars[i].set_color('r')
-      elif ys <= 0.5: bars[i].set_color('g')
+      if ys > (1/0.9): bars[i].set_color('r')
+      elif ys <= (1/2.0): bars[i].set_color('g')
+      elif ys <= (1/1.1): bars[i].set_color("yellowgreen")
       else: bars[i].set_color('y')
 
   plt.xticks(xr, xs_sorted, rotation="vertical")
@@ -161,7 +163,11 @@ def fig_parallel(data, out_dir, invert):
   plt.axis("tight")
   plt.tight_layout()
 
-  png = os.path.join(out_dir, "sketch-ac.png")
+  if invert:
+    png_name = "sketch-ac-inv.png"
+  else:
+    png_name = "sketch-ac.png"
+  png = os.path.join(out_dir, png_name)
   print "drawing", png
   plt.savefig(png)
   plt.close()
