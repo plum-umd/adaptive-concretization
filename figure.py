@@ -12,6 +12,9 @@ import matplotlib.pyplot as plt
 import util
 from db import PerfDB
 
+
+verbose = False
+
 def fig_single(data, out_dir):
   # { benchmark: [(m, siqr)_d1, (m, siqr)_d2, ...], ... }
   e_ts = {}
@@ -52,6 +55,7 @@ def fig_single(data, out_dir):
         if k in data[b][d]:
           x = [int(d)] * len(data[b][d][k])
           ax.scatter(x, data[b][d][k])
+          if verbose: print d, data[b][d][k]
 
       # figure per benchmark and key
       png = os.path.join(out_dir, "{}_{}.png".format(b,k))
@@ -87,6 +91,11 @@ def fig_single(data, out_dir):
     #ax.errorbar(xs, ys, yerr=es, label=b, fmt="-o", color=colors[color_index])
     ax.plot(xs, ys, colors[color_index]+"o-", label=b)
     color_index += 1
+    if verbose:
+      print b
+      print xs
+      print ys
+      print es
 
   plt.legend(loc="best")
 
@@ -143,6 +152,11 @@ def fig_parallel(data, out_dir, invert):
 
   ys_sorted, xs_sorted = util.sort_both(ys, xs)
   ys_sorted, es_sorted = util.sort_both(ys, es)
+  if verbose:
+    print xs_sorted
+    print ys_sorted
+    print es_sorted
+
   xr = np.arange(len(xs))
   bars = plt.bar(xr, ys_sorted, yerr=es_sorted, ecolor='k', align="center")
   for i, ys in enumerate(ys_sorted):
@@ -216,6 +230,11 @@ def fig_parallel(data, out_dir, invert):
     e1s.append(e1 / base)
 
   y1bs = [ y32 + y4 for (y32, y4) in zip(y32s, y4s) ]
+  if verbose:
+    print xs
+    print y32s, e32s
+    print y4s, e4s
+    print y1s, e1s
 
   xr = np.arange(len(xs))
   p1 = plt.bar(xr, y32s, color='g', yerr=e32s, ecolor='r', align="center")
@@ -258,6 +277,9 @@ def main():
   parser.add_option("-i", "--invert",
     action="store_true", dest="invert", default=False,
     help="invert the graph, e.g., speedup instead of slowdown")
+  parser.add_option("-v", "--verbose",
+    action="store_true", dest="verbose", default=False,
+    help="verbosely print out data to be drawn")
 
   (opt, args) = parser.parse_args()
 
@@ -265,6 +287,9 @@ def main():
   db.drawing = True
   db.calc_stat(opt.benchmarks, opt.single, opt.eid)
   data = db.raw_data
+
+  global verbose
+  verbose = opt.verbose
 
   if opt.single:
     fig_single(data, opt.data_dir)
