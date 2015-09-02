@@ -591,11 +591,11 @@ class PerfDB(object):
       s1 = len(self._raw_data[b][d1]["Succeed"])
       f1 = len(self._raw_data[b][d1]["Failed"])
       if f1 < ss: continue # too few failure cases
-      p1 = float(s1) / f1
+      p1 = float(s1) / (s1 + f1)
       s2 = len(self._raw_data[b][d2]["Succeed"])
       f2 = len(self._raw_data[b][d2]["Failed"])
       if f2 < ss: continue # too few failure cases
-      p2 = float(s2) / f2
+      p2 = float(s2) / (s2 + f2)
 
       rs = []
       ps = []
