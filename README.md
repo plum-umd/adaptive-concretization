@@ -23,14 +23,14 @@ visit our GitHub page [here][gh].
 * benchmark/
 * clean.sh : script to clean up remnants
 * config.full.json : full version of experiments
-* config.json : short version of experiments
+* config.short.json : short version of experiments
 * data/ : a place for Sketch outputs, figures, etc.
 * db.py : script to manipulate database
 * figure.py : script to draw figures
 * post.py : script to post-analyze Sketch output
 * psketch.py : script to run Sketch back-end in parallel
 * run.py : script to run experiments
-* simulate.py : script to simulate Wilcoxon test using database
+* simulate.py : script to simulate online strategies using database
 
 
 ## Usage
@@ -70,7 +70,7 @@ $ ./run.py -s [...]
 If you're interested, see `psketch.py` which acts as a wrapper for
 Sketch's back-end script, `cegis`.
 
-By default, `run.py` reads `config.json`, which is a subset of
+By default, `run.py` reads `config.short.json`, which is a subset of
 `config.full.json` in terms of benchmarks, cores, and degrees configurations.
 If you want to examine all benchmarks with all possible combinations of
 configurations, pass `config.full.json` to `run.py`:

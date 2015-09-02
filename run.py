@@ -166,7 +166,7 @@ def be_p_run(b, path, main, degree):
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
   parser.add_option("--config",
-    action="store", dest="config", default="config.json",
+    action="store", dest="config", default="config.short.json",
     help="configuration")
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
