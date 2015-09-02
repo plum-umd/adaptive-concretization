@@ -123,6 +123,7 @@ class PerfDB(object):
     self.cnx.database = db # assume this db is already set up
     self.cnx.get_warnings = True
     self._drawing = False
+    self._detail = False
     self._raw_data = {}
 
   @property
@@ -132,6 +133,14 @@ class PerfDB(object):
   @drawing.setter
   def drawing(self, v):
     self._drawing = v
+
+  @property
+  def detail(self):
+    return self._detail
+
+  @detail.setter
+  def detail(self, v):
+    self._detail = v
 
   def log(self, msg):
     if not self._drawing: print msg
@@ -362,7 +371,7 @@ class PerfDB(object):
     return "{}.{} = {}".format(table_name, what, util.quote(v))
 
   # statistics per benchmark and degree
-  def _stat_benchmark_degree_single(self, eid, b, d, detailed=False):
+  def _stat_benchmark_degree_single(self, eid, b, d):
     self.log("\nbenchmark: {}, degree: {}".format(b, d))
 
     conds = []
@@ -413,7 +422,7 @@ class PerfDB(object):
       hrns, avg_sz = seq
       self.log("  {}: {}".format(hrns, avg_sz))
 
-    if not detailed: return
+    if not self._detail: return
 
     _conds = conds[:]
     _conds.append(PerfDB.match_RID(sr_name, h_name))
@@ -505,7 +514,7 @@ class PerfDB(object):
 
 
   # statistics per benchmark
-  def _stat_benchmark(self, single, eid, b, detailed=False):
+  def _stat_benchmark(self, single, eid, b):
     if single:
       conds = []
       conds.append(PerfDB.match_EID(eid))
@@ -516,7 +525,7 @@ class PerfDB(object):
       sorted_degrees = sorted(util.split(degrees))
       for d in sorted_degrees:
         util.init_k(self._raw_data[b], d)
-        self._stat_benchmark_degree_single(eid, b, d, detailed)
+        self._stat_benchmark_degree_single(eid, b, d)
 
       ## tex
       dist = []
@@ -568,7 +577,7 @@ class PerfDB(object):
             _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
             self.log(" & ".join([s, str(c), col, _m_siqr]))
 
-    if not single or not detailed: return
+    if not single or not self._detail: return
 
     # Wilcoxon test
     ss = 40 # sample size
@@ -609,7 +618,7 @@ class PerfDB(object):
 
 
   # statistics per experiment
-  def _stat_exp(self, benchmarks, single, eid, detailed=False):
+  def _stat_exp(self, benchmarks, single, eid):
     r_name = sr_name if single else pr_name
     conds = []
     conds.append(PerfDB.match_EID(eid))
@@ -624,17 +633,17 @@ class PerfDB(object):
 
     for b in benchmarks:
       util.init_k(self._raw_data, b)
-      self._stat_benchmark(single, eid, b, detailed)
+      self._stat_benchmark(single, eid, b)
 
 
   # statistics
-  def calc_stat(self, benchmarks, single=True, eid=0, detailed=False):
+  def calc_stat(self, benchmarks, single=True, eid=0):
     if eid > 0:
-      self._stat_exp(benchmarks, single, eid, detailed)
+      self._stat_exp(benchmarks, single, eid)
     else: # for all EIDs
       eids = self.__get_distinct("EID", [e_name], ["TRUE"])
       for (_eid,) in eids:
-        self._stat_exp(benchmarks, single, _eid, detailed)
+        self._stat_exp(benchmarks, single, _eid)
 
 
 def main():
@@ -683,6 +692,7 @@ def main():
   verbose = opt.verbose
 
   db = PerfDB(opt.user, opt.db)
+  db.detail = opt.detail
 
   if opt.cmd == "init":
     for t in schemas:
@@ -717,7 +727,7 @@ def main():
 
   elif opt.cmd == "stat":
     db.chk_integrity()
-    db.calc_stat(opt.benchmarks, opt.single, opt.eid, opt.detail)
+    db.calc_stat(opt.benchmarks, opt.single, opt.eid)
 
   return 0
 
