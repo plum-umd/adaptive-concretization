@@ -9,7 +9,8 @@ import numpy as np
 from scipy import stats
 from scipy.stats import wilcoxon
 
-from db import PerfDB, calc_percentile
+from db import PerfDB
+import util
 
 degrees = [16, 64, 128, 512, 1024, 4096]
 
@@ -21,6 +22,8 @@ def stat_oracle(data, b, d, n=1):
       res[k] = random.sample(data[b][d][k], n)
     except TypeError: # single value
       res[k] = data[b][d][k]
+    except ValueError: # not list
+      pass
   #print "oracle: {}".format(res)
   return res
 
@@ -189,32 +192,10 @@ def main():
   db.calc_stat(opt.benchmarks, True, opt.eid)
   data = db.raw_data
 
-  _merged = {}
-  for b in data:
-    _merged[b] = {}
-    for d in data[b]:
-      _merged[b][d] = {}
-      _merged[b][d]["ttime"] = []
-      _max = 0
-      if "Succeed" in data[b][d]:
-        for t in data[b][d]["Succeed"]:
-          _merged[b][d]["ttime"].append( (True, t) )
-          if t > _max: _max = t
-      if "Failed" in data[b][d]:
-        for t in data[b][d]["Failed"]:
-          _merged[b][d]["ttime"].append( (False, t) )
-          if t > _max: _max = t
-      random.shuffle(_merged[b][d])
-
-      if "Succeed" not in data[b][d]:
-        _merged[b][d]["ttime"].append( (True, _max * 1000) )
-
-      for k in data[b][d]:
-        if k in ["Succeed", "Failed"]: continue
-        _merged[b][d][k] = data[b][d][k]
+  oracle = util.merge_succ_fail(data, 1000)
 
   n_cpu = 30
-  _simulate = partial(simulate, _merged, n_cpu)
+  _simulate = partial(simulate, oracle, n_cpu)
   simulators = {}
   simulators["random"] = partial(_simulate, strategy_random)
   strategy_min_time = partial(strategy_time, min, "strategy_min_time")
@@ -232,11 +213,11 @@ def main():
   simulators["fixed(1024)"] = partial(_simulate, strategy_fixed_1024)
   simulators["fixed(4096)"] = partial(_simulate, strategy_fixed_4096)
 
-  for b in _merged:
+  for b in oracle:
     print "\n=== benchmark: {} ===".format(b)
     for s in sorted(simulators.keys()):
       res = simulators[s](b)
-      s_q = " | ".join(map(str, calc_percentile(res)))
+      s_q = " | ".join(map(str, util.calc_percentile(res)))
       print "{} : {} ({}) [ {} ]".format(s, np.mean(res), np.var(res), s_q)
 
 
