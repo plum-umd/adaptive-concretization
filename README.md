@@ -31,6 +31,8 @@ visit our GitHub page [here][gh].
 * psketch.py : script to run Sketch back-end in parallel
 * run.py : script to run experiments
 * simulate.py : script to simulate online strategies using database
+* util.py : utilities
+* wilcoxon.py : script to simulate Wilcoxon test using Monte Carlo method
 
 
 ## Usage
@@ -126,7 +128,7 @@ $ ./db.py -v [...]
 
 As a proof-of-concept, this script simulates several
 online concretization strategies, such as random, fixed degree,
-minimal time, and wilcoxon-based statistical comparison.
+minimal time, and Wilcoxon-based statistical comparison.
 The calculation of expected running time is based on the empirical
 data in the database, especially the experiment about back-end behaviors,
 where SAT propagation information is recorded.
@@ -146,6 +148,29 @@ The output of this script is simulated running time,
 along with variance and quantiles.  I.e., the smaller, the better.
 However, Note that it is quite tricky to simulate parallel running,
 so this simulation result can not guarantee the best solution.
+
+
+#### wilcoxon.py
+
+To set a good confidential cutoff (so-called p-value) and
+the number of samplings, this script simulates Wilcoxon test
+by using Monte Carlo method: given configuration of the number
+of sampling and two target degrees, it will randomly pick
+that number of samples from the database; compare the given degrees
+using that sampling; and repeat this process many times.
+The distributions of two degrees are computed as
+the multiplication of running time and search space,
+which could be retrieved from backend data set.
+
+Similar to `simulate.py`, you may need to specify your own EID if any.
+```sh
+$ ./wilcoxon.py [-e EID]
+```
+This script uses the same backend data as `simulate.py` does,
+and similar options for the database are available:
+```sh
+$ ./wilcoxon.py [--user user_name] [--db db_name]
+```
 
 
 #### figure.py
