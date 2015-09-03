@@ -381,6 +381,7 @@ class PerfDB(object):
     conds.append(PerfDB.match(sr_name, "DEGREE", d))
     n_total = self.__select_one(["COUNT"], ["*"], [e_name, sr_name], conds, None)[0]
 
+    ## success rate
     _conds = conds[:]
     _conds.append(PerfDB.match(sr_name, "SUCCEED", "Succeed"))
     n_succeed = self.__select_one(["COUNT"], ["*"], [e_name, sr_name], _conds, None)[0]
@@ -388,6 +389,7 @@ class PerfDB(object):
     self.log("success rate: {} / {}".format(n_succeed, n_total))
     self._raw_data[b][d]["p"] = float(n_succeed) / n_total
 
+    ## (successful/failed) time
     def __stat_ttime(succeed):
       _conds = conds[:]
       _conds.append(PerfDB.match(sr_name, "SUCCEED", succeed))
@@ -408,11 +410,13 @@ class PerfDB(object):
     __stat_ttime("Succeed")
     __stat_ttime("Failed")
 
+    ## propagation
     props = self.__select_all([], ["PROPAGATION"], [e_name, sr_name], conds, None)
     self._raw_data[b][d]["propagation"] = util.split(props)
     _percentile = util.calc_percentile(props)
     self.log("propagation: [{}]".format(" | ".join(map(str, _percentile))))
 
+    ## DAG
     _conds = conds[:]
     _conds.append(PerfDB.match_RID(sr_name, d_name))
     dag = self.__select_all(["AVG"], ["SIZE"], [e_name, sr_name, d_name], _conds, "HARNESS")
@@ -426,16 +430,28 @@ class PerfDB(object):
 
     _conds = conds[:]
     _conds.append(PerfDB.match_RID(sr_name, h_name))
-    hole_szs = self.__select_all([], ["SIZE"], [e_name, sr_name, h_name], _conds, "NAME")
-    _, _szs = util.split(hole_szs)
-    s_space = float(reduce(op.mul, _szs))
-    self.log("search space: {}".format(s_space))
 
+    ## search space
+    spaces = []
+    _rids = self.__get_distinct(h_name+".RID", [e_name, sr_name, h_name], _conds)
+    for (_rid,) in _rids:
+      __conds = _conds[:]
+      __conds.append(PerfDB.match(h_name, "RID", _rid))
+      hole_szs = self.__select_all([], ["SIZE"], [e_name, sr_name, h_name], __conds, "NAME")
+      _, _szs = util.split(hole_szs)
+      s_space = float(reduce(op.mul, _szs))
+      spaces.append(s_space)
+
+    self._raw_data[b][d]["search space"] = spaces
+    _percentile = util.calc_percentile(spaces)
+    self.log("search space: [{}]".format(" | ".join(map(str, _percentile))))
+
+    ## concretization rate
     _conds.append(PerfDB.match(h_name, "REPLACED", "Replaced"))
     rpl = self.__select_one(["COUNT"], ["*"], [e_name, sr_name, h_name], _conds, None)[0]
-  
     self.log("concretization rate: {}".format(float(rpl) / n_total))
 
+    ## hole concretization histogram
     rpl_holes = self.__select_all(["COUNT"], ["*"], [e_name, sr_name, h_name], _conds, "NAME")
     hole_dict = util.to_dict(rpl_holes)
     s_hole_dict = {}
