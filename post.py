@@ -137,8 +137,6 @@ seed_re = re.compile(r"SOLVER RAND SEED = (\d+)")
 
 odds_re = re.compile(r"(H__\S+) odds = 1/(\d+)")
 range_re = re.compile(r"(H__\S+) .+ bnd= (\d+)")
-repl_re = re.compile(r"try to replace")
-nrpl_re = re.compile(r"not replacing")
 
 harness_re = re.compile(r"before  EVERYTHING: (\S+)__.*")
 nodes_re = re.compile(r"Final Problem size: Problem nodes = (\d+)")
@@ -200,20 +198,6 @@ def be_analyze_lines(lines, b, s, d):
   size = -1
   harness = ""
   for line in lines:
-    if odds >= 0:
-      repl_m = re.search(repl_re, line)
-      nrpl_m = re.search(nrpl_re, line)
-      if repl_m or nrpl_m:
-        replaced = True if repl_m else False
-        s_replaced = "Replaced" if replaced else "Not replaced"
-        h_record = {"replaced": s_replaced, "name": hole, "odds": odds}
-        if hole_r == hole and size > 0: h_record["size"] = size
-        else: h_record["size"] = 1
-        run_record["hole"].append(h_record)
-        hole = ""
-        odds = -1
-        hole_r = ""
-        size = -1
 
     m = re.search(odds_re, line)
     if m:
@@ -224,6 +208,12 @@ def be_analyze_lines(lines, b, s, d):
     if m:
       hole_r = m.group(1)
       size = max(size, int(m.group(2)))
+      h_record = {"replaced": "Replaced", "name": hole, "odds": odds, "size": size}
+      run_record["hole"].append(h_record)
+      hole = ""
+      odds = -1
+      hole_r = ""
+      size = -1
 
     m = re.search(harness_re, line)
     if m:
