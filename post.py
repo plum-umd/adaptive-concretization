@@ -135,8 +135,8 @@ be_ttime_re = re.compile(r"TOTAL TIME ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)
 propg_re = re.compile(r"f# %assign: .* propagated: (\d+)")
 seed_re = re.compile(r"SOLVER RAND SEED = (\d+)")
 
-range_re = re.compile(r"(H__\S+) < \((\d+)\)")
 odds_re = re.compile(r"(H__\S+) odds = 1/(\d+)")
+range_re = re.compile(r"(H__\S+) .+ bnd= (\d+)")
 repl_re = re.compile(r"try to replace")
 nrpl_re = re.compile(r"not replacing")
 
