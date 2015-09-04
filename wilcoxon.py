@@ -54,11 +54,11 @@ def main():
 
   for b in merged:
     print "\n=== benchmark: {} ===".format(b)
-    ds = merged[b].keys()
+    ds = sorted(merged[b].keys())
     for d1, d2 in combinations(ds, 2):
       for n in smpl_sizes:
         ps = []
-        for r in xrange(101):
+        for r in xrange(301):
           p = compare(n, merged, b, d1, d2)
           ps.append(p)
         percentile = util.calc_percentile(ps)
