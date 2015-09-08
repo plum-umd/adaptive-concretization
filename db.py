@@ -40,9 +40,9 @@ table Hole (key: auto_inc HID)
 +-------------------------------------------+
 
 table RunP (key: auto_inc RID)
-+-----------------------------------------------------------------------------------+
-| RID | Benchmark | Core | Degree | Succeed | Trial | TTime | STime | FTime | CTime |
-+-----------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------+
+| RID | Benchmark | Strategy | Core | Degree | Succeed | Trial | TTime | STime | FTime | CTime |
++----------------------------------------------------------------------------------------------+
 
 """
 
@@ -213,21 +213,16 @@ class PerfDB(object):
       {2}
   """
 
-  # register one single-threaded run
-  def __reg_run_single(self, output):
-    benchmark, strategy, core, degree = post.find_config(output, True)
-    if not benchmark: return
-    self.log("register: {}".format(output))
-    record = post.be_analyze(output, benchmark, strategy, degree)
-
-    cur = self.cnx.cursor()
-    up_call = op.methodcaller("upper")
-
+  # register one single-threaded backend record
+  def __reg_record_single(self, output, record):
     # register "RunS"
     _record = {}
     for k in record:
       if type(record[k]) in [list, dict]: continue
       _record[k] = record[k]
+
+    cur = self.cnx.cursor()
+    up_call = op.methodcaller("upper")
 
     up_keys = ','.join(map(up_call, _record.keys()))
     _values = '(' + ", ".join(map(util.quote, _record.values())) + ')'
@@ -257,6 +252,15 @@ class PerfDB(object):
     return rid
 
 
+  # register one single-threaded backend run
+  def __reg_run_single(self, output):
+    benchmark, strategy, core, degree = post.find_config(output, True)
+    if not benchmark: return
+    self.log("register: {}".format(output))
+    record = post.be_analyze(output, benchmark, strategy, degree)
+    return self.__reg_record_single(output, record)
+
+
   # register one parallel run
   def __reg_run_parallel(self, output):
     benchmark, strategy, core, degree = post.find_config(output, False)
@@ -264,14 +268,21 @@ class PerfDB(object):
     self.log("register: {}".format(output))
     record = post.analyze(output, benchmark, strategy, core, degree)
 
-    cur = self.cnx.cursor()
-    up_call = op.methodcaller("upper")
-
     # register "RunP"
     _record = {}
+    be_rids = []
     for k in record:
-      if type(record[k]) in [list, dict]: continue
+      if type(record[k]) in [list, dict]:
+        # register internal backend outputs
+        if "backend" in k:
+          for be_record in record[k]:
+            _rid = self.__reg_record_single(output, be_record)
+            be_rids.append(_rid)
+        continue
       _record[k] = record[k]
+
+    cur = self.cnx.cursor()
+    up_call = op.methodcaller("upper")
 
     up_keys = ','.join(map(up_call, _record.keys()))
     _values = '(' + ", ".join(map(util.quote, _record.values())) + ')'
@@ -283,7 +294,7 @@ class PerfDB(object):
       return None
 
     cur.close()
-    return rid
+    return rid, be_rids
 
 
   # register the experiment
@@ -298,19 +309,24 @@ class PerfDB(object):
       cur.close()
 
     rids = []
+    be_rids = []
     for output in outputs:
       if single:
         rid = self.__reg_run_single(output)
       else:
-        rid = self.__reg_run_parallel(output)
+        rid, _be_rids = self.__reg_run_parallel(output)
+        if _be_rids: be_rids.extend(_be_rids)
       if rid: rids.append(rid)
 
-    if rids:
+    def assoc_eid_rids(eid, rids):
       cur = self.cnx.cursor()
       paired_rids = map(lambda rid: "({},{})".format(eid, rid), rids)
       joined_rids = ", ".join(paired_rids)
       PerfDB.__execute(cur, PerfDB.insert_query.format(e_name, "EID, RID", joined_rids))
       cur.close()
+
+    if rids: assoc_eid_rids(eid, rids)
+    if be_rids: assoc_eid_rids(eid+10, be_rids)
 
     if not dry: self.cnx.commit()
 
@@ -615,7 +631,7 @@ class PerfDB(object):
 
       rs = []
       ps = []
-      for i in xrange(100):
+      for i in xrange(301):
         ts1 = random.sample(self._raw_data[b][d1]["Failed"], ss)
         ts2 = random.sample(self._raw_data[b][d2]["Failed"], ss)
         dist_d1 = [ t1 / p1 for t1 in ts1 ]
