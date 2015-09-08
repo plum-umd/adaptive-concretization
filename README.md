@@ -85,9 +85,13 @@ $ ./run.py --config config.full.json [...]
 
 This script interprets Sketch outputs (under `data/` folder unless specifed elsewhere)
 and retrieves statistical information, such as elapsed time, number of trials,
-chosen randdegree, etc.
+chosen randdegree, etc.:
 ```sh
 $ ./post.py [-s] [-d data_dir] [-b benchmark_name]*
+```
+Instead of several outputs under a certain folder, you can also pass single files:
+```sh
+$ ./post.py (output_file)*
 ```
 
 

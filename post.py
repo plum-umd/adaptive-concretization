@@ -244,7 +244,7 @@ def be_analyze(output, b, s, d):
 
 
 def main():
-  parser = OptionParser(usage="usage: %prog [options]")
+  parser = OptionParser(usage="usage: %prog [options] (output_file)*")
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
     help="benchmark(s) under analysis")
@@ -257,10 +257,14 @@ def main():
 
   (opt, args) = parser.parse_args()
 
+  if not args:
+    outputs = glob.glob(os.path.join(opt.data_dir, "*.txt"))
+    # filter out erroneous cases (due to broken pipes, etc.)
+    outputs = filter(lambda f: os.path.getsize(f) > 0, outputs)
+  else:
+    outputs = args
+
   pp = pprint.PrettyPrinter(indent=2)
-  outputs = glob.glob(os.path.join(opt.data_dir, "*.txt"))
-  # filter out erroneous cases (due to broken pipes, etc.)
-  outputs = filter(lambda f: os.path.getsize(f) > 0, outputs)
 
   for output in outputs:
     b, s, c, d = find_config(output, opt.single)
