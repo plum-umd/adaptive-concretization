@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from itertools import repeat
 from functools import partial
 import random
 from optparse import OptionParser
@@ -12,27 +13,32 @@ from scipy.stats import wilcoxon
 from db import PerfDB
 import util
 
+verbose = False
+
+# default-ish degrees
 degrees = [16, 64, 128, 512, 1024, 4096]
 
 
-def stat_oracle(data, b, d, n=1):
+def sampling(data, b, d, n=1):
   res = {}
   for k in data[b][d]:
+    _bdk = data[b][d][k]
     try:
-      res[k] = random.sample(data[b][d][k], n)
+      res[k] = random.sample(_bdk, n)
+    except ValueError: # sample larger than population
+      k_len = len(_bdk)
+      res[k] = list(repeat(_bdk, k_len / n)) + random.sample(_bdk, k_len % n)
     except TypeError: # single value
-      res[k] = data[b][d][k]
-    except ValueError: # not list
-      pass
-  #print "oracle: {}".format(res)
+      res[k] = _bdk
+  #print "data: {}".format(res)
   return res
 
 
-def sim_with_degree(oracle, n_cpu, s_name, d, n_runs = 0):
+def sim_with_degree(sampler, n_cpu, s_name, d, n_runs = 0):
   ttime = 0
   found = False
   while not found:
-    runs = oracle(d, n_cpu)
+    runs = sampler(d, n_cpu)
     _n_runs = 0
     _ttime = 0
     for s, t in runs["ttime"]:
@@ -50,7 +56,7 @@ def sim_with_degree(oracle, n_cpu, s_name, d, n_runs = 0):
   return ttime
 
 
-def test_runs(oracle, n_cpu, s_name, ds):
+def test_runs(sampler, n_cpu, s_name, ds):
   ttime = 0
   model = {}
   found = False
@@ -58,7 +64,7 @@ def test_runs(oracle, n_cpu, s_name, ds):
   for d in ds:
     model[d] = {}
     model[d]["runs"] = []
-    t_runs = oracle(d, n_cpu/2)
+    t_runs = sampler(d, n_cpu/2)
 
     _n_runs = 0
     _ttime = 0
@@ -74,7 +80,6 @@ def test_runs(oracle, n_cpu, s_name, ds):
 
     n_runs = n_runs + _n_runs
     model[d]["ttime"] = _ttime
-    model[d]["propagation"] = np.mean(t_runs["propagation"])
     model[d]["p"] = t_runs["p"]
 
     ttime = ttime + _ttime
@@ -83,21 +88,20 @@ def test_runs(oracle, n_cpu, s_name, ds):
   return ttime, found, n_runs, model
 
 
-def strategy_fixed(d, oracle, n_cpu):
-  return sim_with_degree(oracle, n_cpu, "strategy_fixed_()".format(d), d)
+def strategy_fixed(d, sampler, n_cpu):
+  return sim_with_degree(sampler, n_cpu, "strategy_fixed_()".format(d), d)
 
 
-def strategy_random(oracle, n_cpu):
+def strategy_random(sampler, n_cpu):
   # pick a degree randomly
   d = random.choice(degrees)
-  #print "strategy_random, pick degree: {}".format(d)
+  #if verbose: print "strategy_random, pick degree: {}".format(d)
 
-  return sim_with_degree(oracle, n_cpu, "strategy_random", d)
+  return sim_with_degree(sampler, n_cpu, "strategy_random", d)
 
 
-def strategy_time(f, msg, oracle, n_cpu):
-  ds = degrees[2:]
-  ttime, found, n_runs, model = test_runs(oracle, n_cpu, msg, ds)
+def strategy_time(f, msg, sampler, n_cpu):
+  ttime, found, n_runs, model = test_runs(sampler, n_cpu, msg, degrees)
 
   # resampling with likelihood degree
   if not found:
@@ -108,23 +112,24 @@ def strategy_time(f, msg, oracle, n_cpu):
       ds.append(d)
     idx = est.index(f(est))
     d = ds[idx]
-    #print "{}, pick degree: {}".format(msg, d)
+    if verbose: print "{}, pick degree: {}".format(msg, d)
 
-    ttime = ttime + sim_with_degree(oracle, n_cpu, msg, d, n_runs)
+    ttime = ttime + sim_with_degree(sampler, n_cpu, msg, d, n_runs)
 
   return ttime
 
 
-def strategy_wilcoxon(oracle, n_cpu):
-  pivots = [2, len(degrees)-1]
+def strategy_wilcoxon(sampler, n_cpu):
+  pivots = [0, len(degrees)-1]
   ds = [ degrees[pivot] for pivot in pivots ]
-  ttime, found, n_runs, model = test_runs(oracle, n_cpu, "strategy_wilcoxon", ds)
+  ttime, found, n_runs, model = test_runs(sampler, n_cpu, "strategy_wilcoxon", ds)
 
   d = None
   fixed = False
   while not found and not fixed and pivots[0] < pivots[1]:
     fixed = True
     d1, d2 = ds
+    # TODO: replace empirical p w/ 1/seaerch space
     p1, p2 = [ model[d]["p"] for d in ds ]
     if p1 == 0: # move left pivot to right
       pivots[0] = pivots[0] + 1
@@ -148,22 +153,24 @@ def strategy_wilcoxon(oracle, n_cpu):
 
     if not fixed: # try another degree
       ds = [ degrees[pivot] for pivot in pivots ]
-      _ttime, found, n_runs, model = test_runs(oracle, n_cpu, "strategy_wilcoxon", ds)
+      _ttime, found, n_runs, model = test_runs(sampler, n_cpu, "strategy_wilcoxon", ds)
       ttime = ttime + _ttime
 
-    #print "strategy_wilcoxon, pick degree: {}".format(d)
+    if verbose: print "strategy_wilcoxon, pick degree: {}".format(d)
 
   if not found and d:
-    ttime = ttime + sim_with_degree(oracle, n_cpu, "strategy_wilcoxon", d, n_runs)
+    ttime = ttime + sim_with_degree(sampler, n_cpu, "strategy_wilcoxon", d, n_runs)
 
   return ttime
 
 
 def simulate(data, n_cpu, strategy, b):
-  oracle = partial(stat_oracle, data, b)
+  global degrees
+  degrees = sorted(data[b].keys())
+  sampler = partial(sampling, data, b)
   res = []
-  for i in xrange(100):
-    res.append(strategy(oracle, n_cpu))
+  for i in xrange(301):
+    res.append(strategy(sampler, n_cpu))
   return res
 
 
@@ -184,39 +191,49 @@ def main():
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
     help="benchmark(s) of interest")
+  parser.add_option("--all",
+    action="store_true", dest="all_strategies", default=False,
+    help="simulate *all* modeled strategies")
+  parser.add_option("-v", "--verbose",
+    action="store_true", dest="verbose", default=False,
+    help="verbosely print out simulation data")
 
   (opt, args) = parser.parse_args()
 
+  global verbose
+  verbose = opt.verbose
+
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
+  db.detail_space = True
   db.calc_stat(opt.benchmarks, True, opt.eid)
   data = db.raw_data
 
-  oracle = util.merge_succ_fail(data, 1000)
+  merged = util.merge_succ_fail(data, 1000)
 
-  n_cpu = 30
-  _simulate = partial(simulate, oracle, n_cpu)
+  n_cpu = 32
+  _simulate = partial(simulate, merged, n_cpu)
   simulators = {}
-  simulators["random"] = partial(_simulate, strategy_random)
-  strategy_min_time = partial(strategy_time, min, "strategy_min_time")
-  strategy_max_time = partial(strategy_time, max, "strategy_max_time")
-  simulators["min(time)"] = partial(_simulate, strategy_min_time)
-  simulators["max(time)"] = partial(_simulate, strategy_max_time)
   simulators["wilcoxon"] = partial(_simulate, strategy_wilcoxon)
+  if opt.all_strategies:
+    simulators["random"] = partial(_simulate, strategy_random)
+    strategy_min_time = partial(strategy_time, min, "strategy_min_time")
+    strategy_max_time = partial(strategy_time, max, "strategy_max_time")
+    simulators["min(time)"] = partial(_simulate, strategy_min_time)
+    simulators["max(time)"] = partial(_simulate, strategy_max_time)
 
-  strategy_fixed_128  = partial(strategy_fixed, 128)
-  strategy_fixed_512  = partial(strategy_fixed, 512)
-  strategy_fixed_1024 = partial(strategy_fixed, 1024)
-  strategy_fixed_4096 = partial(strategy_fixed, 4096)
-  simulators["fixed(0128)"] = partial(_simulate, strategy_fixed_128)
-  simulators["fixed(0512)"] = partial(_simulate, strategy_fixed_512)
-  simulators["fixed(1024)"] = partial(_simulate, strategy_fixed_1024)
-  simulators["fixed(4096)"] = partial(_simulate, strategy_fixed_4096)
-
-  for b in oracle:
+  for b in merged:
     print "\n=== benchmark: {} ===".format(b)
-    for s in sorted(simulators.keys()):
-      res = simulators[s](b)
+
+    _simulators = simulators.copy()
+    if opt.all_strategies:
+      degrees = sorted(merged[b].keys())
+      for d in degrees:
+        strategy_fixed_d = partial(strategy_fixed, d)
+        _simulators["fixed({})".format(d)] = partial(_simulate, strategy_fixed_d)
+
+    for s in sorted(_simulators.keys()):
+      res = _simulators[s](b)
       s_q = " | ".join(map(str, util.calc_percentile(res)))
       print "{} : {} ({}) [ {} ]".format(s, np.mean(res), np.var(res), s_q)
 
