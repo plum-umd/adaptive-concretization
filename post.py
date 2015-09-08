@@ -200,9 +200,10 @@ def be_analyze_lines(lines, b, s, d):
   run_record["ttime"] = _time
   run_record["propagation"]= propagation
 
+  holes = {}
+  harnesses = {}
   hole = ""
   odds = -1
-  hole_r = ""
   size = -1
   harness = ""
   for line in lines:
@@ -214,13 +215,12 @@ def be_analyze_lines(lines, b, s, d):
 
     m = re.search(range_re, line)
     if m:
-      hole_r = m.group(1)
       size = max(size, int(m.group(2)))
-      h_record = {"replaced": "Replaced", "name": hole, "odds": odds, "size": size}
-      run_record["hole"].append(h_record)
+      hole_record = {"replaced": "Replaced", "name": hole, "odds": odds, "size": size}
+      util.mk_or_append(holes, hole, hole_record, True)
+
       hole = ""
       odds = -1
-      hole_r = ""
       size = -1
 
     m = re.search(harness_re, line)
@@ -230,13 +230,21 @@ def be_analyze_lines(lines, b, s, d):
     m = re.search(nodes_re, line)
     if m and harness:
       dag = int(m.group(1))
-      run_record["dag"].append( {"harness": harness, "size": dag} )
+      harness_record = {"harness": harness, "size": dag}
+      util.mk_or_append(harnesses, harness, harness_record, True)
+
       harness = ""
 
     m = re.search(seed_re, line)
     if m:
       seed = int(m.group(1))
       run_record["seed"] = seed
+
+  run_record["hole"] = util.flatten(holes.values())
+  run_record["dag"] = util.flatten(harnesses.values())
+
+  if run_record["seed"] < 0:
+    print lines
 
   return run_record
 

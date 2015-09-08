@@ -1,4 +1,5 @@
 from functools import partial
+from itertools import chain
 import operator as op
 import random
 
@@ -52,6 +53,12 @@ def split(lst):
       return list(zip(*lst)[0])
     except TypeError: # already 1d list
       return lst
+
+
+# ~ List.flatten in OCaml
+# e.g., [ [1], [2, 3], [4] ] -> [1, 2, 3, 4]
+def flatten(lstlst):
+  return list(chain.from_iterable(lstlst))
 
 
 # transform a list of pairs into a dict
