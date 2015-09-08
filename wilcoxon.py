@@ -81,7 +81,7 @@ def main():
 
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
-  db.detail = True # in particular, needs "search space"
+  db.detail_space = True
   db.calc_stat(opt.benchmarks, True, opt.eid)
   data = db.raw_data
 

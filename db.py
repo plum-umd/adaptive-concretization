@@ -123,7 +123,8 @@ class PerfDB(object):
     self.cnx.database = db # assume this db is already set up
     self.cnx.get_warnings = True
     self._drawing = False
-    self._detail = False
+    self._detail_space = False
+    self._detail_full = False
     self._raw_data = {}
 
   @property
@@ -135,12 +136,20 @@ class PerfDB(object):
     self._drawing = v
 
   @property
-  def detail(self):
-    return self._detail
+  def detail_space(self):
+    return self._detail_space
 
-  @detail.setter
-  def detail(self, v):
-    self._detail = v
+  @detail_space.setter
+  def detail_space(self, v):
+    self._detail_space = v
+
+  @property
+  def detail_full(self):
+    return self._detail_full
+
+  @detail_full.setter
+  def detail_full(self, v):
+    self._detail_full = v
 
   def log(self, msg):
     if not self._drawing: print msg
@@ -426,28 +435,12 @@ class PerfDB(object):
     __stat_ttime("Succeed")
     __stat_ttime("Failed")
 
-    ## propagation
-    props = self.__select_all([], ["PROPAGATION"], [e_name, sr_name], conds, None)
-    self._raw_data[b][d]["propagation"] = util.split(props)
-    _percentile = util.calc_percentile(props)
-    self.log("propagation: [{}]".format(" | ".join(map(str, _percentile))))
+    if not self._detail_space and not self._detail_full: return
 
-    ## DAG
-    _conds = conds[:]
-    _conds.append(PerfDB.match_RID(sr_name, d_name))
-    dag = self.__select_all(["AVG"], ["SIZE"], [e_name, sr_name, d_name], _conds, "HARNESS")
-    
-    self.log("average dag size:")
-    for seq in dag:
-      hrns, avg_sz = seq
-      self.log("  {}: {}".format(hrns, avg_sz))
-
-    if not self._detail: return
-
+    ## search space
     _conds = conds[:]
     _conds.append(PerfDB.match_RID(sr_name, h_name))
 
-    ## search space
     spaces = []
     _rids = self.__get_distinct(h_name+".RID", [e_name, sr_name, h_name], _conds)
     for (_rid,) in _rids:
@@ -462,7 +455,27 @@ class PerfDB(object):
     _percentile = util.calc_percentile(spaces)
     self.log("search space: [{}]".format(" | ".join(map(str, _percentile))))
 
+    if not self._detail_full: return
+
+    ## propagation
+    props = self.__select_all([], ["PROPAGATION"], [e_name, sr_name], conds, None)
+    self._raw_data[b][d]["propagation"] = util.split(props)
+    _percentile = util.calc_percentile(props)
+    self.log("propagation: [{}]".format(" | ".join(map(str, _percentile))))
+
+    ## DAG
+    _conds = conds[:]
+    _conds.append(PerfDB.match_RID(sr_name, d_name))
+    dag = self.__select_all(["AVG"], ["SIZE"], [e_name, sr_name, d_name], _conds, "HARNESS")
+
+    self.log("average dag size:")
+    for seq in dag:
+      hrns, avg_sz = seq
+      self.log("  {}: {}".format(hrns, avg_sz))
+
     ## concretization rate
+    _conds = conds[:]
+    _conds.append(PerfDB.match_RID(sr_name, h_name))
     _conds.append(PerfDB.match(h_name, "REPLACED", "Replaced"))
     rpl = self.__select_one(["COUNT"], ["*"], [e_name, sr_name, h_name], _conds, None)[0]
     self.log("concretization rate: {}".format(float(rpl) / n_total))
@@ -609,7 +622,7 @@ class PerfDB(object):
             _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
             self.log(" & ".join([s, str(c), col, _m_siqr]))
 
-    if not single or not self._detail: return
+    if not single or not self._detail_full: return
 
     # Wilcoxon test
     ss = 40 # sample size
@@ -702,9 +715,12 @@ def main():
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
     help="refer to backend behavior from single threaded executions")
-  parser.add_option("--detail",
-    action="store_true", dest="detail", default=False,
-    help="calculate detailed statistics")
+  parser.add_option("--detail-space",
+    action="store_true", dest="detail_space", default=False,
+    help="calculate detailed statistics, including search space")
+  parser.add_option("--detail-full",
+    action="store_true", dest="detail_full", default=False,
+    help="calculate fully detailed statistics")
   parser.add_option("--dry",
     action="store", dest="dry", default=False,
     help="just print out insertion queries, not commit")
@@ -721,7 +737,8 @@ def main():
   verbose = opt.verbose
 
   db = PerfDB(opt.user, opt.db)
-  db.detail = opt.detail
+  db.detail_space = opt.detail_space
+  db.detail_full = opt.detail_full
 
   if opt.cmd == "init":
     for t in schemas:
