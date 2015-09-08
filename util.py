@@ -28,6 +28,17 @@ def init_k(dic, k):
   if k not in dic: dic[k] = {}
 
 
+# make a new entry of list type or append the given item
+# e.g., {x: [1]}, x, 2 => {x: [1,2]}
+#       {x: [1]}, y, 2 => {x: [1], y: [2]}
+def mk_or_append(dic, k, v, uniq=False):
+  if k in dic: # already bound key
+    if not uniq or v not in dic[k]: # uniq => value v not recorded
+      dic[k].append(v)
+  else: # new occurence of key k
+    dic[k] = [v]
+
+
 # ~ List.split in OCaml
 # transform a list of pairs into a pair of lists
 # e.g., [ (1, 'a'), (2, 'b'), (3, 'c') ] -> ([1, 2, 3], ['a', 'b', 'c'])

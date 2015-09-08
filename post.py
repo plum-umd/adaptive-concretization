@@ -7,6 +7,8 @@ import pprint
 import re
 import sys
 
+import util
+
 fvname_re = re.compile(r"\S+/(\S+)_vanilla_\d+\.txt")
 fpname_re = re.compile(r"\S+/(\S+)_parallel_core(\d+)_(\S+)_\d+_\d+\.txt")
 fsname_re = re.compile(r"\S+/(\S+)_single_(\d+)_.+\.txt")
@@ -46,8 +48,8 @@ ttime_re = re.compile(r"Total time = ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?
 deg_re = re.compile(r"degree choice: (\d+)")
 lucky_re = re.compile(r"lucky \(degree: (\d+)\)")
 
-be_separator_re = re.compile(r"=== parallel trial.* \((\d+)\) (\S+) ===")
-
+be_separator_re = re.compile(r"=== parallel trial.* degree (\d+) \S* (\S+) ===")
+fe_done = "[SKETCH] DONE"
 
 def analyze(output, b, s, c, d):
   run_record = {}
@@ -64,6 +66,10 @@ def analyze(output, b, s, c, d):
     s_times = []
     lines = []
     for line in f:
+      ## end of Sketch front-end
+      # ignore any other messages that appear after front-end is done
+      if fe_done in line: break
+
       ## information from front-end
       m = re.search(f_trial_re, line)
       if m:
@@ -92,7 +98,9 @@ def analyze(output, b, s, c, d):
       m = re.search(be_separator_re, line)
       if m:
         if m.group(2) in ["failed", "solved"]:
-          record = be_analyze_lines(lines, b, s, degree)
+          _degree = degree if degree else m.group(1)
+          record = be_analyze_lines(lines, b, s, _degree)
+          util.mk_or_append(run_record, "backend", record)
           if record["succeed"] == "Succeed":
             s_times.append(record["ttime"])
           else: # "Failed"
@@ -146,7 +154,6 @@ nodes_re = re.compile(r"Final Problem size: Problem nodes = (\d+)")
 def be_analyze_lines(lines, b, s, d):
   run_record = {}
   run_record["benchmark"] = b
-  run_record["strategy"] = s
   run_record["degree"] = d
   run_record["dag"] = []
   run_record["hole"] = []
@@ -238,9 +245,7 @@ def be_analyze(output, b, s, d):
   lines = []
   with open(output, 'r') as f:
     lines = f.readlines()
-  record = be_analyze_lines(lines, b, s, d)
-  del record["strategy"] # table RunS doesn't have this field
-  return record
+  return be_analyze_lines(lines, b, s, d)
 
 
 def main():
