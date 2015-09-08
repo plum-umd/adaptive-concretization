@@ -128,9 +128,10 @@ def analyze(output, b, s, c, d):
 
 exit_re = re.compile(r"Solver exit value: ([-]?\d+)")
 be_tout_re = re.compile(r"timed out: (\d+)")
-be_etime_re = re.compile(r"elapsed time \(s\) .* ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
-be_stime_re = re.compile(r"Total elapsed time \(ms\):\s*([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
-be_ttime_re = re.compile(r"TOTAL TIME ([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)")
+time_re = "([+|-]?(0|[1-9]\d*)(\.\d*)?([eE][+|-]?\d+)?)"
+be_etime_re = re.compile(r"elapsed time \(s\) .* {}".format(time_re))
+be_stime_re = re.compile(r"Total elapsed time \(ms\):\s*{}".format(time_re))
+be_ttime_re = re.compile(r"TOTAL TIME {}".format(time_re))
 
 propg_re = re.compile(r"f# %assign: .* propagated: (\d+)")
 seed_re = re.compile(r"SOLVER RAND SEED = (\d+)")
