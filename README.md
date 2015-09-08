@@ -89,9 +89,9 @@ chosen randdegree, etc.:
 ```sh
 $ ./post.py [-s] [-d data_dir] [-b benchmark_name]*
 ```
-Instead of several outputs under a certain folder, you can also pass single files:
+Instead of several outputs under a certain folder, you can also pass single file(s):
 ```sh
-$ ./post.py (output_file)*
+$ ./post.py (path/to/output_file)*
 ```
 
 
@@ -112,10 +112,10 @@ If you are using different names, specify them:
 $ ./db.py --user user_name --db db_name [...]
 ```
 This script will read Sketch output files under `data/` folder,
-but you can also specify either folder or single file:
+but you can also specify either folder or single file(s):
 ```sh
 $ ./db.py -d data_dir [...]
-$ ./db.py -f path/to/file [...]
+$ ./db.py (path/to/output_file)* [...]
 ```
 For the experiment about back-end behaviors, similar to `run.py`,
 explicitly specify it (along with a distinct EID number):

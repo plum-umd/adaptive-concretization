@@ -663,7 +663,7 @@ class PerfDB(object):
 
 
 def main():
-  parser = OptionParser(usage="usage: %prog [options]")
+  parser = OptionParser(usage="usage: %prog [options] (output_file)*")
   parser.add_option("-c", "--cmd",
     action="store", dest="cmd",
     type="choice", choices=["init", "reset", "clean", "register", "stat"],
@@ -680,9 +680,6 @@ def main():
   parser.add_option("-d", "--dir",
     action="store", dest="data_dir", default="data",
     help="output folder")
-  parser.add_option("-f", "--file",
-    action="append", dest="outputs", default=[],
-    help="output files to post-analyze")
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
     help="benchmark(s) of interest")
@@ -734,12 +731,14 @@ def main():
         raise Exception("{} not initialized".format(t))
 
     # if not specified, interpret all outputs under data/ folder
-    if not opt.outputs:
+    if not args:
       outputs = glob.glob(os.path.join(opt.data_dir, "*.txt"))
       # filter out erroneous cases (due to broken pipes, etc.)
-      opt.outputs = filter(lambda f: os.path.getsize(f) > 0, outputs)
+      outputs = filter(lambda f: os.path.getsize(f) > 0, outputs)
+    else:
+      outputs = args
 
-    db.reg_exp(opt.outputs, opt.single, opt.eid, opt.dry)
+    db.reg_exp(outputs, opt.single, opt.eid, opt.dry)
 
   elif opt.cmd == "stat":
     db.chk_integrity()
