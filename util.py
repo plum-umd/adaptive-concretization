@@ -34,7 +34,7 @@ def init_k(dic, k):
 #       {x: [1]}, y, 2 => {x: [1], y: [2]}
 def mk_or_append(dic, k, v, uniq=False):
   if k in dic: # already bound key
-    if not uniq or v not in dic[k]: # uniq => value v not recorded
+    if not uniq: # or v not in dic[k]: # uniq => value v not recorded
       dic[k].append(v)
   else: # new occurence of key k
     dic[k] = [v]

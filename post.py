@@ -49,7 +49,6 @@ deg_re = re.compile(r"degree choice: (\d+)")
 lucky_re = re.compile(r"lucky \(degree: (\d+)\)")
 
 be_separator_re = re.compile(r"=== parallel trial.* degree (\d+) \S* (\S+) ===")
-fe_done = "[SKETCH] DONE"
 
 def analyze(output, b, s, c, d):
   run_record = {}
@@ -66,10 +65,6 @@ def analyze(output, b, s, c, d):
     s_times = []
     lines = []
     for line in f:
-      ## end of Sketch front-end
-      # ignore any other messages that appear after front-end is done
-      if fe_done in line: break
-
       ## information from front-end
       m = re.search(f_trial_re, line)
       if m:
@@ -93,18 +88,20 @@ def analyze(output, b, s, c, d):
       m = re.search(ttime_re, line)
       if m:
         ttime = int(float(m.group(1)))
+        break # end of Sketch front-end
 
       ## information from back-end
       m = re.search(be_separator_re, line)
       if m:
-        if m.group(2) in ["failed", "solved"]:
+        if m.group(2) in ["failed", "solved"] and lines:
           _degree = degree if degree else m.group(1)
           record = be_analyze_lines(lines, b, s, _degree)
-          util.mk_or_append(run_record, "backend", record)
-          if record["succeed"] == "Succeed":
-            s_times.append(record["ttime"])
-          else: # "Failed"
-            f_times.append(record["ttime"])
+          if record:
+            util.mk_or_append(run_record, "backend", record)
+            if record["succeed"] == "Succeed":
+              s_times.append(record["ttime"])
+            else: # "Failed"
+              f_times.append(record["ttime"])
 
           lines = []
 
@@ -157,6 +154,7 @@ def be_analyze_lines(lines, b, s, d):
   run_record["degree"] = d
   run_record["dag"] = []
   run_record["hole"] = []
+  run_record["seed"] = -1
 
   exit_code = -1
   etime = 0
@@ -243,9 +241,8 @@ def be_analyze_lines(lines, b, s, d):
   run_record["hole"] = util.flatten(holes.values())
   run_record["dag"] = util.flatten(harnesses.values())
 
-  if run_record["seed"] < 0:
-    print lines
-
+  # erroneous case
+  if run_record["seed"] < 0: return None
   return run_record
 
 
