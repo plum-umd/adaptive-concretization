@@ -25,9 +25,9 @@ table Experiment
 +___________+
 
 table RunS (key: auto_inc RID)
-+----------------------------------------------------------------+
-| RID | Benchmark | Degree | Succeed | Seed | Propagation | Time |
-+----------------------------------------------------------------+
++------------------------------------------------------------------------+
+| RID | Benchmark | Degree | Succeed | Seed | Propagation | Space | Time |
++------------------------------------------------------------------------+
 
 table Dag (key: RID + Harness)
 +----------------------+
@@ -50,6 +50,7 @@ table RunP (key: auto_inc RID)
 t_b = "BIT"
 t_i = "INT"
 t_f = "FLOAT"
+t_d = "DOUBLE"
 t_str = "VARCHAR(255)"
 t_sstr = "VARCHAR(25)"
 nnull = "NOT NULL"
@@ -70,6 +71,7 @@ sr_schema = [
   ["SUCCEED", t_sstr, nnull],
   ["SEED", t_i, nnull],
   ["PROPAGATION", t_i, nnull],
+  ["SPACE", t_d, nnull],
   ["TTIME", t_i, nnull]
 ]
 
@@ -438,18 +440,24 @@ class PerfDB(object):
     if not self._detail_space and not self._detail_full: return
 
     ## search space
-    _conds = conds[:]
-    _conds.append(PerfDB.match_RID(sr_name, h_name))
 
-    spaces = []
-    _rids = self.__get_distinct(h_name+".RID", [e_name, sr_name, h_name], _conds)
-    for (_rid,) in _rids:
-      __conds = _conds[:]
-      __conds.append(PerfDB.match(h_name, "RID", _rid))
-      hole_szs = self.__select_all([], ["SIZE"], [e_name, sr_name, h_name], __conds, "NAME")
-      _, _szs = util.split(hole_szs)
-      s_space = float(reduce(op.mul, _szs))
-      spaces.append(s_space)
+    # SPACE is newly added, so it may not exist in old db/dumps
+    if self.col_exists(sr_name, "SPACE"):
+      spaces = self.__select_all([], ["SPACE"], [e_name, sr_name], conds, None)
+
+    else:
+      _conds = conds[:]
+      _conds.append(PerfDB.match_RID(sr_name, h_name))
+
+      spaces = []
+      _rids = self.__get_distinct(h_name+".RID", [e_name, sr_name, h_name], _conds)
+      for (_rid,) in _rids:
+        __conds = _conds[:]
+        __conds.append(PerfDB.match(h_name, "RID", _rid))
+        hole_szs = self.__select_all([], ["SIZE"], [e_name, sr_name, h_name], __conds, "NAME")
+        _, _szs = util.split(hole_szs)
+        space = float(reduce(op.mul, _szs))
+        spaces.append(space)
 
     self._raw_data[b][d]["search space"] = spaces
     _percentile = util.calc_percentile(spaces)

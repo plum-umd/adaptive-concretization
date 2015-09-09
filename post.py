@@ -3,6 +3,7 @@
 import glob
 import os
 from optparse import OptionParser
+import operator as op
 import pprint
 import re
 import sys
@@ -240,6 +241,10 @@ def be_analyze_lines(lines, b, s, d):
 
   run_record["hole"] = util.flatten(holes.values())
   run_record["dag"] = util.flatten(harnesses.values())
+
+  szs = [ hole_record["size"] for hole_record in run_record["hole"] ]
+  s_space = float(reduce(op.mul, szs)) if szs else 1.0
+  run_record["space"] = s_space
 
   # erroneous case
   if run_record["seed"] < 0: return None
