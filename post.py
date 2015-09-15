@@ -266,6 +266,9 @@ def main():
   parser.add_option("-d", "--dir",
     action="store", dest="data_dir", default="data",
     help="output folder")
+  parser.add_option("-v", "--verbose",
+    action="store_true", dest="verbose", default=False,
+    help="print out post-analysis result verbosely")
   parser.add_option("-s", "--single",
     action="store_true", dest="single", default=False,
     help="analyze backend behavior from single threaded executions")
@@ -291,7 +294,19 @@ def main():
       else:
         record = analyze(output, b, s, c, d)
 
-      pp.pprint(record)
+      if opt.verbose:
+        pp.pprint(record)
+      else: # print entries in depth 1
+        print "{"
+        _pairs = []
+        for k in record:
+          v = record[k]
+          if type(v) in [list, dict]:
+            _pairs.append("  {}: ...".format(k))
+          else:
+            _pairs.append("  {}: {}".format(k, v))
+        print ",\n".join(_pairs)
+        print "}"
 
 
 if __name__ == "__main__":
