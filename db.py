@@ -459,7 +459,7 @@ class PerfDB(object):
         space = float(reduce(op.mul, _szs))
         spaces.append(space)
 
-    self._raw_data[b][d]["search space"] = spaces
+    self._raw_data[b][d]["search space"] = util.split(spaces)
     _percentile = util.calc_percentile(spaces)
     self.log("search space: [{}]".format(" | ".join(map(str, _percentile))))
 
