@@ -339,12 +339,16 @@ def simulate(data, n_cpu, strategy, b):
       else: dgrs[_d] = 1
     else: 
       ranges.append(_d)
-      avg_d = (int) ((_d[0] + _d[1]) / 2)
-      if avg_d not in dgrs: dgrs[avg_d] = 0
+      low_choice = ((_d[0]-1) / degrees[0] + 1) * degrees[0]
+      high_choice = _d[1] / degrees[0] * degrees[0]
+      choices = range(low_choice, high_choice+1, degrees[0])
+      for i in choices:
+        if i in dgrs: dgrs[i] = dgrs[i] + (1 / (len(choices) * 1.0))
+        else: dgrs[i] = 1 / (len(choices) * 1.0)
   print "{} simulations ({}%) found fixed degrees!".format(301 - len(ranges), (301-len(ranges))/3.01)
-  for [low, high] in ranges:
-    for dgr in dgrs:
-      if low <= dgr and dgr <= high: dgrs[dgr] = dgrs[dgr] + 1
+  #for [low, high] in ranges:
+  #  for dgr in dgrs:
+  #    if low <= dgr and dgr <= high: dgrs[dgr] = dgrs[dgr] + 1
   for d in sorted(dgrs.keys()):
     print "degree {}: {} times".format(d, dgrs[d])
   return res
