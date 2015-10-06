@@ -14,7 +14,7 @@ from db import PerfDB
 import util
 
 verbose = False
-ttime = 0
+g_ttime = 0
 
 # default-ish degrees
 degrees = [16, 32, 64, 128, 512, 1024, 2048, 4096]
@@ -62,6 +62,7 @@ def sim_with_degree(sampler, n_cpu, s_name, d, n_runs = 0):
 
   return found, ttime
 
+
 def run_async_trials(sampler, d, n, s_name):
   _soltime = 0
   _ttime = 0
@@ -90,6 +91,7 @@ def run_async_trials(sampler, d, n, s_name):
   model[d]["p"] = t_runs["p"]
   model[d]["search space"] = model[d]["search space"] + t_runs["search space"]
   return ttime, found, len(t_runs)
+
 
 def test_runs(sampler, n_cpu, s_name, ds):
   ttime = 0
@@ -161,10 +163,8 @@ def strategy_time(f, msg, sampler, n_cpu):
   return ttime
 
 
-
-
-
 def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
+  global g_ttime
   if sampleBnd == 0: sampleBnd = max(8, n_cpu/2) * 3
   
   def comp_dist(d):
@@ -201,7 +201,6 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
     req_b = 0
     _found = False
     _n_runs = 0
-    global ttime 
     while (len_a < sampleBnd or len_b < sampleBnd):
       dist_a = comp_dist(d1)
       dist_b = comp_dist(d2)
@@ -225,12 +224,12 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
       if (req_a >= sampleBnd and req_b >= sampleBnd): break
       if (req_a <= req_b and req_a < sampleBnd): 
         _ttime, _found, _n_runs = sample(sampler, d1, "strategy_wilcoxon")
-        ttime = ttime + _ttime
+        g_ttime = g_ttime + _ttime
         len_a = len_a + _n_runs
         req_a = sampleBnd if _n_runs == 0 else req_a + _n_runs
       if (req_b <= req_a and req_b < sampleBnd): 
         _ttime, _found, _n_runs = sample(sampler, d2, "strategy_wilcoxon")
-        ttime = ttime + _ttime
+        g_ttime = g_ttime + _ttime
         len_b = len_b + _n_runs
         req_b = sampleBnd if _n_runs == 0 else req_b + _n_runs
 
@@ -239,8 +238,7 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
   def compare_single(d1, d2):
     print "Comparing degrees {} and {}".format(d1, d2)
     _ttime, _found, _n_runs = test_runs(sampler, n_cpu, "strategy_wilcoxon", [d1, d2])
-    global ttime 
-    ttime = ttime + _ttime
+    g_ttime = g_ttime + _ttime
     dist_d1 = comp_dist(d1)
     dist_d2 = comp_dist(d2)
     if _found:
@@ -284,7 +282,7 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
     dist_d1, dist_d2, found, n_runs, pvalue = cmpr(d1, d2)
 
     if found:
-      return found, ttime
+      return found, g_ttime
     elif not dist_d1:
       pivots[0] = pivots[0] + 1
       pivots[1] = pivots[1] + 1
@@ -310,13 +308,12 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
   dl = degrees[pivots[0]]
   dh = degrees[pivots[1]]
   d = binary_search(dl, dh, cmpr)
-  global ttime 
   if verbose: print "strategy_wilcoxon, pick degree: {}".format(d)
-  if not found and type(d) is int and ttime <= 7200000:
+  if not found and type(d) is int and g_ttime <= 7200000:
     found, _ttime = sim_with_degree(sampler, n_cpu, "strategy_wilcoxon", d, n_runs)
-    ttime = ttime + _ttime
+    g_ttime = g_ttime + _ttime
 
-  return d, ttime
+  return d, g_ttime
 
 
 def simulate(data, n_cpu, strategy, b):
