@@ -358,8 +358,13 @@ def simulate(data, n_cpu, strategy, b):
   #for [low, high] in ranges:
   #  for dgr in dgrs:
   #    if low <= dgr and dgr <= high: dgrs[dgr] = dgrs[dgr] + 1
+  pop = []
   for d in sorted(dgrs.keys()):
-    print "degree {}: {} times".format(d, dgrs[d])
+    est = "N/A"
+    if d in data[b]:
+      idxs = filter(lambda i: not data[b][d]["ttime"][i][0], range(len(data[b][d]["search space"])))
+      est = np.mean(map(lambda i: data[b][d]["ttime"][i][1] * ((data[b][d]["search space"][i] - 1) / n_cpu + 1), idxs))
+    print "degree {}: {} times (estimated time: {})".format(d, dgrs[d], est)
   return res
 
 
