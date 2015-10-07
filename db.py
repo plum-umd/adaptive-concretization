@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import cStringIO
 from itertools import combinations
 import glob
 from optparse import OptionParser
@@ -579,6 +580,19 @@ class PerfDB(object):
       for d in sorted_degrees:
         util.init_k(self._raw_data[b], d)
         self._stat_benchmark_degree_single(eid, b, d)
+
+      buf = cStringIO.StringIO()
+      _d_hist = []
+      for d in sorted_degrees:
+        _hist = self._raw_data[b][d]
+        s_cnt = len(_hist["Succeed"]) if "Succeed" in _hist else 0
+        f_cnt = len(_hist["Failed"]) if "Failed" in _hist else 0
+        _cnt = s_cnt + f_cnt
+        buf.write("  {}: {}\n".format(d, _cnt))
+        _d_hist.append(_cnt)
+      s_q = " | ".join(map(str, util.calc_percentile(_d_hist)))
+      self.log("{}degree histogram: [ {} ]".format(os.linesep, s_q))
+      self.log(buf.getvalue())
 
       ## tex
       dist = []
