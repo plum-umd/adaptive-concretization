@@ -16,6 +16,7 @@ import util
 verbose = False
 g_ttime = 0
 ttime_max = 7200000 # 2 hours
+g_pVal = 0.2
 
 # default-ish degrees
 degrees = [16, 32, 64, 128, 512, 1024, 2048, 4096]
@@ -172,7 +173,7 @@ def strategy_time(f, msg, sampler, n_cpu):
   return ttime
 
 
-def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
+def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   global g_ttime
   if sampleBnd == 0: sampleBnd = max(8, n_cpu/2) * 3
   
@@ -228,7 +229,7 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
           dist_b = dist_b[:shorter]
         _rank_sum, _pvalue = wilcoxon(dist_a, dist_b)
         if verbose: print "p-value: {}".format(_pvalue)
-        if _pvalue < pVal: break
+        if _pvalue < g_pVal: break
         elif len(dist_a) >= sampleBnd and len(dist_b) >= sampleBnd: break
       req_a = sampleRequested(d1)
       req_b = sampleRequested(d2)
@@ -273,7 +274,7 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
     else:
       degree_m = (degree_l + degree_h) / 2
       dist_dl, dist_dm, found, n_runs, pvalue = cmpr(degree_l, degree_m)
-      if pvalue <= pVal: # the median diff. is significatly different
+      if pvalue <= g_pVal: # the median diff. is significatly different
         if np.mean(dist_dl) < np.mean(dist_dm):
           return binary_search(degree_l, degree_m, cmpr)
         else:
@@ -302,7 +303,7 @@ def strategy_wilcoxon(sampler, n_cpu, pVal=0.17, sampleBnd=0):
     elif not dist_d2:
       pivots[1] = pivots[1] + 1
       fixed = False
-    elif pvalue <= pVal: # the median diff. is significatly different
+    elif pvalue <= g_pVal: # the median diff. is significatly different
       if np.mean(dist_d1) < np.mean(dist_d2):
         # left one is better, climbing done
         break
@@ -382,14 +383,18 @@ def main():
   parser.add_option("--all",
     action="store_true", dest="all_strategies", default=False,
     help="simulate *all* modeled strategies")
+  parser.add_option("-p", "--p-value",
+    action="store", dest="p_value", type="float", default=0.2,
+    help="p-value for Wilcoxon test")
   parser.add_option("-v", "--verbose",
     action="store_true", dest="verbose", default=False,
     help="verbosely print out simulation data")
 
   (opt, args) = parser.parse_args()
 
-  global verbose
+  global verbose, g_pVal
   verbose = opt.verbose
+  g_pVal = opt.p_value
 
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
