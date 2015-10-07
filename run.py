@@ -235,8 +235,12 @@ def main():
           if strategy == "SINGLE": # parallel running via wrapper
             for degree in degrees:
               r_bak = opt.repeat
-              if "single_repeat" in config[b]:
+              if opt.cores:
+                opt.repeat = max(opt.cores)
+              elif "single_repeat" in config[b]:
                 opt.repeat = config[b]["single_repeat"]
+              else:
+                opt.repeat = 1
 
               be_p_run(b, path, main, str(degree))
 
