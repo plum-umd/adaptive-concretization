@@ -138,6 +138,10 @@ def be_p_run(b, path, main, degree):
   opts.extend(["--slv-mem-limit", str(4*1024*1024*1024)])
   opts.extend(["--fe-inc", path])
 
+  if "sygus" in path:
+    opts.extend(["--fe-def", "BND=5"])
+    opts.extend(["--bnd-unroll-amnt", '64'])
+
   # custom CEGIS wrapper that runs backend in parallel
   pwd = os.path.dirname(os.path.realpath(__file__))
   cegis = os.path.join(pwd, "psketch.py")
@@ -231,8 +235,12 @@ def main():
           if strategy == "SINGLE": # parallel running via wrapper
             for degree in degrees:
               r_bak = opt.repeat
-              if "single_repeat" in config[b]:
+              if opt.cores:
+                opt.repeat = max(opt.cores)
+              elif "single_repeat" in config[b]:
                 opt.repeat = config[b]["single_repeat"]
+              else:
+                opt.repeat = 1
 
               be_p_run(b, path, main, str(degree))
 
