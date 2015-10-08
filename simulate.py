@@ -56,7 +56,7 @@ def sim_with_degree(sampler, n_cpu, s_name, d, n_runs = 0):
       _ttime = _ttime + t
       if s:
         found_d = d
-        #if verbose: print "{} found a solution within {} trials".format(s_name, n_runs+_n_runs)
+        if verbose: print "{} found a solution within {} trials".format(s_name, n_runs+_n_runs)
         _ttime = t
         break
     n_runs = n_runs + _n_runs
@@ -90,7 +90,7 @@ def run_async_trials(sampler, d, n, s_name):
     _ttime = _ttime + t
 
   if found_d > 0:
-    #if verbose: print "One of {} async trials found a solution.".format(s_name, len(t_runs["ttime"]))
+    if verbose: print "One of {} async trials found a solution.".format(s_name, len(t_runs["ttime"]))
     ttime = _soltime
   else:
     ttime = (_ttime / len(t_runs["ttime"]))
@@ -147,13 +147,14 @@ def strategy_fixed(d, sampler, n_cpu):
 def strategy_random(sampler, n_cpu):
   # pick a degree randomly
   d = random.choice(degrees)
-  #if verbose: print "strategy_random, pick degree: {}".format(d)
+  print "strategy_random, pick degree: {}".format(d)
 
   _, ttime = sim_with_degree(sampler, n_cpu, "strategy_random", d)
   return d, ttime
 
 
 def strategy_time(f, msg, sampler, n_cpu):
+  global verbose
   ttime, found_d, n_runs = test_runs(sampler, n_cpu, msg, degrees)
 
   # resampling with likelihood degree
@@ -165,7 +166,7 @@ def strategy_time(f, msg, sampler, n_cpu):
       ds.append(d)
     idx = est.index(f(est))
     d = ds[idx]
-    if verbose: print "{}, pick degree: {}".format(msg, d)
+    print "{}, pick degree: {}".format(msg, d)
 
     _, _ttime = sim_with_degree(sampler, n_cpu, msg, d, n_runs)
     ttime = ttime + _ttime
@@ -180,7 +181,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   def comp_dist(d):
     res = []
     if d not in model.keys(): 
-      #if verbose: print "degree {} does not exist in {}".format(d, model.keys())
+      if verbose: print "degree {} does not exist in {}".format(d, model.keys())
       return res
     for i in xrange(len(model[d]["runs"])):
       t = model[d]["runs"][i]
@@ -204,6 +205,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     return _ttime, _found_d, _n_runs
 
   def compare_async(d1, d2):
+    global verbose
     if verbose: print "Comparing {} and {}:".format(d1, d2)
     len_a = 0
     len_b = 0
@@ -248,6 +250,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     return dist_a, dist_b, _found_d, _n_runs, _pvalue
 
   def compare_single(d1, d2):
+    global verbose
     if verbose: print "Comparing degrees {} and {}:".format(d1, d2)
     _ttime, _found_d, _n_runs = test_runs(sampler, n_cpu, "strategy_wilcoxon", [d1, d2])
     g_ttime = g_ttime + _ttime
@@ -321,7 +324,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   dl = degrees[pivots[0]]
   dh = degrees[pivots[1]]
   d = binary_search(dl, dh, cmpr)
-  if verbose: print "strategy_wilcoxon, pick degree: {}".format(d)
+  print "strategy_wilcoxon, pick degree: {}".format(d)
   if found_d < 0 and type(d) is int and g_ttime <= ttime_max:
     found, _ttime = sim_with_degree(sampler, n_cpu, "strategy_wilcoxon", d, n_runs)
     g_ttime = g_ttime + _ttime
