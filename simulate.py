@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from collections import Counter
 from itertools import repeat, chain
 from functools import partial
 import random
@@ -13,20 +14,31 @@ from scipy.stats import wilcoxon
 from db import PerfDB
 import util
 
+# verbosity
 verbose = False
+
+# accumulated total time
 g_ttime = 0
 ttime_max = 7200000 # 2 hours
+
+# p-value
 g_pVal = 0.2
 
 # default-ish degrees
 degrees = [16, 32, 64, 128, 512, 1024, 2048, 4096]
+
+# absent degrees
+abs_degrees = []
 
 model = {}
 sMap = {}
 
 def sampling(data, b, d, n=1):
   res = {}
-  if d not in data[b].keys(): return res
+  if d not in data[b]:
+    abs_degrees.append(d)
+    return res
+
   pop = filter(lambda i: not data[b][d]["ttime"][i][0], range(len(data[b][d]["search space"])))
   try:
     pop_len = len(data[b][d]["search space"])
@@ -154,7 +166,6 @@ def strategy_random(sampler, n_cpu):
 
 
 def strategy_time(f, msg, sampler, n_cpu):
-  global verbose
   ttime, found_d, n_runs = test_runs(sampler, n_cpu, msg, degrees)
 
   # resampling with likelihood degree
@@ -180,7 +191,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   
   def comp_dist(d):
     res = []
-    if d not in model.keys(): 
+    if d not in model:
       if verbose: print "degree {} does not exist in {}".format(d, model.keys())
       return res
     for i in xrange(len(model[d]["runs"])):
@@ -205,7 +216,6 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     return _ttime, _found_d, _n_runs
 
   def compare_async(d1, d2):
-    global verbose
     if verbose: print "Comparing {} and {}:".format(d1, d2)
     len_a = 0
     len_b = 0
@@ -250,7 +260,6 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     return dist_a, dist_b, _found_d, _n_runs, _pvalue
 
   def compare_single(d1, d2):
-    global verbose
     if verbose: print "Comparing degrees {} and {}:".format(d1, d2)
     _ttime, _found_d, _n_runs = test_runs(sampler, n_cpu, "strategy_wilcoxon", [d1, d2])
     g_ttime = g_ttime + _ttime
@@ -258,7 +267,8 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     dist_d2 = comp_dist(d2)
     if _found_d > 0:
       _pvalue = 0
-    elif not (dist_d1 and dist_d2): _pvalue = 0
+    elif not (dist_d1 and dist_d2):
+      _pvalue = 0
     elif len(dist_d1) != len(dist_d2):
       if verbose: print "length mismatch: {} vs. {}".format(len(dist_d1), len(dist_d2))
       _pvalue = 0
@@ -269,7 +279,8 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   def binary_search(degree_l, degree_h, cmpr):
     if degree_l == degree_h: return degree_l
     dist_l, dist_h, found_d, n_runs, pvalue = cmpr(degree_l, degree_h)
-    if pvalue == 0: return [degree_l, degree_h]
+    if pvalue == 0:
+      return [degree_l, degree_h]
     elif degree_h - degree_l <= degrees[0]:
       mean_l = np.mean(dist_l)
       mean_h = np.mean(dist_h)
@@ -439,6 +450,8 @@ def main():
       print "{} simulations done.".format(len(res))
       s_q = " | ".join(map(str, util.calc_percentile(res)))
       print "{} : {} ({})\n\t[ {} ]".format(s, np.mean(res), np.var(res), s_q)
+
+  print "absent degrees: {}".format(Counter(abs_degrees))
 
 
 if __name__ == "__main__":
