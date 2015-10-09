@@ -309,6 +309,7 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
     dist_d1, dist_d2, found_d, n_runs, pvalue = cmpr(d1, d2)
 
     if found_d > 0:
+      print "strategy_wilcoxon, solution found at degree: {}".format(found_d)
       return found_d, g_ttime
     elif not dist_d1:
       pivots[0] = pivots[0] + 1
