@@ -1,0 +1,72 @@
+{
+  "button_demo":
+  {
+    "main": "sample.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "menu_demo":
+  {
+    "main": "sample.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "list_prepend":
+  {
+    "main": "sll_prepend.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "list_min":
+  {
+    "main": "list_min.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "log2":
+  {
+    "main": "log2.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "reverse":
+  {
+    "main": "listReverse.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "sygus_hd_14_d5":
+  {
+    "main": "hd_14_d5.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "sygus_hd_15_d5":
+  {
+    "main": "hd_15_d5.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "shoaib_1":
+  {
+    "main": "advec_mom_kernel1.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  },
+  "shoaib_2":
+  {
+    "main": "advec_mom_kernel2.sk",
+    "strategies": ["WILCOXON"],
+    "cores": [32],
+    "degrees": [16, 64, 128, 512, 1024, 4096]
+  }
+}
