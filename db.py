@@ -415,7 +415,8 @@ class PerfDB(object):
     n_succeed = self.__select_one(["COUNT"], ["*"], [e_name, sr_name], _conds, None)[0]
 
     self.log("success rate: {} / {}".format(n_succeed, n_total))
-    self._raw_data[b][d]["p"] = float(n_succeed) / n_total
+    p = float(n_succeed) / n_total
+    self._raw_data[b][d]["p"] = p
 
     ## (successful/failed) time
     def __stat_ttime(succeed):
@@ -437,6 +438,21 @@ class PerfDB(object):
 
     __stat_ttime("Succeed")
     __stat_ttime("Failed")
+
+    # estimated running time
+    if not p:
+      self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
+    else:
+      _ts = []
+      if "Succeed" in self._raw_data[b][d]:
+        _ts.extend(self._raw_data[b][d]["Succeed"])
+      if "Failed" in self._raw_data[b][d]:
+        _ts.extend(self._raw_data[b][d]["Failed"])
+      _dist = [ t / (100*p) for t in _ts ]
+      m, siqr = util.calc_siqr(_dist)
+      self._raw_data[b][d]["E(t)"] = (m, siqr)
+    _et, _et_siqr = self._raw_data[b][d]["E(t)"]
+    self.log("estimated running time: {} ({})".format(_et, _et_siqr))
 
     if not self._detail_space and not self._detail_full: return
 
@@ -599,18 +615,10 @@ class PerfDB(object):
       for d in sorted_degrees:
         p = self._raw_data[b][d]["p"]
         if not p:
-          self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
           dist.append("\\timeout{}")
 
         else:
-          _ts = []
-          if "Succeed" in self._raw_data[b][d]:
-            _ts.extend(self._raw_data[b][d]["Succeed"])
-          if "Failed" in self._raw_data[b][d]:
-            _ts.extend(self._raw_data[b][d]["Failed"])
-          _dist = [ t / (100*p) for t in _ts ]
-          m, siqr = util.calc_siqr(_dist)
-          self._raw_data[b][d]["E(t)"] = (m, siqr)
+          m, siqr = self._raw_data[b][d]["E(t)"]
           _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
           dist.append(_m_siqr)
 
