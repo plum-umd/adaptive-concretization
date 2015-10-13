@@ -449,7 +449,7 @@ class PerfDB(object):
           _ts.extend(self._raw_data[b][d]["Succeed"])
         if "Failed" in self._raw_data[b][d]:
           _ts.extend(self._raw_data[b][d]["Failed"])
-        _dist = [ t / (100*p) for t in _ts ]
+        _dist = [ t / (1000*p) for t in _ts ]
         m, siqr = util.calc_siqr(_dist)
         self._raw_data[b][d]["E(t)"] = (m, siqr)
 
@@ -623,7 +623,7 @@ class PerfDB(object):
 
       ## tex
       dist = []
-      for d in sorted_degrees:
+      for d in filter(lambda num: (num & (num-1)) == 0, sorted_degrees):
         p = self._raw_data[b][d]["p"]
         if not p:
           dist.append("\\timeout{}")
