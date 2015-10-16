@@ -254,6 +254,62 @@ def fig_parallel(data, out_dir, invert):
   plt.close()
 
 
+def fig_pfunc(degree, out_dir):
+  font = {"family": "serif", "size": 18}
+  plt.rc("font", **font)
+  label_font = {"size": 22}
+
+  ## discontinuous p function
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.set_xlabel("Influence", **label_font)
+  ax.set_ylabel("Concretization Probability", **label_font)
+  plt.title("Degree {}".format(degree), **label_font)
+  plt.ylim(ymin=0, ymax=1)
+
+  def discontinuous(d, n):
+    if n <= 0: return 0.0
+    elif n > 1500: return 1.0
+    else: return 1.0/max(2.0, float(d)/n)
+
+  v_discontinuous = np.vectorize(discontinuous)
+
+  x = np.linspace(0, 2000)
+  y = v_discontinuous(degree, x)
+  plt.plot(x, y, 'g', linewidth=4)
+
+  plt.axis("tight")
+  plt.tight_layout()
+
+  png = os.path.join(out_dir, "p-discontinuous.png")
+  print "drawing", png
+  plt.savefig(png)
+  plt.close()
+
+  ## smooth p function
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.set_xlabel("Influence", **label_font)
+  ax.set_ylabel("Concretization Probability", **label_font)
+  plt.title("Degree {}".format(degree), **label_font)
+  plt.ylim(ymin=0, ymax=1)
+
+  def smooth(d, n):
+    return (1 / (1 + np.exp(-n/d)) - 0.5) * 2
+
+  x = np.linspace(0, 2000)
+  y = smooth(degree, x)
+  plt.plot(x, y, 'g', linewidth=4)
+
+  plt.axis("tight")
+  plt.tight_layout()
+
+  png = os.path.join(out_dir, "p-smooth.png")
+  print "drawing", png
+  plt.savefig(png)
+  plt.close()
+
+
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
   parser.add_option("--user",
@@ -277,24 +333,33 @@ def main():
   parser.add_option("-i", "--invert",
     action="store_true", dest="invert", default=False,
     help="invert the graph, e.g., speedup instead of slowdown")
+  parser.add_option("--p-func",
+    action="store_true", dest="pfunc", default=False,
+    help="draw probability functions")
   parser.add_option("-v", "--verbose",
     action="store_true", dest="verbose", default=False,
     help="verbosely print out data to be drawn")
 
   (opt, args) = parser.parse_args()
 
+  global verbose
+  verbose = opt.verbose
+
+  if opt.pfunc:
+    fig_pfunc(512, opt.data_dir)
+    return 0
+
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
   db.calc_stat(opt.benchmarks, opt.single, opt.eid)
   data = db.raw_data
 
-  global verbose
-  verbose = opt.verbose
-
   if opt.single:
     fig_single(data, opt.data_dir)
   else:
     fig_parallel(data, opt.data_dir, opt.invert)
+
+  return 0
 
 
 if __name__ == "__main__":
