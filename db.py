@@ -486,7 +486,7 @@ class PerfDB(object):
     failed_ts = util.ffilter(self._raw_data[b][d]["Failed"])
     spaces = self._raw_data[b][d]["search space"]
     _max_n = min(map(len, [failed_ts, spaces]))
-    _dist = [ failed_ts[i] * spaces[i] for i in xrange(_max_n) ]
+    _dist = [ failed_ts[i] * spaces[i] / 1000 for i in xrange(_max_n) ]
     m, siqr = util.calc_siqr(_dist)
     self._raw_data[b][d]["E(t)"] = (m, siqr)
     self.log("space-based E(t): {} ({})".format(m, siqr))
@@ -625,7 +625,7 @@ class PerfDB(object):
       dist = []
       for d in filter(lambda num: (num & (num-1)) == 0, sorted_degrees):
         p = self._raw_data[b][d]["p"]
-        if not p:
+        if not self._detail_space and not p:
           dist.append("\\timeout{}")
 
         else:
