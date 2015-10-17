@@ -449,7 +449,7 @@ class PerfDB(object):
           _ts.extend(self._raw_data[b][d]["Succeed"])
         if "Failed" in self._raw_data[b][d]:
           _ts.extend(self._raw_data[b][d]["Failed"])
-        _dist = [ t / (1000*p) for t in _ts ]
+        _dist = [ t / (1000*p) for t in util.ffilter(_ts) ]
         m, siqr = util.calc_siqr(_dist)
         self._raw_data[b][d]["E(t)"] = (m, siqr)
 
@@ -483,7 +483,7 @@ class PerfDB(object):
     self.log("search space: [{}]".format(" | ".join(map(str, _percentile))))
 
     ## estimated running time using search space
-    failed_ts = self._raw_data[b][d]["Failed"]
+    failed_ts = util.ffilter(self._raw_data[b][d]["Failed"])
     spaces = self._raw_data[b][d]["search space"]
     _max_n = min(map(len, [failed_ts, spaces]))
     _dist = [ failed_ts[i] * spaces[i] for i in xrange(_max_n) ]

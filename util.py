@@ -61,6 +61,13 @@ def flatten(lstlst):
   return list(chain.from_iterable(lstlst))
 
 
+# remove anything that is evaluated to False, such as None, 0, or empty string
+# e.g., [0, 1, 2, None, 3] -> [1, 2, 3]
+#       ["a", "", "z"] => ["a", "z"]
+def ffilter(lst):
+  return filter(None, lst)
+
+
 # transform a list of pairs into a dict
 def to_dict(lst):
   if not lst: return {}
