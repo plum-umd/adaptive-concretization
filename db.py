@@ -439,20 +439,20 @@ class PerfDB(object):
     __stat_ttime("Succeed")
     __stat_ttime("Failed")
 
-    if not self._detail_space and not self._detail_full:
-      # estimated running time using empirical p
-      if not p:
-        self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
-      else:
-        _ts = []
-        if "Succeed" in self._raw_data[b][d]:
-          _ts.extend(self._raw_data[b][d]["Succeed"])
-        if "Failed" in self._raw_data[b][d]:
-          _ts.extend(self._raw_data[b][d]["Failed"])
-        _dist = [ t / (1000*p) for t in util.ffilter(_ts) ]
-        m, siqr = util.calc_siqr(_dist)
-        self._raw_data[b][d]["E(t)"] = (m, siqr)
+    # estimated running time using empirical p
+    if not p:
+      self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
+    else:
+      _ts = []
+      if "Succeed" in self._raw_data[b][d]:
+        _ts.extend(self._raw_data[b][d]["Succeed"])
+      if "Failed" in self._raw_data[b][d]:
+        _ts.extend(self._raw_data[b][d]["Failed"])
+      _dist = [ t / (1000*p) for t in util.ffilter(_ts) ]
+      m, siqr = util.calc_siqr(_dist)
+      self._raw_data[b][d]["E(t)"] = (m, siqr)
 
+    if not self._detail_space and not self._detail_full:
       _et, _et_siqr = self._raw_data[b][d]["E(t)"]
       self.log("empirical E(t): {} ({})".format(_et, _et_siqr))
 
@@ -483,13 +483,18 @@ class PerfDB(object):
     self.log("search space: [{}]".format(" | ".join(map(str, _percentile))))
 
     ## estimated running time using search space
-    failed_ts = util.ffilter(self._raw_data[b][d]["Failed"])
-    spaces = self._raw_data[b][d]["search space"]
-    _max_n = min(map(len, [failed_ts, spaces]))
-    _dist = [ failed_ts[i] * spaces[i] for i in xrange(_max_n) ]
-    m, siqr = util.calc_siqr(_dist)
-    self._raw_data[b][d]["E(t)"] = (m, siqr)
-    self.log("space-based E(t): {} ({})".format(m, siqr))
+    if "Failed" in self._raw_data[b][d]:
+      failed_ts = util.ffilter(self._raw_data[b][d]["Failed"])
+      spaces = self._raw_data[b][d]["search space"]
+      _max_n = min(map(len, [failed_ts, spaces]))
+      _dist = [ (failed_ts[i]) * spaces[i] for i in xrange(_max_n) ]
+      m, siqr = map(lambda ms: ms/1000, util.calc_siqr(_dist))
+      self._raw_data[b][d]["E(t)"] = (m, siqr)
+      self.log("space-based E(t): {} ({})".format(m, siqr))
+    else: # no failed cases; use empirical p
+      self.log("space-based E(t) not available due to the lack of failed case")
+      _et, _et_siqr = self._raw_data[b][d]["E(t)"]
+      self.log("instead, empirical E(t): {} ({})".format(_et, _et_siqr))
 
     if not self._detail_full: return
 
