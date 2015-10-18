@@ -630,7 +630,7 @@ class PerfDB(object):
       dist = []
       for d in filter(lambda num: (num & (num-1)) == 0, sorted_degrees):
         p = self._raw_data[b][d]["p"]
-        if not p:
+        if not self._detail_space and not p:
           dist.append("\\timeout{}")
 
         else:
