@@ -543,23 +543,25 @@ Bye
 $ mysql -u sketchperf new_db_name < dump.sql
 </code></pre>
 <ul>
-  <li>FMSD submission (as of Oct 15, 2015):
+  <li>FMSD submission (as of Oct 20, 2015):
     <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/fmsd_submission.sql">fmsd_submission.sql</a> and
     <a href="http://people.csail.mit.edu/jsjeon/adaptive-concretization/fmsd_raw_data.tgz">raw data</a>.
   <ul>
-    <li>EID 1 (11): smooth probability function (w/ boolean weight 0.5 and p-value 0.2)</li>
-    <li>EID 2: boolean weight 0.25</li>
-    <li>EID 3: boolean weight 0.75</li>
-    <li>EID 4: boolean weight 1.0</li>
-    <li>EID 5: boolean weight 1.33</li>
-    <li>EID 6 (16): p-value 0.05</li>
+    <li>EID 1 (11): smooth probability function (w/ boolean weight 1/2 and p-value 0.2)</li>
+    <li>EID 2: boolean weight 1/8</li>
+    <li>EID 3: boolean weight 1/4</li>
+    <li>EID 4: boolean weight 3/4</li>
+    <li>EID 5: boolean weight 1</li>
+    <li>EID 6: boolean weight 4/3</li>
+    <li>EID 7: boolean weight 2</li>
+    <li>EID 8 (18): p-value 0.05</li>
     <li>EID 9 (19): discrete probability function</li>
   </ul>
 <pre><code>... $ mysql -u sketchperf smooth < fmsd_submission.sql
 .../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 1
 .../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 11 -s
-.../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 6
-.../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 16 -s
+.../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 9
+.../ae/adaptive-concretization $ ./db.py --db smooth -c stat -e 19 -s
 ...
 </code></pre>
   </li>
