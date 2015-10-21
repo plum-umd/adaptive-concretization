@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from itertools import combinations
+from itertools import combinations, repeat, chain
 from optparse import OptionParser
 import os
 import random
@@ -29,7 +29,14 @@ def compare(n, data, b, d1, d2):
   _max_n = min(map(len, [d1_space, d2_space, d1_ttime, d2_ttime]))
 
   # pick n random numbers between 0 to the size of the smallest data set
-  indices = random.sample(range(_max_n), n)
+  pop = range(_max_n)
+  try:
+    indices = random.sample(pop, n)
+  except ValueError: # sample larger than population
+    indices = list(chain.from_iterable(repeat(pop, n / _max_n))) + random.sample(pop, n % _max_n)
+  except TypeError: # single value
+    indices = repeat(_max_n, n)
+
   # expected running time = t/p, where p = 1/search space
   dist_d1 = [ d1_ttime[idx][1] * d1_space[idx] for idx in indices ]
   dist_d2 = [ d2_ttime[idx][1] * d2_space[idx] for idx in indices ]
