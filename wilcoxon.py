@@ -58,6 +58,10 @@ def draw_bubble_chart(out_dir, b, xs, ys, ps):
 
 def main():
   parser = OptionParser(usage="usage: %prog [options]")
+  parser.add_option("-c", "--cmd",
+    action="store", dest="cmd",
+    type="choice", choices=["degree", "perf"],
+    default=None, help="command to run")
   parser.add_option("--user",
     action="store", dest="user", default="sketchperf",
     help="user name for database")
@@ -65,7 +69,7 @@ def main():
     action="store", dest="db", default="concretization",
     help="database name")
   parser.add_option("-e", "--eid",
-    action="store", dest="eid", type="int", default=11,
+    action="append", dest="eids", type="int", default=[],
     help="experiment id")
   parser.add_option("-b", "--benchmark",
     action="append", dest="benchmarks", default=[],
@@ -79,40 +83,48 @@ def main():
 
   (opt, args) = parser.parse_args()
 
+  if not opt.cmd:
+    parser.error("nothing to do")
+
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
   db.detail_space = True
-  db.calc_stat(opt.benchmarks, True, opt.eid)
+  if not opt.eids: opt.eids = [11]
+  db.calc_stat(opt.benchmarks, True, opt.eids)
   data = db.raw_data
 
   merged = util.merge_succ_fail(data)
 
-  for b in merged:
-    if opt.verbose:
-      print "\n=== benchmark: {} ===".format(b)
+  if opt.cmd == "degree":
+    for b in merged:
+      if opt.verbose:
+        print "\n=== benchmark: {} ===".format(b)
 
-    # collecting (d1, d2, p) to draw bubble charts
-    xs = []
-    ys = []
-    ps = []
+      # collecting (d1, d2, p) to draw bubble charts
+      xs = []
+      ys = []
+      ps = []
 
-    ds = sorted(merged[b].keys())
-    for d1, d2 in combinations(ds, 2):
-      for n in smpl_sizes:
-        _ps = []
-        for r in xrange(301):
-          _p = compare(n, merged, b, d1, d2)
-          _ps.append(_p)
-        percentile = util.calc_percentile(_ps)
-        if opt.verbose:
-          s_percentile = " | ".join(map(str, percentile))
-          print "{} vs. {} w/ {} samples: [{}]".format(d1, d2, n, s_percentile)
-        xs.append(d1)
-        ys.append(d2)
-        # pick the median, programmatically
-        ps.append(percentile[len(percentile)/2])
+      ds = sorted(merged[b].keys())
+      for d1, d2 in combinations(ds, 2):
+        for n in smpl_sizes:
+          _ps = []
+          for r in xrange(301):
+            _p = compare(n, merged, b, d1, d2)
+            _ps.append(_p)
+          percentile = util.calc_percentile(_ps)
+          if opt.verbose:
+            s_percentile = " | ".join(map(str, percentile))
+            print "{} vs. {} w/ {} samples: [{}]".format(d1, d2, n, s_percentile)
+          xs.append(d1)
+          ys.append(d2)
+          # pick the median, programmatically
+          ps.append(percentile[len(percentile)/2])
 
-    draw_bubble_chart(opt.data_dir, b, xs, ys, ps)
+      draw_bubble_chart(opt.data_dir, b, xs, ys, ps)
+
+  elif opt.cmd == "perf":
+    pass
 
 
 if __name__ == "__main__":

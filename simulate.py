@@ -392,7 +392,7 @@ def main():
     action="store", dest="db", default="concretization",
     help="database name")
   parser.add_option("-e", "--eid",
-    action="store", dest="eid", type="int", default=11,
+    action="append", dest="eids", type="int", default=[],
     help="experiment id")
   parser.add_option("-d", "--dir",
     action="store", dest="data_dir", default="data",
@@ -419,7 +419,8 @@ def main():
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
   db.detail_space = True
-  db.calc_stat(opt.benchmarks, True, opt.eid)
+  if not opt.eids: opt.edis = [11]
+  db.calc_stat(opt.benchmarks, True, opt.eids)
   data = db.raw_data
 
   merged = util.merge_succ_fail(data, 1000)

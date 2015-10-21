@@ -156,8 +156,13 @@ so this simulation result can not guarantee the best solution.
 
 #### wilcoxon.py
 
+This script exploits two Wilcoxon tests:
+Wilcoxon signed-rank test and Wilcoxon rank-sum test.
+
+##### Degree Comparisons
+
 To set a good confidential cutoff (so-called p-value) and
-the number of samplings, this script simulates Wilcoxon test
+the number of samplings, this script simulates Wilcoxon signed-rank test
 by using Monte Carlo method: given configuration of the number
 of sampling and two target degrees, it will randomly pick
 that number of samples from the database; compare the given degrees
@@ -168,12 +173,25 @@ which could be retrieved from backend data set.
 
 Similar to `simulate.py`, you may need to specify your own EID if any.
 ```sh
-$ ./wilcoxon.py [-e EID]
+$ ./wilcoxon.py -c degree [-e EID]
 ```
 This script uses the same backend data as `simulate.py` does,
 and similar options for the database are available:
 ```sh
-$ ./wilcoxon.py [--user user_name] [--db db_name]
+$ ./wilcoxon.py -c degree [--user user_name] [--db db_name]
+```
+
+##### Performance Comparisons
+
+Unlike degree comparisons, which literally compare two degrees
+running on the same benchmark, comparing performance results
+running on different design choices requires different statistical test:
+Wilcoxon rank-sum test, not Wilcoxon signed-rank test.
+
+To statistically compare two performance results, you should specify
+corresponding EIDs:
+```sh
+$ ./wilcoxon.py -c perf -e EID1 -e EID2
 ```
 
 
