@@ -337,9 +337,9 @@ def strategy_wilcoxon(sampler, n_cpu, sampleBnd=0):
   dh = degrees[pivots[1]]
   d = binary_search(dl, dh, cmpr)
   print "strategy_wilcoxon, pick degree: {}".format(d)
-  if found_d < 0 and type(d) is int and g_ttime <= ttime_max:
-    found, _ttime = sim_with_degree(sampler, n_cpu, "strategy_wilcoxon", d, n_runs)
-    g_ttime = g_ttime + _ttime
+  #if found_d < 0 and type(d) is int and g_ttime <= ttime_max:
+  #  found, _ttime = sim_with_degree(sampler, n_cpu, "strategy_wilcoxon", d, n_runs)
+  #  g_ttime = g_ttime + _ttime
 
   return d, g_ttime
 
@@ -351,6 +351,7 @@ def simulate(data, n_cpu, strategy, b):
   #degrees = sorted(data[b].keys())
   sampler = partial(sampling, data, b)
   res = []
+  finished = []
   dgrs = {}
   ranges = []
   for i in xrange(301):
@@ -359,6 +360,7 @@ def simulate(data, n_cpu, strategy, b):
     _d, _ttime = strategy(sampler, n_cpu)
     res.append(_ttime)
     if type(_d) is int: # i.e., fixed single degree
+      finished.append(_ttime)
       if _d in dgrs: dgrs[_d] = dgrs[_d] + 1
       else: dgrs[_d] = 1
     elif type(_d) is list: # i.e., a range of degrees
@@ -370,6 +372,8 @@ def simulate(data, n_cpu, strategy, b):
         if i in dgrs: dgrs[i] = dgrs[i] + (1 / (len(choices) * 1.0))
         else: dgrs[i] = 1 / (len(choices) * 1.0)
   print "{} simulations ({}%) found fixed degrees!".format(301 - len(ranges), (301-len(ranges))/3.01)
+  if len(finished) >= 151:
+    print "Median time to find a degree: {}".format(sorted(finished)[150])
   #for [low, high] in ranges:
   #  for dgr in dgrs:
   #    if low <= dgr and dgr <= high: dgrs[dgr] = dgrs[dgr] + 1
