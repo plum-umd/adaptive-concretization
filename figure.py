@@ -319,7 +319,7 @@ def main():
     action="store", dest="db", default="concretization",
     help="database name")
   parser.add_option("-e", "--eid",
-    action="store", dest="eid", type="int", default=0,
+    action="append", dest="eids", type="int", default=[],
     help="experiment id")
   parser.add_option("-d", "--dir",
     action="store", dest="data_dir", default="data",
@@ -351,7 +351,7 @@ def main():
 
   db = PerfDB(opt.user, opt.db)
   db.drawing = True
-  db.calc_stat(opt.benchmarks, opt.single, opt.eid)
+  db.calc_stat(opt.benchmarks, opt.single, opt.eids)
   data = db.raw_data
 
   if opt.single:

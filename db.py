@@ -728,13 +728,11 @@ class PerfDB(object):
 
 
   # statistics
-  def calc_stat(self, benchmarks, single=True, eid=0):
-    if eid > 0:
+  def calc_stat(self, benchmarks, single=False, eids=[]):
+    if not eids: # retrieve all EIDs
+      eids = util.split(self.__get_distinct("EID", [e_name], ["TRUE"]))
+    for eid in eids:
       self._stat_exp(benchmarks, single, eid)
-    else: # for all EIDs
-      eids = self.__get_distinct("EID", [e_name], ["TRUE"])
-      for (_eid,) in eids:
-        self._stat_exp(benchmarks, single, _eid)
 
 
 def main():
@@ -750,7 +748,7 @@ def main():
     action="store", dest="db", default="concretization",
     help="database name")
   parser.add_option("-e", "--eid",
-    action="store", dest="eid", type="int", default=0,
+    action="append", dest="eids", type="int", default=[],
     help="experiment id")
   parser.add_option("-d", "--dir",
     action="store", dest="data_dir", default="data",
@@ -817,11 +815,15 @@ def main():
     else:
       outputs = args
 
-    db.reg_exp(outputs, opt.single, opt.eid, opt.dry)
+    if opt.eids:
+      for eid in opt.eids:
+        db.reg_exp(outputs, opt.single, eid, opt.dry)
+    else:
+      db.reg_exp(outputs, opt.single, 0, opt.dry)
 
   elif opt.cmd == "stat":
     db.chk_integrity()
-    db.calc_stat(opt.benchmarks, opt.single, opt.eid)
+    db.calc_stat(opt.benchmarks, opt.single, opt.eids)
 
   return 0
 
