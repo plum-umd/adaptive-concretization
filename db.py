@@ -490,6 +490,11 @@ class PerfDB(object):
       _dist = [ (failed_ts[i]) * spaces[i] for i in xrange(_max_n) ]
       m, siqr = map(lambda ms: ms/1000, util.calc_siqr(_dist))
       self._raw_data[b][d]["E(t)"] = (m, siqr)
+      _bootstrapping_dist = []
+      for i in range(1000):
+        _bootstrapping_dist.extend(random.sample(_dist, 1))
+      boot_m, boot_siqr = map(lambda ms: ms/1000, util.calc_siqr(_bootstrapping_dist))
+      self._raw_data[b][d]["bootstrapping"] = (boot_m, boot_siqr)
       self.log("space-based E(t): {} ({})".format(m, siqr))
     else: # no failed cases; use empirical p
       self.log("space-based E(t) not available due to the lack of failed case")
@@ -637,6 +642,12 @@ class PerfDB(object):
           m, siqr = self._raw_data[b][d]["E(t)"]
           _m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(m), util.formatter(siqr))
           dist.append(_m_siqr)
+          if "bootstrapping" in self._raw_data[b][d]:
+            boot_m, boot_siqr = self._raw_data[b][d]["bootstrapping"]
+            _boot_m_siqr = "\\mso{{{}}}{{{}}}{{}}".format(util.formatter(boot_m), util.formatter(boot_siqr))
+            dist.append(_boot_m_siqr)
+          else:
+            dist.append("\\timeout{}")
 
       _tex = " & ".join(dist)
       self.log(" & {} \\\\".format(_tex))
