@@ -74,6 +74,25 @@ def to_dict(lst):
   else: return { k: v for k, v in lst }
 
 
+# http://stackoverflow.com/questions/9807634/find-all-occurences-of-a-key-in-nested-python-dictionaries-and-lists
+def gen_dict_extract(key, var):
+  if hasattr(var,'iteritems'):
+    for k, v in var.iteritems():
+      if k == key:
+        yield v
+      if isinstance(v, dict):
+        for result in gen_dict_extract(key, v):
+          yield result
+      elif isinstance(v, list):
+        for d in v:
+          for result in gen_dict_extract(key, d):
+            yield result
+
+
+def find_all(dic, k):
+  return flatten(list(gen_dict_extract(k, dic)))
+
+
 # calculate percentiles
 # default: quartiles: 0%, 25%, 50%, 75%, 100%
 def calc_percentile(lst, ps=[0, 25, 50, 75, 100]):
