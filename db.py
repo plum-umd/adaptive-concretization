@@ -161,6 +161,9 @@ class PerfDB(object):
   def raw_data(self):
     return self._raw_data
 
+  def reset_raw_data(self):
+    self._raw_data = {}
+
   @staticmethod
   def __execute(cur, query):
     if verbose: print "[query] {}".format(query)
@@ -398,7 +401,7 @@ class PerfDB(object):
   def match(table_name, what, v):
     return "{}.{} = {}".format(table_name, what, util.quote(v))
 
-  # statistics per benchmark and degree
+  # statistics of backend run per benchmark/degree pair
   def _stat_benchmark_degree_single(self, eid, b, d):
     self.log("\nbenchmark: {}, degree: {}".format(b, d))
 
@@ -439,7 +442,7 @@ class PerfDB(object):
     __stat_ttime("Succeed")
     __stat_ttime("Failed")
 
-    # estimated running time using empirical p
+    # estimated running time using empirical success rate
     if not p:
       self._raw_data[b][d]["E(t)"] = (float("inf"), float("inf"))
     else:
@@ -537,6 +540,7 @@ class PerfDB(object):
       self.log("  {}: {}{}".format(hole, cnt, s_cnt))
 
 
+  # statistics of frontend run per benchmark, strategy, and core
   def _stat_benchmark_parallel(self, eid, b, s, c):
     self.log("\nbennchmark: {}, core: {}, strategy: {}".format(b, c, s))
 
@@ -641,7 +645,7 @@ class PerfDB(object):
       _tex = " & ".join(dist)
       self.log(" & {} \\\\".format(_tex))
 
-    else:
+    else: # parallel
       conds = []
       conds.append(PerfDB.match_EID(eid))
       conds.append(PerfDB.match_RID(e_name, pr_name))
