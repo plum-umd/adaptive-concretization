@@ -7,7 +7,7 @@ import random
 import sys
 
 from scipy import stats
-from scipy.stats import wilcoxon
+from scipy.stats import wilcoxon, ranksums
 
 import numpy as np
 import matplotlib
@@ -97,12 +97,12 @@ def main():
   db.drawing = True
   db.detail_space = True
   if not opt.eids: opt.eids = [11]
-  db.calc_stat(opt.benchmarks, True, opt.eids)
-  data = db.raw_data
 
-  merged = util.merge_succ_fail(data)
-
+  # degree comparisons
   if opt.cmd == "degree":
+    db.calc_stat(opt.benchmarks, True, opt.eids)
+    merged = util.merge_succ_fail(db.raw_data)
+
     for b in merged:
       if opt.verbose:
         print "\n=== benchmark: {} ===".format(b)
@@ -130,8 +130,39 @@ def main():
 
       draw_bubble_chart(opt.data_dir, b, xs, ys, ps)
 
+  # performance comparisons
   elif opt.cmd == "perf":
-    pass
+    if len(opt.eids) <= 1:
+      parser.error("requires at least two data sets")
+
+    data = {}
+    for eid in opt.eids:
+      print "collecting data at EID={}".format(eid)
+      db.calc_stat(opt.benchmarks, False, [eid])
+      data[eid] = db.raw_data
+      db.reset_raw_data()
+
+    eids = sorted(data.keys())
+    for e1, e2 in combinations(eids, 2):
+      print "\n=== EID={} vs. EID={} ===".format(e1, e2)
+      bs = set(data[e1].keys() + data[e2].keys())
+      x = []
+      y = []
+      for b in bs:
+        # consider a benchmark that appears at both data sets
+        if (b not in data[e1]) or (b not in data[e2]): continue
+        _x = util.find_all(data[e1][b], "TTIME")
+        _y = util.find_all(data[e2][b], "TTIME")
+        s, p = ranksums(_x, _y)
+        tab = '\t' * (3 - len(b)/8)
+        print "{}{} ranksum stat: {},\tp-value: {}".format(b, tab, util.formatter(s, 4), util.formatter(p, 4))
+        x.append(_x) #x.append(sorted(_x))
+        y.append(_y) #y.append(sorted(_y))
+        #x.append(util.calc_percentile(_x, [50]))
+        #y.append(util.calc_percentile(_y, [50]))
+      fx, fy = map(util.flatten, [x, y])
+      s, p = ranksums(fx, fy)
+      print "overall\t\t\t ranksum stat: {},\tp-value: {}".format(util.formatter(s, 4), util.formatter(p, 4))
 
 
 if __name__ == "__main__":
