@@ -494,7 +494,7 @@ class PerfDB(object):
       m, siqr = map(lambda ms: ms/1000, util.calc_siqr(_dist))
       self._raw_data[b][d]["E(t)"] = (m, siqr)
       _bootstrapping_dist = []
-      for i in range(1000):
+      for i in range(len(_dist)):
         _bootstrapping_dist.extend(random.sample(_dist, 1))
       boot_m, boot_siqr = map(lambda ms: ms/1000, util.calc_siqr(_bootstrapping_dist))
       self._raw_data[b][d]["bootstrapping"] = (boot_m, boot_siqr)
