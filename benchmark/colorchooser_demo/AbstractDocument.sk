@@ -13,5 +13,6 @@ return igetterInOne_AuxAccessor1_int_Object(142, self, false);
 }
 
 char[51] getText_AbstractDocument_int_int(Object self, int offset, int length, bit logging) {
-
+  char[51] cs;
+  return cs;
 }

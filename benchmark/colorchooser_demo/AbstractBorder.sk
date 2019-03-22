@@ -8,5 +8,5 @@ package AbstractBorder;
 return self;
 }
 Object getBorderInsets_AbstractBorder_Component(Object self, Object c, bit logging) {
-
+  return null;
 }
